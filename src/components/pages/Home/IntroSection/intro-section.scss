@@ -1,0 +1,50 @@
+@import "./src/utility/variables";
+.intro-section {
+
+  &_intro {
+    background-color: $main_blue;
+    display: flex;
+    justify-content: center;
+  }
+
+  &_spline {
+    position: relative;
+    width: 750px;
+    height: 560px;
+  }
+
+  &_wrap {
+    padding: 30px 0;
+
+    &-heading {
+      text-align: center;
+      color:$main_blue;
+    }
+  }
+
+  &_title {
+    font-size: 100px;
+    color: $main_white;
+    padding: 50px 20px;
+    max-width:720px;
+    z-index: 3;
+  }
+
+
+  &_photos {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateY(-65px);
+
+    & img {
+      height: auto;
+    }
+
+    & img:first-child {
+      position: relative;
+      margin-right: 10px;
+    }
+  }
+}
+
