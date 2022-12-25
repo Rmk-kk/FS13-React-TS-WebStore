@@ -1,0 +1,36 @@
+@import "./src/utility/variables";
+
+.footer {
+  background-color: #7a7a7a;
+  padding: 40px 0;
+
+  & ul {
+    color:$main_white;
+    list-style: none;
+
+    & li {
+      &:not(:last-child) {
+        margin-bottom: 15px;
+      }
+
+
+    }
+  }
+
+  & a {
+    text-decoration: none;
+    color:$main_white;
+    transition: color .1s linear;
+
+    &:hover {
+      color:$main_blue
+    }
+  }
+
+  & p {
+    margin-top: 25px;
+    color:$main_white;
+    font-size: 21px;
+    text-align: center;
+  }
+}

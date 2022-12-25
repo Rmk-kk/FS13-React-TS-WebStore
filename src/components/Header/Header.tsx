@@ -5,9 +5,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import React from "react";
+import {Link} from "react-router-dom";
 
 const Header = () => {
-    const categories = ['All', 'Clothes','Shoes','Furniture','Electronics','Other']
+    const categories = ['All', 'Cloths','Shoes','Furniture','Electronics','Other']
     return (
         <>
             <div className='header'>
@@ -16,9 +17,11 @@ const Header = () => {
                         <input type="text" placeholder={'Search'} className='header_wrap-input'/>
                     </div>
 
-                    <div className='header_wrap-logo'>
-                        <img src="../img/header/62b1a410aba6acdc8069cc3e_integrify-logo high.png" alt="logo"/>
-                    </div>
+                    <Link to={'/'}>
+                        <div className='header_wrap-logo'>
+                            <img src="../img/header/62b1a410aba6acdc8069cc3e_integrify-logo high.png" alt="logo"/>
+                        </div>
+                    </Link>
                     <div className='header_wrap-menu'>
                     <span>
                         <FavoriteIcon/>
@@ -37,9 +40,9 @@ const Header = () => {
             </div>
             <div className="header-categories">
                 <Container maxWidth='lg'>
-                    <ul>
+                    <ul className='header-categories_list'>
                         {categories.map(item => {
-                            return <li key={item}>{item}</li>
+                            return <Link to={`/category/${item.toLowerCase()}`} className='header-categories_list-item' key={item}>{item}</Link>
                         })}
                     </ul>
                 </Container>
