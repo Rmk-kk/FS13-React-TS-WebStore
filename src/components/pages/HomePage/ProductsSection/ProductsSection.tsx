@@ -8,11 +8,16 @@ import {fetchAllProducts} from "../../../../redux/slices/productReducer";
 
 
 const ProductsSection = () => {
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const products = useAppSelector(state => state.productReducer);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(fetchAllProducts({offset: page * 12, limit: 12}));
+        if(page === 1) {
+            dispatch(fetchAllProducts({offset: 0, limit: 12}));
+        } else {
+            dispatch(fetchAllProducts({offset: page * 12 - 12, limit: 12}));
+        }
+
     }, [page])
 
     const handleChange = (event:any, page:number) => {
@@ -37,7 +42,7 @@ const ProductsSection = () => {
                 </div>
                 <Pagination style={{display: 'flex', justifyContent: 'center'}}
                             count={17}
-                            page={page}
+                            page={page - 1}
                             variant="outlined"
                             onChange={handleChange}
                             shape="rounded"
