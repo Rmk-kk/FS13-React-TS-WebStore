@@ -1,14 +1,15 @@
 import './header.scss'
 
-import {Container, TextField} from "@mui/material";
+import {Container} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import React from "react";
 import {Link} from "react-router-dom";
+import {useAppSelector} from "../../hooks/reduxHook";
 
 const Header = () => {
-    const categories = ['All', 'Cloths','Shoes','Furniture','Electronics','Other']
+    const categories = useAppSelector(state => state.categoriesReducer);
     return (
         <>
             <div className='header'>
@@ -41,9 +42,10 @@ const Header = () => {
             <div className="header-categories">
                 <Container maxWidth='lg'>
                     <ul className='header-categories_list'>
-                        {categories.map(item => {
-                            return <Link to={`/category/${item.toLowerCase()}`} className='header-categories_list-item' key={item}>{item}</Link>
-                        })}
+                            <Link to={'/category'}
+                                 className='header-categories_list-item'>
+                                View our products
+                            </Link>
                     </ul>
                 </Container>
             </div>

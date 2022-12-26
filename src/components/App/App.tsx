@@ -1,13 +1,15 @@
 import './app.scss'
 import '../Header/header.scss'
 
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import Header from "../Header/Header";
 import HomePage from "../pages/HomePage/HomePage";
 import Footer from "../Footer/Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CategoryPage from "../pages/Category/CategoryPage";
+
+
 
 
 const App = () => {

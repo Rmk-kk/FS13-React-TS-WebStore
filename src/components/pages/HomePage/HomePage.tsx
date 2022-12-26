@@ -1,6 +1,6 @@
 import IntroSection from "./IntroSection/IntroSection";
 import React from "react";
-import Categories from "./CategoriesSection/CategoriesSection";
+import Categories from "./ProductsSection/ProductsSection";
 import Favourites from "./Favourites/Favourites";
 
 const HomePage = () => {
