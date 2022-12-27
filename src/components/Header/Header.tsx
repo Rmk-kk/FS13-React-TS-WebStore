@@ -5,11 +5,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../hooks/reduxHook";
 
 const Header = () => {
     const categories = useAppSelector(state => state.categoriesReducer);
+    const activeStyle = {
+        textDecoration: "underline",
+        color: 'orange',
+        cursor: 'default'
+    }
     return (
         <>
             <div className='header'>
@@ -42,10 +47,15 @@ const Header = () => {
             <div className="header-categories">
                 <Container maxWidth='lg'>
                     <ul className='header-categories_list'>
-                            <Link to={'/category'}
-                                 className='header-categories_list-item'>
-                                View our products
-                            </Link>
+                        {categories.map(item => {
+                            return <NavLink
+                                style={({ isActive }) =>
+                                    isActive ? activeStyle : undefined
+                                }
+                                className='header-categories_list-item'
+                                key={item.id}
+                                to={`/category/${item.name + item.id}`}>{item.name}</NavLink>
+                        })}
                     </ul>
                 </Container>
             </div>

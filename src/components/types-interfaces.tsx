@@ -26,6 +26,7 @@ export interface Category {
 //PRODUCT ITEM
 
 export interface ProductItem {
+    id: number
     title: string,
     price: number,
     description: string,

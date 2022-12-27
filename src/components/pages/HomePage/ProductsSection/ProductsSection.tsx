@@ -11,13 +11,9 @@ const ProductsSection = () => {
     const [page, setPage] = useState(1);
     const products = useAppSelector(state => state.productReducer);
     const dispatch = useAppDispatch();
-    useEffect(() => {
-        if(page === 1) {
-            dispatch(fetchAllProducts({offset: 0, limit: 12}));
-        } else {
-            dispatch(fetchAllProducts({offset: page * 12 - 12, limit: 12}));
-        }
 
+    useEffect(() => {
+        dispatch(fetchAllProducts({offset: page * 12 - 12, limit: 12}));
     }, [page])
 
     const handleChange = (event:any, page:number) => {
@@ -31,6 +27,7 @@ const ProductsSection = () => {
                     <ul className="products-wrap_list">
                         {products.map(item => {
                             return <ProductCard key={item.id}
+                                                id={item.id}
                                                 title={item.title}
                                                 category={item.category}
                                                 price={item.price}
@@ -41,8 +38,8 @@ const ProductsSection = () => {
                     </ul>
                 </div>
                 <Pagination style={{display: 'flex', justifyContent: 'center'}}
-                            count={17}
-                            page={page - 1}
+                            count={18}
+                            page={page}
                             variant="outlined"
                             onChange={handleChange}
                             shape="rounded"

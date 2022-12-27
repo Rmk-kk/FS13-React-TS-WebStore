@@ -7,12 +7,12 @@
   & ul {
     color:$main_white;
     list-style: none;
-
-    & li {
+    display: flex;
+    flex-direction: column;
+    & a {
       &:not(:last-child) {
         margin-bottom: 15px;
       }
-
 
     }
   }

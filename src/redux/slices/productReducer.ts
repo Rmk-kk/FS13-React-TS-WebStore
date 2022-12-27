@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {ProductList} from "../../components/types-interfaces";
-// const axios = require('axios');
+import {Product, ProductList} from "../../components/types-interfaces";
+import axios from "axios";
 
 const initialState: ProductList = [];
 
@@ -8,16 +8,15 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
     async (data:{offset: number, limit: number}) => {
     const {offset, limit} = data;
     try {
-        const response = await fetch(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`);
-        const data: ProductList | Error = await response.json()
-        return data
+        const response = await axios.get(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`);
+        return response.data
     } catch (error) {
         console.log(error);
     }
 });
 
 
-export const fetchCategoryProducts = createAsyncThunk('fetchCategoryProducts', async (id:number) => {
+export const fetchCategoryProducts = createAsyncThunk('fetchCategoryProducts', async (id:number | string) => {
     try {
         const response = await fetch(`https://api.escuelajs.co/api/v1/categories/${id}/products`);
         return await response.json()
@@ -29,9 +28,7 @@ export const fetchCategoryProducts = createAsyncThunk('fetchCategoryProducts', a
 const productSlice = createSlice({
     name: 'productSlice',
     initialState: initialState,
-    reducers: {
-
-    },
+    reducers: {},
     extraReducers: (build) => {
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
             if(action.payload && 'message' in action.payload) {
@@ -54,4 +51,4 @@ const productSlice = createSlice({
 const productReducer = productSlice.reducer;
 export default productReducer
 
-export const {} = productSlice.actions;
+// export const {onPriceRangeFilter} = productSlice.actions;
