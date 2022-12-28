@@ -1,0 +1,20 @@
+.profile-wrap {
+  display: flex;
+  padding-bottom: 25px;
+
+  &_image {
+    width: 40%;
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  &_content {
+    padding-left: 45px;
+
+    &-buttons button:first-child {
+      margin-right: 15px;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import './app.scss'
 import '../Header/header.scss'
 
-import React, {useEffect} from 'react'
+import React from 'react'
 
 import Header from "../Header/Header";
 import HomePage from "../pages/HomePage/HomePage";
