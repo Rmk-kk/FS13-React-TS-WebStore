@@ -50,5 +50,3 @@ const productSlice = createSlice({
 
 const productReducer = productSlice.reducer;
 export default productReducer
-
-// export const {onPriceRangeFilter} = productSlice.actions;

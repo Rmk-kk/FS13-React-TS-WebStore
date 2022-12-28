@@ -10,6 +10,7 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 const Header = () => {
     const categories = useAppSelector(state => state.categoriesReducer);
+    const cart = useAppSelector(state => state.cartReducer);
 
     const activeStyle = {
         textDecoration: "underline",
@@ -17,6 +18,15 @@ const Header = () => {
         cursor: 'default'
     }
 
+
+    //calculate cart total items
+    const cartTotalItems = () => {
+        let total = 0;
+        cart.forEach(item => {
+            total += item.quantity;
+        })
+        return total
+    }
 
     return (
         <>
@@ -36,10 +46,11 @@ const Header = () => {
                         <FavoriteIcon/>
                     </span>
                     <span className='shopping-cart_anchor'>
+                        <div className={`cart-notification ${cart.length > 0 && 'cart-notification-enabled'}`}>{cartTotalItems()}</div>
                         <ShoppingCart/>
                     </span>
                     <span>
-                        <PersonIcon/>
+                        <Link to={'/account/'}><PersonIcon/></Link>
                     </span>
                     </div>
                 </Container>

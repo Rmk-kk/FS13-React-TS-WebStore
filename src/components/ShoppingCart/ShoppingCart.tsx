@@ -14,7 +14,17 @@ const ShoppingCart = () => {
         setShowCart(prev => !prev);
     }
 
-    const elements = cart.length > 0 ? cart.map((item, i) => <ShoppingCartItem key={i} product={item}/>) : <p>Nothing was added yet</p>
+    //calculate cart total amount
+    const cartTotal = () => {
+        let total = 0;
+        cart.forEach(item => {
+            total = item.price * item.quantity + total;
+        })
+        return total
+    }
+
+
+    const elements = cart.length > 0 ? cart.map((item, i) => <ShoppingCartItem key={i} product={item}/>) : <p className='empty-cart'>Nothing was added yet</p>
     return (
         <>
             <ShoppingCartIcon className={showCart ? 'active-cart' : ''} onClick={()=>toggleShoppingCart()}/>
@@ -24,8 +34,8 @@ const ShoppingCart = () => {
                         {elements}
                     </ul>
                     <div className='cart-bottom_wrap'>
-                        <div className="cart-total">Total: 199$</div>
-                        <Link to={''} className='cart-checkout'>Checkout</Link>
+                        <div className="cart-total">Total:<span>{cartTotal()}</span>$</div>
+                        <Link to={''} className={`${cart.length === 0 && 'disabled-cart_link'} cart-checkout`} >Checkout</Link>
                     </div>
                 </div>
             </Fade>
@@ -47,8 +57,8 @@ const ShoppingCartItem = (props:ShoppingCartItemProps) => {
             <img src={images[0]} alt="PLACEHOLDER"/>
             <div className="cart-item_content">
                 <h3>{title}</h3>
-                <span className='cart-item_content-price'>{price}$</span>
-                <span className='cart-item_content-quantity'>Quantity: {quantity}</span>
+                <div className='cart-item_content-price'>{price}<span>$</span></div>
+                <div className='cart-item_content-quantity'>Quantity: <span>{quantity}</span></div>
             </div>
             <DeleteForeverIcon onClick={() => dispatch(removeItem(id))}/>
         </li>

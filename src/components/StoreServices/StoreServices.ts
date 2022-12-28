@@ -14,6 +14,15 @@ class StoreServices {
         const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
         return response.data
     }
+
+    async getUserByToken(token:string) {
+        const response = await axios.get('https://api.escuelajs.co/api/v1/auth/profile', {
+            headers: {
+                Authorization : `Bearer ${token}`
+            }
+        });
+       console.log(response)
+    }
 }
 
 export default StoreServices
