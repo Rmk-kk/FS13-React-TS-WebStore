@@ -65,6 +65,13 @@ const View = (product:ProductItem) => {
                 <h1>{title}</h1>
                 <h3>{category.name}</h3>
                 <p>{description}</p>
+                <div className='singleProduct-wrap_content-price'>
+                    <span>{price}$</span>
+                    <button>
+                        Add to Cart
+                        &#128722;
+                    </button>
+                </div>
             </div>
         </>
     )

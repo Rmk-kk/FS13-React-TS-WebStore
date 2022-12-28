@@ -1,4 +1,6 @@
 @import "./src/utility/variables";
+@import "./src/utility/mixins";
+
 
 .singleProduct-wrap {
   margin: 35px 0;
@@ -7,41 +9,66 @@
 
   &_images {
     width: 100%;
-    max-width: 50%;
-    position: relative;
-
-    & img {
-      position: absolute;
-      max-width: 450px;
-      height: auto;
-
-      &:hover {
-        z-index: 3;
-      }
-      &:nth-child(1) {
-        top: 0;
-        left: 0;
-      }
-
-      &:nth-child(2) {
-        top: 150px;
-        left: -150px;
-        z-index: 2;
-      }
-
-      &:nth-child(3) {
-        top: 400px;
-        left: 100px;
-      }
-    }
   }
 
   &_content {
     width: 100%;
     max-width: 50%;
     display: flex;
+    padding: 0 30px;
     flex-direction: column;
     align-items: center;
+
+    & h1 {
+      @include productPage-elements;
+      position: relative;
+      transform: rotate(-6deg);
+      margin-bottom: 30px;
+    }
+
+    & h3 {
+      @include productPage-elements;
+      position: relative;
+      transform: rotate(8deg) translateX(75px);
+      font-size: 24px;
+      margin-bottom: 50px;
+    }
+
+    & p {
+      @include productPage-elements;
+      max-width: 330px;
+      transform: rotate(2deg) translateX(-35px);
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    &-price {
+      @include productPage-elements;
+      transform: rotate(-1deg) translateX(-35px);
+      font-size: 36px;
+
+      & button {
+        margin-left: 25px;
+        padding: 15px 20px;
+        cursor: pointer;
+        border: none;
+        border-radius: 0;
+        color:$main_blue;
+        background-color: $main_beige;
+        transition: background-color .1s linear;
+
+        &:hover {
+          background-color:$main_blue;
+          color:$main_beige
+        }
+
+        &:active {
+          color:$main_blue;
+          background-color: orange;
+        }
+      }
+    }
   }
 }
 
@@ -59,6 +86,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+
   }
 
   &-circles {

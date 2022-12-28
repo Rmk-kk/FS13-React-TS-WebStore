@@ -2,19 +2,22 @@ import './header.scss'
 
 import {Container} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import React from "react";
 import {Link, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../hooks/reduxHook";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 const Header = () => {
     const categories = useAppSelector(state => state.categoriesReducer);
+
     const activeStyle = {
         textDecoration: "underline",
         color: 'orange',
         cursor: 'default'
     }
+
+
     return (
         <>
             <div className='header'>
@@ -31,15 +34,12 @@ const Header = () => {
                     <div className='header_wrap-menu'>
                     <span>
                         <FavoriteIcon/>
-
                     </span>
-                        <span>
-                        <ShoppingCartIcon/>
-
+                    <span className='shopping-cart_anchor'>
+                        <ShoppingCart/>
                     </span>
-                        <span>
+                    <span>
                         <PersonIcon/>
-
                     </span>
                     </div>
                 </Container>

@@ -38,7 +38,7 @@ const ProductsSection = () => {
                     </ul>
                 </div>
                 <Pagination style={{display: 'flex', justifyContent: 'center'}}
-                            count={18}
+                            count={17}
                             page={page}
                             variant="outlined"
                             onChange={handleChange}
