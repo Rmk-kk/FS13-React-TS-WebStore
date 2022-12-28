@@ -1,6 +1,6 @@
 import './categoryPage.scss'
 
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {Container, FormControl, InputLabel, MenuItem, Select, Slider, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHook";
 import {fetchCategoryProducts} from "../../../redux/slices/productReducer";

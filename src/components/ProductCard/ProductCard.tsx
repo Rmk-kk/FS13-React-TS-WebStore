@@ -1,7 +1,10 @@
 import './productCard.scss'
 import {ProductItem} from "../types-interfaces";
 import {Link} from "react-router-dom";
+import {addItem} from "../../redux/slices/cartReducer";
+import {useAppDispatch} from "../../hooks/reduxHook";
 const ProductCard = (props:ProductItem) => {
+    const dispatch = useAppDispatch();
     const {title, price, description, images, category, id} = props;
     return (
         <div className='product-card'>
@@ -22,7 +25,7 @@ const ProductCard = (props:ProductItem) => {
                     <div className="h-bg-inner"></div>
                 </div>
 
-                <button className="cart-link">
+                <button className="cart-link" onClick={() => dispatch(addItem(props))}>
                     <span className="price">${price}</span>
                     <span className="add-to-cart">
                         <span className="txt">Add to cart</span>

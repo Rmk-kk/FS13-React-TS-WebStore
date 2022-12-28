@@ -3,10 +3,11 @@ import './product-page.scss';
 import {useParams} from "react-router-dom";
 import {Container} from "@mui/material";
 import {useEffect, useState} from "react";
-
 import {Product, ProductItem} from "../../types-interfaces";
 import StoreServices from "../../StoreServices/StoreServices";
 import ProductImageSlider from "./ProductImageSlider";
+import {useAppDispatch} from "../../../hooks/reduxHook";
+import { addItem } from "../../../redux/slices/cartReducer";
 
 const ProductPage = () => {
     const {id} = useParams();
@@ -55,6 +56,7 @@ const ProductPage = () => {
 
 const View = (product:ProductItem) => {
     const {title, price, description, images, category} = product;
+    const dispatch = useAppDispatch();
     // @ts-ignore
     return (
         <>
@@ -67,7 +69,7 @@ const View = (product:ProductItem) => {
                 <p>{description}</p>
                 <div className='singleProduct-wrap_content-price'>
                     <span>{price}$</span>
-                    <button>
+                    <button onClick={() => dispatch(addItem(product))}>
                         Add to Cart
                         &#128722;
                     </button>

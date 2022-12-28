@@ -11,6 +11,7 @@
 
   &-wrap {
     position: absolute;
+    cursor: default;
     top:140%;
     right: 10px;
     background-color: $main_white;
@@ -39,6 +40,7 @@
     }
 
     &_content {
+
       &-price {
 
       }
