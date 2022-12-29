@@ -9,7 +9,7 @@ import Footer from "../Footer/Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CategoryPage from "../pages/Category/CategoryPage";
 import ProductPage from "../pages/ProductPage/ProductPage";
-import LoginComponent from "../pages/UserPage/LoginComponent";
+import LoginComponent from "../pages/UserPage/Login/LoginComponent";
 import ProtectedRoutes from "../pages/UserPage/ProtectedRoutes";
 import UserContent from "../pages/UserPage/UserContent";
 

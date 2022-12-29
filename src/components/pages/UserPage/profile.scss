@@ -13,8 +13,31 @@
   &_content {
     padding-left: 45px;
 
+    &-role {
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+
+    &-form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      & input {
+        font-size: 17px;
+      }
+    }
+
+    &-buttons {
+      align-self: center;
+    }
     &-buttons button:first-child {
       margin-right: 15px;
     }
+
+    &-update, &-register {
+      margin-bottom: 8px;
+    }
+
   }
 }

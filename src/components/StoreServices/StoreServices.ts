@@ -1,6 +1,10 @@
 import axios from "axios";
 
-
+interface UpdateUserData {
+    "name" : string,
+    "password" : string,
+    "email" : string,
+}
 class StoreServices {
 
     private defaultUrl = 'https://api.escuelajs.co/api/v1/products'
@@ -26,6 +30,10 @@ class StoreServices {
        } else {
            return false
        }
+    }
+
+    async updateUser(id:number, data:UpdateUserData) {
+        return await axios.put(`https://api.escuelajs.co/api/v1/users/${id}`, data);
     }
 }
 

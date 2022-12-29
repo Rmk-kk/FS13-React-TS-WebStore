@@ -1,8 +1,9 @@
+import './login.scss'
 import {Box, Container, TextField} from "@mui/material";
 import {FormEvent, useEffect, useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHook";
-import {authenticateUser} from "../../../redux/slices/userTokenReducer";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
+import {authenticateUser} from "../../../../redux/slices/userTokenReducer";
+import {useNavigate} from "react-router-dom";
 
 type LoginDataType = {email:string, password: string}
 
@@ -10,6 +11,7 @@ const LoginComponent = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false)
     const authToken = useAppSelector(state => state.tokenReducer);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -26,14 +28,18 @@ const LoginComponent = () => {
         } else {
             setError(false)
         }
+        setLoading(false)
     }
     const formOnSubmit = (e:FormEvent, data:LoginDataType) => {
+        setLoading(true);
         e.preventDefault()
         dispatch(authenticateUser(data))
-        checkAuthStatus()
+        checkAuthStatus();
         console.log(authToken)
     }
 
+    const load = loading ? <p>Loading</p> : null;
+    const err = error ? <p>Wrong username or password</p> : null;
     return(
         <Container maxWidth={"lg"}>
             <Box onSubmit={(e) => formOnSubmit(e, {email, password})}
@@ -41,30 +47,30 @@ const LoginComponent = () => {
                  sx={{
                      '& .MuiTextField-root': { m: 1, width: '25ch' },
                  }}
+                 className='login-form'
                  noValidate
                  autoComplete="off"
             >
-                <div>
-                    <TextField
-                        // error
-                        // id="outlined-error-helper-text"
-                        label="Email"
-                        onChange={(e)=> {
-                            setEmail(e.target.value);
-                        }}
-                        // helperText="Incorrect entry."
-                    />
-                    <TextField
-                        // error
-                        // id="outlined-error-helper-text"
-                        onChange={(e)=>{
-                            setPassword(e.target.value);
-                        }}
-                        label="Password"
-                    />
-                    {error && <h1>ERROR</h1>}
-                </div>
-                <button type='submit'>Submit</button>
+            <TextField
+                // error
+                // id="outlined-error-helper-text"
+                label="Email"
+                onChange={(e)=> {
+                    setEmail(e.target.value);
+                }}
+                // helperText="Incorrect entry."
+            />
+            <TextField
+                // error
+                // id="outlined-error-helper-text"
+                onChange={(e)=>{
+                    setPassword(e.target.value);
+                }}
+                label="Password"
+            />
+            {load}
+            {err}
+        <button type='submit'>Submit</button>
             </Box>
         </Container>
     )
