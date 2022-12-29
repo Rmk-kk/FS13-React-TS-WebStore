@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
+import {UpdateUserData} from "../../components/StoreServices/StoreServices";
 
 export const getUserWithToken = createAsyncThunk(
     'getUserWithToken',
@@ -14,6 +15,17 @@ export const getUserWithToken = createAsyncThunk(
         } else {
             return false
         }
+    })
+
+export interface UpdateUser {
+    id:number,
+    changes: UpdateUserData;
+}
+export const updateUserInformation = createAsyncThunk(
+    'updateUserInformation',
+    async (data:UpdateUser) => {
+        const {id, changes} = data;
+        return   await axios.put(`https://api.escuelajs.co/api/v1/users/${id}`, changes);
     })
 
 interface UserProfile {
@@ -36,7 +48,7 @@ const userSlice = createSlice({
     name: 'userSlice',
     initialState,
     reducers: {
-        logout(state) {
+        logout() {
             localStorage.removeItem('access_token')
             return null
         }
@@ -44,7 +56,10 @@ const userSlice = createSlice({
     extraReducers: (build) => {
         build.addCase(getUserWithToken.fulfilled, (state, action) => {
             return action.payload
-       })
+       });
+        build.addCase(updateUserInformation.fulfilled, (state, action) => {
+
+        })
     }
 })
 

@@ -1,9 +1,9 @@
 import {useAppDispatch} from "../../../hooks/reduxHook";
 import createDate from "../../StoreServices/createDateFunction";
 import {Box, Button, TextField} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import StoreServices from "../../StoreServices/StoreServices";
-import {logout} from "../../../redux/slices/userReducer";
+import {getUserWithToken, logout, updateUserInformation} from "../../../redux/slices/userReducer";
 
 export interface PersonDataProps {
     user: {
@@ -23,16 +23,19 @@ const PersonData = (props:PersonDataProps) => {
     const [userMail, setUserMail] = useState(email);
     const [userName, setUserName] = useState(name);
     const [userPassword, setUserPassword] = useState(password);
-    const service = new StoreServices();
+    const [userUpdated, setUserUpdated] = useState(false);
+
 
     const onFormEdit = () => {
-        service.updateUser(id, {
-            "name" : userName,
-            "email" : userMail,
-            "password" : userPassword
-        })
-            .then(data => console.log(data))
-            .catch(e => console.log(e.message))
+        dispatch(updateUserInformation(
+            { id: id,
+                changes: {
+                    "name": userName,
+                    "email": userMail,
+                    "password": userPassword
+                }
+            }));
+        dispatch(getUserWithToken(localStorage.getItem('access_token')));
     }
 
     return(

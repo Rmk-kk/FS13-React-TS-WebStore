@@ -1,25 +1,19 @@
-import './login.scss'
 import {Box, TextField} from "@mui/material";
-import React, {FormEvent, useState} from "react";
+import React, { useState } from "react";
+import {LoginPageProps} from "../AuthPage/AuthPage";
 
-interface LoginComponentProps {
-    loginFormHandle: (e:FormEvent, data:{email:string, password: string}) => void,
-    loading: boolean,
-    error: boolean,
 
-    setError: React.Dispatch<React.SetStateAction<boolean>>,
-    setNewUser:React.Dispatch<React.SetStateAction<boolean>>
-}
 
-const LoginComponent = (props:LoginComponentProps) => {
+const LoginComponent = (props:LoginPageProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {loginFormHandle, loading, error, setError} = props;
+    const {loginFormHandle, loading, error, setError, setNewUser} = props;
 
     const load = loading ? <p>Loading</p> : null;
     const err = error ? <p>Wrong username or password</p> : null;
     return(
             <div className='login-form-login'>
+                <h2>Login</h2>
                 <Box onSubmit={(e) => loginFormHandle(e, {email, password})}
                      component="form"
                      sx={{
@@ -52,6 +46,9 @@ const LoginComponent = (props:LoginComponentProps) => {
                     {err}
                     <button type='submit' className='login-form_btn'>Login</button>
                 </Box>
+                <span className='login-form-login_switch'
+                      onClick={()=>setNewUser(true)}
+                >Don't have an account yet?</span>
             </div>
     )
 }

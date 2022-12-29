@@ -1,36 +1,15 @@
-import './login.scss'
 import {Box, Container, TextField} from "@mui/material";
-import {FormEvent, useEffect, useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
-import {useNavigate} from "react-router-dom";
-import StoreServices from "../../../StoreServices/StoreServices";
-import {getUserWithToken} from "../../../../redux/slices/userReducer";
+import {useState} from "react";
+import {RegisterPageProps} from "../AuthPage/AuthPage";
 
-type LoginDataType = {email:string, password: string}
 
-const RegistrationComponent = () => {
+
+const RegistrationComponent = (props:RegisterPageProps) => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const user = useAppSelector(state => state.userReducer)
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const service = new StoreServices();
+    const {loading, error, setError, registerFormHandle, setNewUser} = props;
 
-    useEffect(() => {
-        console.log(user);
-        if(user) {
-            navigate('/account')
-        }
-    }, [user])
-
-
-
-    const uploadUser = () => {
-        dispatch(getUserWithToken(localStorage.getItem('access_token')));
-    }
 
 
     const load = loading ? <p>Loading</p> : null;
@@ -39,7 +18,8 @@ const RegistrationComponent = () => {
         <Container maxWidth={"lg"} style={{margin: 'auto'}}>
 
             <div className='login-form-login'>
-                <Box onSubmit={(e) => formOnSubmit(e, {email, password})}
+                <h2>Sign Up</h2>
+                <Box onSubmit={(e) => registerFormHandle(e, {name, email,  password})}
                      component="form"
                      sx={{
                          '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -49,7 +29,7 @@ const RegistrationComponent = () => {
                      autoComplete="off"
                 >
                     <TextField
-                        label="text"
+                        label="Name"
                         onChange={(e)=> {
                             setName(e.target.value);
                             setError(false)
@@ -71,8 +51,11 @@ const RegistrationComponent = () => {
                     />
                     {load}
                     {err}
-                    <button type='submit' className='login-form_btn'>Login</button>
+                    <button type='submit' className='login-form_btn'>Sign Up</button>
                 </Box>
+                <span className='login-form-login_switch'
+                    onClick={()=>setNewUser(false)}
+                >Already signed up? Login!</span>
             </div>
 
         </Container>
