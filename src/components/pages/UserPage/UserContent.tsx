@@ -7,20 +7,9 @@ import PersonData from "./PersonData";
 
 const UserContent = () => {
     const service = new StoreServices();
-    const authToken = useAppSelector(state => state.tokenReducer);
-    const [user,setUser] = useState(null);
+    const user = useAppSelector(state => state.userReducer)
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-
-    useEffect(() => {
-        if(authToken) {
-            setLoading(true);
-             service.getUserByToken(authToken["access_token"])
-                 .then(setUser)
-                 .then(() => setLoading(false))
-                 .catch(() => setError(true))
-        }
-    }, [authToken])
 
 
     const element = user ? <PersonData user={user}/> : <h1>Loading</h1>

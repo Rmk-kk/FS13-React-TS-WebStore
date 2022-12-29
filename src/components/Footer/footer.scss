@@ -1,8 +1,12 @@
 @import "./src/utility/variables";
 
+footer {
+  margin-top: auto;
+}
 .footer {
   background-color: #7a7a7a;
   padding: 40px 0;
+
 
   & ul {
     color:$main_white;

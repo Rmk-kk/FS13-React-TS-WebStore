@@ -14,5 +14,12 @@ html {
 body {
   //font-family: 'Mulish', sans-serif;
   font-family: 'Raleway', sans-serif;
-  color:$main_blue
+  color:$main_blue;
+
+}
+
+#root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }

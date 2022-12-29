@@ -1,9 +1,9 @@
 import {useAppDispatch} from "../../../hooks/reduxHook";
 import createDate from "../../StoreServices/createDateFunction";
 import {Box, Button, TextField} from "@mui/material";
-import {logout} from "../../../redux/slices/userTokenReducer";
 import {useState} from "react";
 import StoreServices from "../../StoreServices/StoreServices";
+import {logout} from "../../../redux/slices/userReducer";
 
 export interface PersonDataProps {
     user: {

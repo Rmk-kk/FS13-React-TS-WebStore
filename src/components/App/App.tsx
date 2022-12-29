@@ -9,9 +9,9 @@ import Footer from "../Footer/Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CategoryPage from "../pages/Category/CategoryPage";
 import ProductPage from "../pages/ProductPage/ProductPage";
-import LoginComponent from "../pages/UserPage/Login/LoginComponent";
 import ProtectedRoutes from "../pages/UserPage/ProtectedRoutes";
 import UserContent from "../pages/UserPage/UserContent";
+import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
 
 
 
@@ -26,7 +26,7 @@ const App = () => {
               <Route path='/' element={<HomePage/>}/>
               <Route path='/category/:category' element={<CategoryPage/>}/> {/*CATEGORY PAGE*/}
               <Route path='/cart'/>
-              <Route path='/account/login' element={<LoginComponent/>}/>
+              <Route path='/account/login' element={<AuthPage/>}/>
               <Route element={<ProtectedRoutes/>}>
                   <Route path='/account' element={<UserContent/>}/> {/*Account page*/}
               </Route>
