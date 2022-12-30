@@ -1,13 +1,19 @@
 import './productCard.scss'
-import {ProductItem} from "../types-interfaces";
-import {Link} from "react-router-dom";
-import {addItem} from "../../redux/slices/cartReducer";
-import {useAppDispatch} from "../../hooks/reduxHook";
+
+import {ProductItem} from "../../../types-interfaces";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {addItem} from "../../../../redux/slices/cartReducer";
+import {useAppDispatch} from "../../../../hooks/reduxHook";
+import ClearIcon from "@mui/icons-material/Clear";
+
 const ProductCard = (props:ProductItem) => {
     const dispatch = useAppDispatch();
-    const {title, price, description, images, category, id} = props;
+    const {title, price, description, images, category, id, deleteItem, admin} = props;
+
+
     return (
         <div className='product-card'>
+            {admin && <ClearIcon onClick={()=>deleteItem(id)} className='product-card_delete-icon' fontSize='large'/>}
             <Link to={`/category/${category.name + category.id}/${id}`}>
                 <div className="product-card-up">
                     <img className="img" src={images[0]} alt=""/>

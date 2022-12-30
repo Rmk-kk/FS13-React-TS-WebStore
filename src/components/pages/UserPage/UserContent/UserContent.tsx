@@ -1,9 +1,9 @@
 import './profile.scss'
-import StoreServices from "../../StoreServices/StoreServices";
-import {useEffect, useState} from "react";
-import {useAppSelector} from "../../../hooks/reduxHook";
+import StoreServices from "../../../StoreServices/StoreServices";
+import {useState} from "react";
+import {useAppSelector} from "../../../../hooks/reduxHook";
 import {Container} from "@mui/material";
-import PersonData from "./PersonData";
+import PersonData from "../PersonData/PersonData";
 
 const UserContent = () => {
     const service = new StoreServices();

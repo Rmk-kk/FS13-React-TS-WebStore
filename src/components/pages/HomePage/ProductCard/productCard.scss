@@ -1,4 +1,4 @@
-@import "./src/utility/variables";
+@import "../../../../utility/variables";
 
 
 .product-card {
@@ -6,6 +6,19 @@
   padding: 15px;
   margin: 15px auto;
   background-color: #fff;
+  position: relative;
+
+  &_delete-icon {
+    cursor: pointer;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+
+    &:hover {
+      fill: $main_beige;
+      transform: scale(1.2);
+    }
+  }
 }
 
 @media (max-width: 991px) {

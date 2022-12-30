@@ -1,6 +1,6 @@
 import './product-page.scss';
 
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Container} from "@mui/material";
 import {useEffect, useState} from "react";
 import {Product, ProductItem} from "../../types-interfaces";
@@ -8,20 +8,50 @@ import StoreServices from "../../StoreServices/StoreServices";
 import ProductImageSlider from "./ProductImageSlider";
 import {useAppDispatch} from "../../../hooks/reduxHook";
 import { addItem } from "../../../redux/slices/cartReducer";
+import EditProductModal from "./EditProductModal/EditProductModal";
 
 const ProductPage = () => {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [admin, setAdmin] = useState(false);
+    const user = useState(() => {
+        const data = localStorage.getItem('user');
+        if(data) {
+            return JSON.parse(data)
+        }
+        return  null
+    })
+    const service = new StoreServices();
 
-    const serviceClass = new StoreServices();
+    //Check user Status
+    useEffect(() => {
+        if(user[0] && user[0].role === 'admin') {
+            setAdmin(true);
+        }
+        else {
+            setAdmin(false)
+        }
+    }, [user])
+
+    //Delete Item Logic for admins
+    const deleteItem = (id:number) => {
+        service.deleteProduct(id)
+            .then(data => {
+                if(data.status === 200) {
+                    navigate('/');
+                }
+            })
+            .catch(e => console.log(e))
+    }
 
     const updateProduct = () => {
         if(!id) {
             return
         }
-        serviceClass.fetchSingleProduct(id)
+        service.fetchSingleProduct(id)
             .then(setProduct)
             .catch(() => setError(true))
     }
@@ -31,15 +61,10 @@ const ProductPage = () => {
     }, [id])
 
 
-    // const product:ProductItem = useAppSelector(state => state.singleProductReducer)
-    // const dispatch = useAppDispatch();
-    // useEffect(() => {
-    //     if(id) {
-    //         dispatch(fetchSingleProduct(id!));
-    //     }
-    // }, [])
-
-    const content = (product) ? <View id={product.id}
+    const content = (product) ? <View
+                                     deleteItem={deleteItem}
+                                     admin={admin}
+                                     id={product.id}
                                      title={product.title}
                                      price={product.price}
                                      description={product.description}
@@ -55,8 +80,9 @@ const ProductPage = () => {
 }
 
 const View = (product:ProductItem) => {
-    const {title, price, description, images, category} = product;
+    const {title, price, description, images, category, admin, deleteItem, id} = product;
     const dispatch = useAppDispatch();
+    const [edit, setEdit] = useState(false);
     // @ts-ignore
     return (
         <>
@@ -74,7 +100,21 @@ const View = (product:ProductItem) => {
                         &#128722;
                     </button>
                 </div>
+                {admin && (
+                    <div className='singleProduct-wrap_content-admin'>
+                        <button onClick={()=>setEdit(true)}>Edit</button>
+                        <button onClick={() => deleteItem(id)}>Delete</button>
+                    </div>
+                )
+                }
             </div>
+            <EditProductModal edit={edit}
+                              setEdit={setEdit}
+                              title={title}
+                              id={id}
+                              price={price}
+                              description={description}
+            />
         </>
     )
 }

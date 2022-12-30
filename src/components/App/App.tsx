@@ -9,8 +9,8 @@ import Footer from "../Footer/Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CategoryPage from "../pages/Category/CategoryPage";
 import ProductPage from "../pages/ProductPage/ProductPage";
-import ProtectedRoutes from "../pages/UserPage/ProtectedRoutes";
-import UserContent from "../pages/UserPage/UserContent";
+import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
+import UserContent from "../pages/UserPage/UserContent/UserContent";
 import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
 
 

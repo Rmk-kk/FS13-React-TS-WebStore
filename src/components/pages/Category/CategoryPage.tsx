@@ -3,16 +3,26 @@ import './categoryPage.scss'
 import {useParams} from "react-router-dom";
 import {Container, FormControl, InputLabel, MenuItem, Select, Slider, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHook";
-import {fetchCategoryProducts} from "../../../redux/slices/productReducer";
+import {fetchAllProducts, fetchCategoryProducts} from "../../../redux/slices/productReducer";
 import {useEffect, useState} from "react";
-import ProductCard from "../../ProductCard/ProductCard";
+import ProductCard from "../HomePage/ProductCard/ProductCard";
 import {Product, ProductList} from "../../types-interfaces";
+import StoreServices from "../../StoreServices/StoreServices";
 
 
 const CategoryPage = () => {
     const {category} = useParams();
     const dispatch = useAppDispatch();
     const products = useAppSelector(state => state.productReducer);
+    const [admin, setAdmin] = useState(false);
+    const service = new StoreServices();
+    const user = useState(() => {
+        const data = localStorage.getItem('user');
+        if(data) {
+            return JSON.parse(data)
+        }
+        return  null
+    })
     //Filters
     const [maxPrice, setMaxPrice] = useState(100);
     const [value, setValue] = useState<number[]>([0, 10000]);
@@ -37,6 +47,16 @@ const CategoryPage = () => {
         })
         setMaxPrice(max);
     }, [products])
+
+    //Check user Status
+    useEffect(() => {
+        if(user[0] && user[0].role === 'admin') {
+            setAdmin(true);
+        }
+        else {
+            setAdmin(false)
+        }
+    }, [user])
 
     //FILTERS LOGIC
 
@@ -89,6 +109,17 @@ const CategoryPage = () => {
             default:
                 return array
         }
+    }
+
+    //Delete Item Logic for admins
+    const deleteItem = (id:number) => {
+        service.deleteProduct(id)
+            .then(data => {
+                if(category && data.status === 200) {
+                    dispatch(fetchCategoryProducts(category.charAt(category.length-1)));
+                }
+            })
+            .catch(e => console.log(e))
     }
 
     const [min, max] = value;
@@ -148,6 +179,8 @@ const CategoryPage = () => {
                 {sortedArray.map(item => {
                     return (
                         <ProductCard
+                                     admin={admin}
+                                     deleteItem={deleteItem}
                                      key={item.id}
                                      id={item.id}
                                      title={item.title}

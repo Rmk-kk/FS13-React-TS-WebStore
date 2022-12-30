@@ -23,6 +23,7 @@ export interface LoginPageProps extends AuthPageProps {
 export interface RegisterPageProps extends AuthPageProps {
     registerFormHandle: (e:FormEvent, data:RegisterDataType) => void,
 }
+
 export type LoginDataType = {email:string, password: string}
 
 export type RegisterDataType = {email:string, password: string, name: string}
@@ -37,6 +38,10 @@ const AuthPage = () => {
     const service = new StoreServices();
 
     useEffect(() => {
+        const userData = localStorage.getItem('access_token');
+        if(userData) {
+            dispatch(getUserWithToken(localStorage.getItem('access_token')));
+        }
         if(user && !newUser) {
             navigate('/account')
         }

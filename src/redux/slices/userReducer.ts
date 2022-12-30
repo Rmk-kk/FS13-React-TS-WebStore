@@ -28,7 +28,7 @@ export const updateUserInformation = createAsyncThunk(
         return   await axios.put(`https://api.escuelajs.co/api/v1/users/${id}`, changes);
     })
 
-interface UserProfile {
+export interface UserProfile {
     avatar: string,
     creationAt: string,
     email: string,
@@ -42,7 +42,7 @@ interface UserProfile {
     updatedAt: string,
 }
 
-const initialState: UserProfile | null = null;
+const initialState: UserProfile | null =  null;
 
 const userSlice = createSlice({
     name: 'userSlice',
@@ -50,11 +50,13 @@ const userSlice = createSlice({
     reducers: {
         logout() {
             localStorage.removeItem('access_token')
+            localStorage.removeItem('user')
             return null
         }
     },
     extraReducers: (build) => {
         build.addCase(getUserWithToken.fulfilled, (state, action) => {
+            localStorage.setItem('user', JSON.stringify(action.payload));
             return action.payload
        });
         build.addCase(updateUserInformation.fulfilled, (state, action) => {

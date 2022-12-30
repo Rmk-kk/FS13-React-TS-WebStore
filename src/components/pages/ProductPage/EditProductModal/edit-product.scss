@@ -1,0 +1,49 @@
+@import "./src/utility/variables";
+
+.edit-product_modal {
+  position: fixed;
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  background-color: $main_white;
+  color: $main_blue;
+  padding: 50px 50px 10px;
+  z-index: 10000;
+
+  &-form > div{
+    width: 100% !important;
+  }
+
+  &-buttons {
+    display: flex;
+
+    & button:first-child {
+      margin-right: 15px;
+      background: transparent;
+      color:$main_blue;
+      border: 1px solid $main_blue;
+
+      &:hover {
+        background: #0652b4;
+        color: $main_white;
+      }
+    }
+  }
+
+  &-select {
+    width: 100%;
+    position: relative;
+    z-index: 500;
+  }
+
+  &-overlay {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 10000;
+  }
+}

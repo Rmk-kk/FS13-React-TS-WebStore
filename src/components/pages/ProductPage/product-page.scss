@@ -47,7 +47,7 @@
       @include productPage-elements;
       transform: rotate(-1deg) translateX(-35px);
       font-size: 36px;
-
+      margin-bottom: 50px;
       & button {
         margin-left: 25px;
         padding: 15px 20px;
@@ -69,7 +69,37 @@
         }
       }
     }
+
+    &-admin {
+      display: flex;
+      justify-content: space-between;
+      background-color: $main_white;
+      @include productPage-elements;
+      transform: rotate(1deg);
+
+      & button {
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        background-color: #043E85;
+        color:$main_white;
+
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 3px 3px 3px 1px rgba(0,0,0,0.3);
+        }
+
+
+        &:first-child {
+          margin-right: 15px;
+          border:1px solid $main_blue;
+          background-color: transparent;
+          color:$main_blue;
+        }
+      }
+    }
   }
+
 }
 
 .slider {

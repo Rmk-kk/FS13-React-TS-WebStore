@@ -3,14 +3,29 @@ import './header.scss'
 import {Container} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PersonIcon from '@mui/icons-material/Person';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
-import {useAppSelector} from "../../hooks/reduxHook";
+import {useAppDispatch, useAppSelector} from "../../hooks/reduxHook";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import {logout} from "../../redux/slices/userReducer";
 
 const Header = () => {
     const categories = useAppSelector(state => state.categoriesReducer);
+    const [name, setName] = useState(null);
     const cart = useAppSelector(state => state.cartReducer);
+    const dispatch = useAppDispatch();
+    const user = useState(() => {
+        const data = localStorage.getItem('user');
+        if(data) {
+            return JSON.parse(data)
+        }
+        return  null
+    })
+    useEffect(() => {
+        if(user && user[0]) {
+            setName(user[0].name)
+        }
+    }, [user])
 
     const activeStyle = {
         textDecoration: "underline",

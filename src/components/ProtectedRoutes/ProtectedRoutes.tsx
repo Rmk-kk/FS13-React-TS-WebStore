@@ -1,4 +1,4 @@
-import {useAuth} from "../../../hooks/isAuth";
+import {useAuth} from "../../hooks/isAuth";
 import {Navigate, Outlet} from "react-router-dom";
 
 const ProtectedRoutes = () => {
