@@ -1,4 +1,4 @@
-import './profile.scss'
+import '../PersonData/profile.scss'
 import StoreServices from "../../../StoreServices/StoreServices";
 import {useState} from "react";
 import {useAppSelector} from "../../../../hooks/reduxHook";

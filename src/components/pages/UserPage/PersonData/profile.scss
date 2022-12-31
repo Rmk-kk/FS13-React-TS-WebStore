@@ -1,0 +1,67 @@
+.profile {
+    &-wrap {
+      background-color: rgba(255, 255, 255, 0.53);
+      padding: 25px;
+      border-radius: 10px;
+      width: 70%;
+      margin: 0 auto;
+
+      &_info {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &_image {
+        width: 50%;
+
+        & img {
+          width: 100%;
+        }
+      }
+
+      &_content {
+        &-role {
+          margin-top: 5px;
+          margin-bottom: 15px;
+        }
+
+        &-form {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          & input {
+            font-size: 17px;
+          }
+        }
+
+        &-buttons {
+          align-self: center;
+        }
+
+        &-buttons button:first-child {
+          margin-right: 15px;
+        }
+
+        &-update, &-register {
+          margin-bottom: 8px;
+        }
+
+      }
+    }
+
+    &-functionality {
+      margin-top: 30px;
+
+      & h2 {
+        margin-bottom: 25px;
+      }
+
+      &_btn {
+        padding: 10px 15px;
+        &-add {
+
+        }
+      }
+    }
+}

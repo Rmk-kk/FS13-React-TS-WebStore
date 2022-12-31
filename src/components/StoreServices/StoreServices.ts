@@ -12,6 +12,14 @@ export interface UpdateProductData {
     "description" : string,
     "price" : number,
 }
+
+export interface createNewProductData {
+    "title": string,
+    "price": number,
+    "description": string,
+    "categoryId": number,
+    "images": string[]
+}
 class StoreServices {
     async fetchSingleProduct(id:string) {
         const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
@@ -32,6 +40,15 @@ class StoreServices {
 
     async updateProduct(id:number, data:UpdateProductData) {
         return await axios.put(`https://api.escuelajs.co/api/v1/products/${id}`, data)
+    }
+
+    async addNewProduct(data:createNewProductData) {
+        return await axios.post('https://api.escuelajs.co/api/v1/products/', data)
+    }
+
+    async getAllCategories() {
+        const response = await axios.get('https://api.escuelajs.co/api/v1/categories');
+        return response.data
     }
 }
 

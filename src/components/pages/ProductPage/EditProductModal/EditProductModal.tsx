@@ -36,6 +36,7 @@ const EditProductModal = (props:EditProductModalProps) => {
             .then(() => setEdit(false))
             .catch(e => console.log(e))
     }
+
     return ReactDOM.createPortal(
         <>
             <div className='edit-product_modal-overlay'></div>
@@ -77,7 +78,7 @@ const EditProductModal = (props:EditProductModalProps) => {
                 </Box>
             </div>
         </>,
-        document.getElementById('edit-modal')!
+        document.getElementById('modal-window')!
     )
 }
 

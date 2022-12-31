@@ -3,6 +3,7 @@ import createDate from "../../../StoreServices/createDateFunction";
 import {Box, Button, TextField} from "@mui/material";
 import {useState} from "react";
 import {getUserWithToken, logout, updateUserInformation} from "../../../../redux/slices/userReducer";
+import ProfileFunctionality from "./ProfileFunctionality/ProfileFunctionality";
 
 export interface PersonDataProps {
     user: {
@@ -22,7 +23,6 @@ const PersonData = (props:PersonDataProps) => {
     const [userMail, setUserMail] = useState(email);
     const [userName, setUserName] = useState(name);
     const [userPassword, setUserPassword] = useState(password);
-    const [userUpdated, setUserUpdated] = useState(false);
 
 
     const onFormEdit = () => {
@@ -40,53 +40,57 @@ const PersonData = (props:PersonDataProps) => {
     return(
         <>
             <div className='profile-wrap'>
-                <div className='profile-wrap_image'>
-                    <img src={avatar} alt="profile"/>
-                </div>
-                <div className='profile-wrap_content'>
-                    <h1>Hello, {name}!</h1>
-                    <p className='profile-wrap_content-role'>Your current role: <b>{role.toUpperCase()}</b></p>
-                    <Box
-                        className='profile-wrap_content-form'
-                        component="form"
-                        sx={{
-                            '& .MuiTextField-root': { m: 1, width: '25ch' },
-                        }}
-                        noValidate
-                        autoComplete="off">
-                        <TextField id="outlined-search"
-                                   label="Your Name"
-                                   type="text"
-                                   value={userName}
-                                   onChange={e => setUserName(e.target.value)}
-                        ></TextField>
+                <div className="profile-wrap_info">
+                    <div className='profile-wrap_image'>
+                        <img src={avatar} alt="profile"/>
+                    </div>
+                    <div className='profile-wrap_content'>
+                        <h1>Hello, {name}!</h1>
+                        <p className='profile-wrap_content-role'>Your current role: <b>{role.toUpperCase()}</b></p>
+                        <Box
+                            className='profile-wrap_content-form'
+                            component="form"
+                            sx={{
+                                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                            }}
+                            noValidate
+                            autoComplete="off">
+                            <TextField id="outlined-search"
+                                       label="Your Name"
+                                       type="text"
+                                       value={userName}
+                                       onChange={e => setUserName(e.target.value)}
+                            ></TextField>
 
-                        <TextField id="outlined-search"
-                                   label="Your Email"
-                                   type="email"
-                                   value={userMail}
-                                   onChange={e => setUserMail(e.target.value)}
-                        ></TextField>
+                            <TextField id="outlined-search"
+                                       label="Your Email"
+                                       type="email"
+                                       value={userMail}
+                                       onChange={e => setUserMail(e.target.value)}
+                            ></TextField>
 
-                        <TextField
-                            id="outlined-password-input"
-                            label="Password"
-                            type="password"
-                            value={userPassword}
-                            onChange={e => setUserPassword(e.target.value)}
-                        />
-                        <p className='profile-wrap_content-register'>You are with us since {createDate(new Date(creationAt))}</p>
-                        <p className='profile-wrap_content-update'>You updated your profile on {createDate(new Date(updatedAt))}</p>
-                        <div className='profile-wrap_content-buttons'>
-                            <Button variant="contained"
-                                    disabled={(userMail === email && userPassword === password && userName === name)}
-                                    onClick={() => onFormEdit()}>
-                                Update Profile</Button>
-                            <Button variant="outlined" onClick={() => dispatch(logout())}>Log Out</Button>
-                        </div>
-                    </Box>
+                            <TextField
+                                id="outlined-password-input"
+                                label="Password"
+                                type="password"
+                                value={userPassword}
+                                onChange={e => setUserPassword(e.target.value)}
+                            />
+                            <p className='profile-wrap_content-register'>You are with us since {createDate(new Date(creationAt))}</p>
+                            <p className='profile-wrap_content-update'>You updated your profile on {createDate(new Date(updatedAt))}</p>
+                            <div className='profile-wrap_content-buttons'>
+                                <Button variant="contained"
+                                        disabled={(userMail === email && userPassword === password && userName === name)}
+                                        onClick={() => onFormEdit()}>
+                                    Update Profile</Button>
+                                <Button variant="outlined" onClick={() => dispatch(logout())}>Log Out</Button>
+                            </div>
+                        </Box>
+                    </div>
                 </div>
+                <ProfileFunctionality role={role}/>
             </div>
+
         </>
 
     )

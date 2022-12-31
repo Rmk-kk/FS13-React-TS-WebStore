@@ -48,10 +48,10 @@ const userSlice = createSlice({
     name: 'userSlice',
     initialState,
     reducers: {
-        logout() {
+        logout(state) {
             localStorage.removeItem('access_token')
             localStorage.removeItem('user')
-            return null
+            return state = null
         }
     },
     extraReducers: (build) => {
@@ -59,9 +59,6 @@ const userSlice = createSlice({
             localStorage.setItem('user', JSON.stringify(action.payload));
             return action.payload
        });
-        build.addCase(updateUserInformation.fulfilled, (state, action) => {
-
-        })
     }
 })
 
