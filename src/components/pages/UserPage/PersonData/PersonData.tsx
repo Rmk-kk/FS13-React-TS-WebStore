@@ -33,7 +33,8 @@ const PersonData = (props:PersonDataProps) => {
                     "email": userMail,
                     "password": userPassword
                 }
-            }));
+            }))
+            .catch(e => console.log(e))
         dispatch(getUserWithToken(localStorage.getItem('access_token')));
     }
 

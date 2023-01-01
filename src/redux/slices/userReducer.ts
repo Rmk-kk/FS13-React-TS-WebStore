@@ -25,7 +25,7 @@ export const updateUserInformation = createAsyncThunk(
     'updateUserInformation',
     async (data:UpdateUser) => {
         const {id, changes} = data;
-        return   await axios.put(`https://api.escuelajs.co/api/v1/users/${id}`, changes);
+        return  await axios.put(`https://api.escuelajs.co/api/v1/users/${id}`, changes);
     })
 
 export interface UserProfile {

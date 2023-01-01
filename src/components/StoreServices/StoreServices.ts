@@ -1,5 +1,6 @@
 import axios from "axios";
 import {LoginDataType, RegisterDataType} from "../pages/UserPage/AuthPage/AuthPage";
+import {Category} from "../types-interfaces";
 
 export interface UpdateUserData {
     "name" : string,
@@ -11,6 +12,14 @@ export interface UpdateProductData {
     "title" : string,
     "description" : string,
     "price" : number,
+    "category" : {
+        creationAt: string,
+        id: number,
+        image: string,
+        name: string,
+        updatedAt: string,
+    }
+
 }
 
 export interface createNewProductData {
@@ -43,6 +52,12 @@ class StoreServices {
     }
 
     async addNewProduct(data:createNewProductData) {
+        data.images = data.images.map(image => {
+            if(!image) {
+                return 'https://api.lorem.space/image/album?w=640&h=480'
+            }
+            return image
+        })
         return await axios.post('https://api.escuelajs.co/api/v1/products/', data)
     }
 

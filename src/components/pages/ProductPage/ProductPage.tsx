@@ -109,6 +109,7 @@ const View = (product:ProductItem) => {
                 }
             </div>
             <EditProductModal edit={edit}
+                              category={category.id}
                               setEdit={setEdit}
                               title={title}
                               id={id}

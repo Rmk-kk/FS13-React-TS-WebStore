@@ -1,8 +1,9 @@
 import '../../ProductPage/EditProductModal/edit-product.scss'
-import React from 'react'
+import React, {FormEvent, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 
 import StoreServices from "../../../StoreServices/StoreServices";
+import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 export type CategoryType = {
     creationAt: string,
@@ -13,16 +14,59 @@ export type CategoryType = {
 
     updatedAt: string,
 }
+
 export interface NewItemModalProps {
     setCreateProduct:  React.Dispatch<React.SetStateAction<boolean>>,
+    setNewProductError: React.Dispatch<React.SetStateAction<boolean>>,
     createProduct: boolean,
     categories: CategoryType[]
 }
+
 const NewItemModal = (props: NewItemModalProps) => {
+    const [title, setTitle] = useState('');
+    const [categoryId, setCategoryId] = useState<number | string>('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState<number>(0);
+    const [image, setImage] = useState<string>('');
+    const [image2, setImage2] = useState<string>('');
+
     const service = new StoreServices();
-    const {createProduct, setCreateProduct, categories} = props;
+    const {createProduct, setCreateProduct, categories, setNewProductError} = props;
+
     if(!createProduct) {
         return null
+    }
+
+    const onFormSubmit = (e:FormEvent) => {
+        e.preventDefault();
+        const product = {
+            title,
+            price,
+            categoryId: Number(categoryId),
+            description,
+            images: [image, image2]
+        }
+        service.addNewProduct(product)
+            .then(res => {
+                if(res.status === 201){
+                    console.log(res.status)
+                } else if(res.status === 400) {
+                    setNewProductError(true)
+                }
+            })
+            .catch(() => setNewProductError(true))
+        resetAllStates();
+    }
+
+    const resetAllStates = () => {
+        setNewProductError(false)
+        setImage('');
+        setImage2('');
+        setCategoryId('');
+        setTitle('');
+        setDescription('');
+        setPrice(0);
+        setCreateProduct(false);
     }
 
     return (
@@ -37,17 +81,21 @@ const NewItemModal = (props: NewItemModalProps) => {
                     className='login-form edit-product_modal-form'
                     noValidate
                     autoComplete="off"
+                    onSubmit={e => onFormSubmit(e)}
                 >
                     <TextField
                         label="Product Name"
-
+                        value={title}
+                        onChange={(e)=>setTitle(e.target.value)}
                     />
                     <FormControl fullWidth>
-                        <InputLabel id="create-item-categories">Categories</InputLabel>
+                        <InputLabel id="create-item-categories">Category</InputLabel>
                         <Select
                             labelId="create-item-categories"
                             id="create-item-categories"
                             label="Categories"
+                            value={categoryId}
+                            onChange={(e)=>setCategoryId(Number(e.target.value))}
                         >
                             {categories.map(item => <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
                         </Select>
@@ -55,18 +103,31 @@ const NewItemModal = (props: NewItemModalProps) => {
                     <TextField
                         id="outlined-multiline-static"
                         label="Description"
+                        value={description}
+                        onChange={(e)=>setDescription(e.target.value)}
                     />
 
                     <TextField fullWidth
                                label="Price"
+                               value={price}
+                               onChange={(e)=>setPrice(Number(e.target.value))}
+                    />
+                    <TextField fullWidth
+                               label="Image URL"
+                               value={image}
+                               onChange={(e)=>setImage(e.target.value)}
+                    />
+                    <TextField fullWidth
+                               label="Image 2 URL"
+                               value={image2}
+                               onChange={(e)=>setImage2(e.target.value)}
                     />
                     <div className='edit-product_modal-buttons'>
-                        <button className='login-form_btn' onClick={() => {setCreateProduct(false) }}>Close</button>
+                        <button className='login-form_btn' onClick={() => {setCreateProduct(false)}}>Close</button>
                         <button type='submit' className='login-form_btn'>Create Item</button>
                     </div>
                 </Box>
             </div>
-
         </>
     )
 }
