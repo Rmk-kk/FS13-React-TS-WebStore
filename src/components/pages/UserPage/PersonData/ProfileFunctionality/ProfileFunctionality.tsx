@@ -11,9 +11,13 @@ export interface ProfileFunctionalityProps{
 const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
     const [createProduct, setCreateProduct] = useState(false);
     const service = new StoreServices();
+    const [categories, setCategories] = useState<CategoryType[]>([]);
+
+    //ERROR HANDLING
     const [categoriesError, setCategoriesError] = useState(false);
     const [newProductError, setNewProductError] = useState(false);
-    const [categories, setCategories] = useState<CategoryType[]>([]);
+    const [newProductSucceed, setNewProductSucceed] = useState(false);
+
     const {role} = props;
 
     useEffect(() => {
@@ -29,12 +33,18 @@ const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
             <div className="profile-functionality_btn-group">
                 <Button variant="contained" onClick={()=> {
                     setNewProductError(false);
+                    setNewProductSucceed(false);
                     setCreateProduct(true)
                 }}>Add New Item</Button>
             </div>
-            <NewItemModal categories={categories} setCreateProduct={setCreateProduct} setNewProductError={setNewProductError} createProduct={createProduct}/>
+            <NewItemModal categories={categories}
+                          setNewProductSucceed={setNewProductSucceed}
+                          setCreateProduct={setCreateProduct}
+                          setNewProductError={setNewProductError}
+                          createProduct={createProduct}/>
             {categoriesError && <NotificationMessage message={`Couldn't upload categories, try again later`} type={'error'}/>}
             {newProductError && <NotificationMessage message={`Couldn't create new item, try again later`} type={'error'}/>}
+            {newProductSucceed && <NotificationMessage message={`Item was successfully created`} type={'success'}/>}
         </div>)
 }
 

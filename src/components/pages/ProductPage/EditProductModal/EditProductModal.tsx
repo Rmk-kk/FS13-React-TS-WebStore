@@ -1,10 +1,11 @@
 import './edit-product.scss'
-import React, {FormEvent, useState} from 'react'
+import React, {FormEvent, useEffect, useState} from 'react'
 import ReactDOM from 'react-dom';
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {Category} from "@mui/icons-material";
 import StoreServices from "../../../StoreServices/StoreServices";
 import {CategoryType} from "../../UserPage/NewItemModal/NewItemModal";
+import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 export interface EditProductModalProps {
     edit: boolean,
@@ -22,12 +23,14 @@ const EditProductModal = (props:EditProductModalProps) => {
     const [categories, setCategories] = useState<CategoryType[]>([]);
     const [newPrice, setNewPrice] = useState(price);
     const [newDesc, setNewDesc] = useState(description);
+
+
     const service = new StoreServices();
 
-    useState(() => {
+    useEffect(() => {
         service.getAllCategories()
             .then(setCategories)
-    })
+    }, [])
 
     if(!edit) {
         return null
@@ -35,18 +38,18 @@ const EditProductModal = (props:EditProductModalProps) => {
 
     const handleForm = (e:FormEvent) => {
         e.preventDefault()
-        const category = categories.filter(item => item.id === categoryId);
-        console.log(category[0])
+        const category = categories.filter(item => item.id === categoryId)[0];
+        console.log(category)
         const data = {
             'title': newName,
             'price': newPrice,
             'description': newDesc,
-            'category' : category[0],
+            category
         }
         service.updateProduct(id, data)
             .then(data => console.log(data))
-            .then(() => setEdit(false))
-            .catch(e => console.log(e))
+            .then(() => {setEdit(false)})
+            .catch((e) => console.log(e))
     }
 
     return ReactDOM.createPortal(

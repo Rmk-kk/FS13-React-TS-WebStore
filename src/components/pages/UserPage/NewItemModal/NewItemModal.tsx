@@ -18,6 +18,7 @@ export type CategoryType = {
 export interface NewItemModalProps {
     setCreateProduct:  React.Dispatch<React.SetStateAction<boolean>>,
     setNewProductError: React.Dispatch<React.SetStateAction<boolean>>,
+    setNewProductSucceed: React.Dispatch<React.SetStateAction<boolean>>,
     createProduct: boolean,
     categories: CategoryType[]
 }
@@ -31,7 +32,7 @@ const NewItemModal = (props: NewItemModalProps) => {
     const [image2, setImage2] = useState<string>('');
 
     const service = new StoreServices();
-    const {createProduct, setCreateProduct, categories, setNewProductError} = props;
+    const {createProduct, setCreateProduct, categories, setNewProductError, setNewProductSucceed} = props;
 
     if(!createProduct) {
         return null
@@ -49,7 +50,7 @@ const NewItemModal = (props: NewItemModalProps) => {
         service.addNewProduct(product)
             .then(res => {
                 if(res.status === 201){
-                    console.log(res.status)
+                    setNewProductSucceed(true);
                 } else if(res.status === 400) {
                     setNewProductError(true)
                 }
@@ -59,7 +60,8 @@ const NewItemModal = (props: NewItemModalProps) => {
     }
 
     const resetAllStates = () => {
-        setNewProductError(false)
+        setNewProductError(false);
+        setNewProductSucceed(false);
         setImage('');
         setImage2('');
         setCategoryId('');

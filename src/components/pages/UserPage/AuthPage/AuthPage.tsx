@@ -7,6 +7,7 @@ import StoreServices from "../../../StoreServices/StoreServices";
 import {getUserWithToken} from "../../../../redux/slices/userReducer";
 import RegistrationComponent from "../Registration/RegistrationComponent";
 import LoginComponent from "../Login/LoginComponent";
+import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 export interface AuthPageProps {
     loading: boolean,

@@ -13,10 +13,10 @@ export interface UpdateProductData {
     "description" : string,
     "price" : number,
     "category" : {
-        creationAt: string,
         id: number,
         image: string,
         name: string,
+        creationAt: string,
         updatedAt: string,
     }
 
