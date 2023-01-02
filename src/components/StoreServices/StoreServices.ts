@@ -1,6 +1,5 @@
 import axios from "axios";
 import {LoginDataType, RegisterDataType} from "../pages/UserPage/AuthPage/AuthPage";
-import {Category} from "../types-interfaces";
 
 export interface UpdateUserData {
     "name" : string,
@@ -29,6 +28,7 @@ export interface createNewProductData {
     "categoryId": number,
     "images": string[]
 }
+
 class StoreServices {
     async fetchSingleProduct(id:string) {
         const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);

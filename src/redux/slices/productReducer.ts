@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {Product, ProductList} from "../../components/types-interfaces";
+import {ProductList} from "../../components/types-interfaces";
 import axios from "axios";
 
 const initialState: ProductList = [];
@@ -37,7 +37,7 @@ const productSlice = createSlice({
             }
             return action.payload
         })
-        build.addCase(fetchAllProducts.rejected, (state) => {
+        build.addCase(fetchAllProducts.rejected, (state ) => {
             console.log('error in getting products');
             return state
         })

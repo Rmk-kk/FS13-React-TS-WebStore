@@ -1,0 +1,11 @@
+.profile-functionality {
+  &_btn-group {
+    & button {
+      margin-bottom: 15px;
+      
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+    }
+  }
+}

@@ -3,7 +3,6 @@ import React, {FormEvent, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 
 import StoreServices from "../../../StoreServices/StoreServices";
-import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 export type CategoryType = {
     creationAt: string,
