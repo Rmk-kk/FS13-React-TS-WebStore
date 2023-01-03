@@ -10,9 +10,11 @@ import StoreServices from "../../../StoreServices/StoreServices";
 const ProductsSection = () => {
     const [page, setPage] = useState(1);
     const products = useAppSelector(state => state.productReducer);
+    const [productsLength, setProductsLength] = useState(0);
     const dispatch = useAppDispatch();
     const service = new StoreServices();
     const [admin, setAdmin] = useState(false);
+
     const user = useState(() => {
         const data = localStorage.getItem('user');
         if(data) {
@@ -20,7 +22,12 @@ const ProductsSection = () => {
         }
         return  null
     })
-
+    //getProductLength
+    useEffect(() => {
+        service.getAllProducts()
+            .then(data => setProductsLength(data.length))
+            .catch(e => console.log(e))
+    }, [])
     //getItems
     useEffect(() => {
         dispatch(fetchAllProducts({offset: page * 12 - 12, limit: 12}));
@@ -74,7 +81,7 @@ const ProductsSection = () => {
                     </ul>
                 </div>
                 <Pagination style={{display: 'flex', justifyContent: 'center'}}
-                            count={17}
+                            count={Math.ceil(productsLength/12)}
                             page={page}
                             variant="outlined"
                             onChange={handleChange}

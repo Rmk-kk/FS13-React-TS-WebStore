@@ -21,7 +21,7 @@ export interface UpdateProductData {
 
 }
 
-export interface createNewProductData {
+export interface CreateNewProductData {
     "title": string,
     "price": number,
     "description": string,
@@ -29,6 +29,10 @@ export interface createNewProductData {
     "images": string[]
 }
 
+export interface CreateNewCategoryData {
+    "name": string,
+    "image": string
+}
 class StoreServices {
     async fetchSingleProduct(id:string) {
         const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
@@ -51,7 +55,7 @@ class StoreServices {
         return await axios.put(`https://api.escuelajs.co/api/v1/products/${id}`, data)
     }
 
-    async addNewProduct(data:createNewProductData) {
+    async addNewProduct(data:CreateNewProductData) {
         data.images = data.images.map(image => {
             if(!image) {
                 return 'https://api.lorem.space/image/album?w=640&h=480'
@@ -64,6 +68,20 @@ class StoreServices {
     async getAllCategories() {
         const response = await axios.get('https://api.escuelajs.co/api/v1/categories');
         return response.data
+    }
+
+    async getAllUsers() {
+        const response = await axios.get('https://api.escuelajs.co/api/v1/users');
+        return response.data
+    }
+
+    async getAllProducts() {
+        const response = await axios.get('https://api.escuelajs.co/api/v1/products?offset=3&limit=500');
+        return response.data
+    }
+
+    async addNewCategory(data:CreateNewCategoryData) {
+        return await axios.post('https://api.escuelajs.co/api/v1/categories/', data)
     }
 }
 
