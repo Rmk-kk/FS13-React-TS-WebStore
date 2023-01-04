@@ -3,8 +3,8 @@ import {Product, ProductList} from "../../components/types-interfaces";
 import axios from "axios";
 
 export type ProductSliceType = {
-    error: false,
-    loading: false,
+    error: boolean,
+    loading: boolean,
     products: ProductList,
     productsRef: ProductList,
 }
@@ -99,17 +99,28 @@ const productSlice = createSlice({
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
             if(action.payload && 'message' in action.payload) {
                 console.log('fetching products error')
-                return {...initialState}
+                return {...state, error: true, loading: false}
             }
-            return {...initialState, products: action.payload, productsRef: action.payload}
+            return {loading:false, error: false, products: action.payload, productsRef: action.payload}
         })
+
         build.addCase(fetchAllProducts.rejected, (state ) => {
-            console.log('error in getting products');
-            return state
+            return {...state, error: true, loading: false}
         })
 
         build.addCase(fetchCategoryProducts.fulfilled, (state, action) => {
+            if(!action.payload) {
+                return {...state, error: true, loading: false}
+            }
+            if(action.payload && 'message' in action.payload) {
+                console.log('fetching category products error')
+                return {...state, error: true, loading: false}
+            }
             return {...initialState, products: action.payload, productsRef: action.payload}
+        })
+
+        build.addCase(fetchCategoryProducts.rejected, (state) => {
+            return {...state, error: true, loading: false}
         })
     }
 })

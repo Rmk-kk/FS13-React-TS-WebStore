@@ -11,6 +11,7 @@ import {
 import {useEffect, useState} from "react";
 import ProductCard from "../HomePage/ProductCard/ProductCard";
 import StoreServices from "../../StoreServices/StoreServices";
+import ErrorImageComponent from "../../ErrorImageComponent/ErrorImageComponent";
 
 
 const CategoryPage = () => {
@@ -42,12 +43,11 @@ const CategoryPage = () => {
     // GET MAX PRICE FOR RANGE INPUT
     useEffect(() => {
         let max = 0;
-        if(productsState) {
+        if(productsState && productsState.productsRef) {
             productsState.productsRef.map(item => {
                 if(item.price > max) {
                     max = item.price
                 }
-                console.log(max)
                 return item
             })
             setMaxPrice(max);
@@ -66,7 +66,6 @@ const CategoryPage = () => {
 
     //PRICE RANGE
     const handleRangeChange = (e:Event, data:number[]) => {
-        console.log(data)
         dispatch(sortByPriceRange(data))
     }
 
@@ -132,25 +131,25 @@ const CategoryPage = () => {
                 </div>
 
             </div>
-
-            <div className="category_page-list">
-                {productsState.products.map(item => {
-                    return (
-                        <ProductCard
-                                     admin={admin}
-                                     deleteItem={deleteItem}
-                                     key={item.id}
-                                     id={item.id}
-                                     title={item.title}
-                                     category={item.category}
-                                     price={item.price}
-                                     description={item.description}
-                                     images={item.images}
-                        />
-                    )
-                })}
-            </div>
-
+            { productsState.products && productsState.products.length > 0 ?
+                    <div className="category_page-list">
+                        {productsState.products.map(item => {
+                            return (
+                                    <ProductCard
+                                        admin={admin}
+                                        deleteItem={deleteItem}
+                                        key={item.id}
+                                        id={item.id}
+                                        title={item.title}
+                                        category={item.category}
+                                        price={item.price}
+                                        description={item.description}
+                                        images={item.images}
+                                    />
+                                )})}
+                    </div>
+                    : <ErrorImageComponent path='no-product'/>
+            }
         </Container>
     )
 }
