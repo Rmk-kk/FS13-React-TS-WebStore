@@ -5,7 +5,16 @@ export interface CartProduct extends Product {
     quantity: number;
 }
 
-const initialState: CartProduct[] = [];
+
+const initialState: CartProduct[] = (()=> {
+    const data = localStorage.getItem('cart');
+    if(data) {
+        return JSON.parse(data)
+    } else {
+        return []
+    }
+})()
+
 const cartSlice = createSlice({
     name: 'cartSlice',
     initialState,
@@ -22,6 +31,7 @@ const cartSlice = createSlice({
                 const newItem = {...action.payload, quantity: 1}
                 state.push(newItem);
             }
+            localStorage.setItem('cart', JSON.stringify(state))
         },
 
         removeItem:(state, action) => {
@@ -37,8 +47,11 @@ const cartSlice = createSlice({
                 return product
             })
             if(remove) {
-                return  state.filter(item => item.id !== action.payload)
+                const removedItem = state.filter(item => item.id !== action.payload)
+                localStorage.setItem('cart', JSON.stringify(removedItem))
+                return removedItem
             }
+            localStorage.setItem('cart', JSON.stringify(state))
         }
     }
 })

@@ -39,14 +39,14 @@ const Header = () => {
                         </div>
                     </Link>
                     <div className='header_wrap-menu'>
-                    <span>
+                    <span className='header_wrap-menu_icon'>
                         <FavoriteIcon/>
                     </span>
-                    <span className='shopping-cart_anchor'>
+                    <span className='shopping-cart_anchor header_wrap-menu_icon'>
                         <div className={`cart-notification ${cart.length > 0 && 'cart-notification-enabled'}`}>{cartTotalItems()}</div>
                         <ShoppingCart/>
                     </span>
-                    <span>
+                    <span className='header_wrap-menu_icon'>
                         <Link to={'/account/'}><PersonIcon/></Link>
                     </span>
                     </div>
