@@ -1,7 +1,7 @@
 import './productCard.scss'
 
 import {ProductItem} from "../../../types-interfaces";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {addItem} from "../../../../redux/slices/cartReducer";
 import {useAppDispatch} from "../../../../hooks/reduxHook";
 import ClearIcon from "@mui/icons-material/Clear";

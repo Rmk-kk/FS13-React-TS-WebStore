@@ -9,7 +9,7 @@ import StoreServices from "../../../StoreServices/StoreServices";
 
 const ProductsSection = () => {
     const [page, setPage] = useState(1);
-    const products = useAppSelector(state => state.productReducer);
+    const productsState = useAppSelector(state => state.productReducer);
     const [productsLength, setProductsLength] = useState(0);
     const dispatch = useAppDispatch();
     const service = new StoreServices();
@@ -67,7 +67,7 @@ const ProductsSection = () => {
                 <h2>All our products</h2>
                 <div  className='products-wrap'>
                     <ul className="products-wrap_list">
-                        {products.map(item => {
+                        {productsState.products.map(item => {
                             return <ProductCard deleteItem={deleteItem}
                                                 admin={admin}
                                                 key={item.id}

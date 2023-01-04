@@ -3,17 +3,20 @@ import './categoryPage.scss'
 import {useParams} from "react-router-dom";
 import {Container, FormControl, InputLabel, MenuItem, Select, Slider, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHook";
-import {fetchAllProducts, fetchCategoryProducts} from "../../../redux/slices/productReducer";
+import {
+    fetchCategoryProducts,
+    onSearchFilter,
+    sortByDropFilter, sortByPriceRange
+} from "../../../redux/slices/productReducer";
 import {useEffect, useState} from "react";
 import ProductCard from "../HomePage/ProductCard/ProductCard";
-import {Product, ProductList} from "../../types-interfaces";
 import StoreServices from "../../StoreServices/StoreServices";
 
 
 const CategoryPage = () => {
     const {category} = useParams();
     const dispatch = useAppDispatch();
-    const products = useAppSelector(state => state.productReducer);
+    const productsState = useAppSelector(state => state.productReducer);
     const [admin, setAdmin] = useState(false);
     const service = new StoreServices();
     const user = useState(() => {
@@ -23,10 +26,10 @@ const CategoryPage = () => {
         }
         return  null
     })
+
     //Filters
-    const [maxPrice, setMaxPrice] = useState(100);
+    const [maxPrice, setMaxPrice] = useState(500);
     const [value, setValue] = useState<number[]>([0, 10000]);
-    const[filterInput, setFilterInput] = useState('');
     const[dropFilter, setDropFilter] = useState<string>('')
 
     //UPLOAD PRODUCTS FROM CATEGORY
@@ -36,17 +39,20 @@ const CategoryPage = () => {
         }
     }, [category]);
 
-    //GET MAX PRICE FOR RANGE INPUT
+    // GET MAX PRICE FOR RANGE INPUT
     useEffect(() => {
         let max = 0;
-        products.map(item => {
-            if(item.price > max) {
-                max = item.price
-            }
-            return item
-        })
-        setMaxPrice(max);
-    }, [products])
+        if(productsState) {
+            productsState.productsRef.map(item => {
+                if(item.price > max) {
+                    max = item.price
+                }
+                console.log(max)
+                return item
+            })
+            setMaxPrice(max);
+        }
+    }, [productsState])
 
     //Check user Status
     useEffect(() => {
@@ -58,58 +64,16 @@ const CategoryPage = () => {
         }
     }, [user])
 
-    //FILTERS LOGIC
-
     //PRICE RANGE
     const handleRangeChange = (e:Event, data:number[]) => {
-        setValue(data);
-        // dispatch(onPriceRangeFilter(data))
+        console.log(data)
+        dispatch(sortByPriceRange(data))
     }
+
     const getTextFromValue = (value:number) => {
         return `${value}`
     }
 
-    //INPUT
-    const onFilterList = (search:string, list:ProductList) => {
-        if(search.length === 0) {
-            return list
-        }
-
-        return list.filter(item => {
-            return item.title.toLowerCase().indexOf(search.toLowerCase()) > -1
-        })
-    }
-
-    //DropFilter
-    const onDropFilterChange = (state:string, array:ProductList) => {
-        switch (state) {
-            case 'alphabet': {
-                return array.sort((a:Product,b:Product) => {
-                    return a.title.localeCompare(b.title)
-                })
-            }
-            case 'alphabet-desc': {
-                return array.sort((a:Product,b:Product) => {
-                    return b.title.localeCompare(a.title)
-                })
-            }
-            case 'price': {
-                return array.sort((a:Product,b:Product) => {
-                    return a.price - b.price
-                })
-            }
-            case 'price-desc': {
-                return array.sort((a:Product,b:Product) => {
-                    return b.price - a.price
-                })
-            }
-            case 'default' : {
-                return inputFilterProducts;
-            }
-            default:
-                return array
-        }
-    }
 
     //Delete Item Logic for admins
     const deleteItem = (id:number) => {
@@ -122,15 +86,6 @@ const CategoryPage = () => {
             .catch(e => console.log(e))
     }
 
-    const [min, max] = value;
-    //price range sort
-    const priceFilterProducts = products.filter(item => {
-        return (item.price >= min && item.price <= max)
-    })
-    //text field sort
-    const inputFilterProducts = onFilterList(filterInput, priceFilterProducts);
-    //dropdown sort
-    const sortedArray = onDropFilterChange(dropFilter, inputFilterProducts)
     return (
         <Container maxWidth='lg' className='category_page'>
             <h2>{category?.substring(0, category.length - 1)}</h2>
@@ -140,7 +95,7 @@ const CategoryPage = () => {
                            label="Product"
                            variant="outlined"
                            size='small'
-                           onChange={(e) => setFilterInput(e.target.value)}
+                           onChange={(e) => dispatch(onSearchFilter(e.target.value))}
                 />
                 <FormControl size='small'  style={{width: '220px'}}>
                     <InputLabel id="demo-simple-select-label">Filter</InputLabel>
@@ -151,7 +106,7 @@ const CategoryPage = () => {
                         label="Filter"
                         onChange={(e) => {
                             setDropFilter(e.target.value as string)
-                            onDropFilterChange(e.target.value as string, inputFilterProducts)
+                            dispatch(sortByDropFilter(e.target.value as string))
                         }}
                     >
                         <MenuItem value={'default'}>Default</MenuItem>
@@ -163,11 +118,14 @@ const CategoryPage = () => {
                 </FormControl>
                 <div className='category_page-filters-range'>
                     <Slider
-                        getAriaLabel={() => 'Temperature range'}
+                        getAriaLabel={() => 'Price range'}
                         value={value}
                         min={0}
                         max={maxPrice}
-                        onChange={(e, data:any) => handleRangeChange(e, data)}
+                        onChange={(e, data:any) => {
+                            setValue(data)
+                            handleRangeChange(e, data)
+                        }}
                         valueLabelDisplay="auto"
                         getAriaValueText={(value) => getTextFromValue(value)}
                     />
@@ -176,7 +134,7 @@ const CategoryPage = () => {
             </div>
 
             <div className="category_page-list">
-                {sortedArray.map(item => {
+                {productsState.products.map(item => {
                     return (
                         <ProductCard
                                      admin={admin}

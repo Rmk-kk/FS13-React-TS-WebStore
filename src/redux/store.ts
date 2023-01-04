@@ -5,7 +5,6 @@ import cartReducer from "./slices/cartReducer";
 import userReducer from "./slices/userReducer";
 
 export const store = configureStore({
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   reducer: {
     productReducer,
     categoriesReducer,
