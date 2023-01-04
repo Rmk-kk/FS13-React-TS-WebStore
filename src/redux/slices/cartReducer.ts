@@ -5,7 +5,6 @@ export interface CartProduct extends Product {
     quantity: number;
 }
 
-
 const initialState: CartProduct[] = (()=> {
     const data = localStorage.getItem('cart');
     if(data) {
@@ -52,6 +51,10 @@ const cartSlice = createSlice({
                 return removedItem
             }
             localStorage.setItem('cart', JSON.stringify(state))
+        },
+        resetCart:() => {
+            localStorage.setItem('cart', JSON.stringify([]));
+            return []
         }
     }
 })
@@ -59,4 +62,4 @@ const cartSlice = createSlice({
 const cartReducer = cartSlice.reducer;
 export default cartReducer
 
-export const {addItem, removeItem} = cartSlice.actions
+export const {addItem, removeItem, resetCart} = cartSlice.actions

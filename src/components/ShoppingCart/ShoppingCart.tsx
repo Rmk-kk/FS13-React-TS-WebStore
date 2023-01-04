@@ -3,14 +3,16 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import React, {useState} from "react";
-import {Fade} from "@mui/material";
+import {Button, Fade} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../hooks/reduxHook";
-import {addItem, CartProduct, removeItem} from "../../redux/slices/cartReducer";
+import {addItem, CartProduct, removeItem, resetCart} from "../../redux/slices/cartReducer";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import CloseIcon from '@mui/icons-material/Close';
 
 const ShoppingCart = () => {
-    const [showCart, setShowCart] = useState(false)
+    const [showCart, setShowCart] = useState(false);
+    const dispatch = useAppDispatch();
     const cart = useAppSelector(state => state.cartReducer);
     const toggleShoppingCart = () => {
         setShowCart(prev => !prev);
@@ -32,12 +34,20 @@ const ShoppingCart = () => {
             <ShoppingCartIcon className={showCart ? 'active-cart' : ''} onClick={()=>toggleShoppingCart()}/>
             <Fade in={showCart} mountOnEnter unmountOnExit>
                 <div className='cart-wrap'>
+                    <CloseIcon className='cart-wrap_close' fontSize='large' onClick={()=>setShowCart(false)}/>
                     <ul className='cart'>
                         {elements}
                     </ul>
                     <div className='cart-bottom_wrap'>
                         <div className="cart-total">Total:<span>{cartTotal()}</span>$</div>
-                        <Link to={''} className={`${cart.length === 0 && 'disabled-cart_link'} cart-checkout`} >Checkout</Link>
+                        <div className='cart-bottom_wrap-buttons'>
+                            <Button disabled={cart.length === 0}
+                                    variant="outlined" size='small'
+                                    style={{marginRight: '15px'}}
+                                    onClick={()=>dispatch(resetCart())}
+                            >Clear cart</Button>
+                            <Link to={''} className={`${cart.length === 0 && 'disabled-cart_link'} cart-checkout`} >Checkout</Link>
+                        </div>
                     </div>
                 </div>
             </Fade>

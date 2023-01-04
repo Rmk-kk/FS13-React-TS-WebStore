@@ -9,7 +9,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 const ProductCard = (props:ProductItem) => {
     const dispatch = useAppDispatch();
     const {title, price, description, images, category, id, deleteItem, admin} = props;
-
+    const product = {title, price, description, images, category, id};
 
     return (
         <div className='product-card'>
@@ -31,7 +31,7 @@ const ProductCard = (props:ProductItem) => {
                     <div className="h-bg-inner"></div>
                 </div>
 
-                <button className="cart-link" onClick={() => dispatch(addItem(props))}>
+                <button className="cart-link" onClick={() => dispatch(addItem(product))}>
                     <span className="price">${price}</span>
                     <span className="add-to-cart">
                         <span className="txt">Add to cart</span>

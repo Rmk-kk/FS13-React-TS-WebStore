@@ -19,6 +19,19 @@
     box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.1);
     z-index: 10000;
     padding: 10px;
+
+    &_close {
+      cursor: pointer;
+      opacity: .4;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: all .2s linear!important;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 
   &-item {
@@ -114,6 +127,7 @@
 
   &-bottom_wrap {
     display: flex;
+    height: 50px;
     align-items: center;
     justify-content: space-around;
     padding-top: 15px;
@@ -128,6 +142,12 @@
       background-color: rgba(0, 0, 0, 0.38);
       top: 10%;
       left:15%;
+    }
+
+    &-buttons {
+      display: flex;
+      align-items: center;
+      height: 100%;
     }
   }
 
