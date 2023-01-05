@@ -39,7 +39,6 @@ const EditProductModal = (props:EditProductModalProps) => {
     const handleForm = (e:FormEvent) => {
         e.preventDefault()
         const category = categories.filter(item => item.id === categoryId)[0];
-        console.log(category)
         const data = {
             'title': newName,
             'price': newPrice,
@@ -47,8 +46,7 @@ const EditProductModal = (props:EditProductModalProps) => {
             category
         }
         service.updateProduct(id, data)
-            .then(data => console.log(data))
-            .then(() => {setEdit(false)})
+            .then(() => setEdit(false))
             .catch((e) => console.log(e))
     }
 

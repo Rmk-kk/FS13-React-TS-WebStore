@@ -83,6 +83,19 @@ class StoreServices {
     async addNewCategory(data:CreateNewCategoryData) {
         return await axios.post('https://api.escuelajs.co/api/v1/categories/', data)
     }
+
+    // async uploadFile(file:File) {
+    //     const reader = new FileReader()
+    //     reader.readAsBinaryString(file)
+    //     reader.onloadend = () => {
+    //         console.log(reader.result)
+    //         return axios.post('https://api.escuelajs.co/api/v1/files/upload', {
+    //             headers: {'Content-Type': 'multipart/form-data'},
+    //             body: {'file' : reader.result}
+    //         })
+    //     }
+    //
+    // }
 }
 
 export default StoreServices

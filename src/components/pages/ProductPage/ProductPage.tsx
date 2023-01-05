@@ -81,6 +81,7 @@ const ProductPage = () => {
 
 const View = (product:ProductItem) => {
     const {title, price, description, images, category, admin, deleteItem, id} = product;
+    const item = {title, price, description, images, category, id}
     const dispatch = useAppDispatch();
     const [edit, setEdit] = useState(false);
     // @ts-ignore
@@ -95,7 +96,7 @@ const View = (product:ProductItem) => {
                 <p>{description}</p>
                 <div className='singleProduct-wrap_content-price'>
                     <span>{price}$</span>
-                    <button onClick={() => dispatch(addItem(product))}>
+                    <button onClick={() => dispatch(addItem(item))}>
                         Add to Cart
                         &#128722;
                     </button>

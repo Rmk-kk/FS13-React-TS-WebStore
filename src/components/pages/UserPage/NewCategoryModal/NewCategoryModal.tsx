@@ -68,7 +68,7 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
                         onChange={(e)=>setName(e.target.value)}
                     />
                     <TextField fullWidth
-                               label="Image 2 URL"
+                               label="Image URL"
                                value={image}
                                onChange={(e)=>setImage(e.target.value)}
                     />

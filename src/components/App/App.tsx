@@ -12,6 +12,7 @@ import ProductPage from "../pages/ProductPage/ProductPage";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import UserContent from "../pages/UserPage/UserContent/UserContent";
 import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
+import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
 
 
 
@@ -29,6 +30,7 @@ const App = () => {
               <Route path='/account/login' element={<AuthPage/>}/>
               <Route element={<ProtectedRoutes/>}>
                   <Route path='/account' element={<UserContent/>}/> {/*Account page*/}
+                  <Route path='/checkout' element={<CheckoutPage/>}/>
               </Route>
               <Route path='category/:category/:id' element={<ProductPage/>}/>  {/*Product page*/}
           </Routes>

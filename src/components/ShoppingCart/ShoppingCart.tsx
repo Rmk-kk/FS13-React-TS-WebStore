@@ -31,7 +31,9 @@ const ShoppingCart = () => {
     const elements = cart.length > 0 ? cart.map((item, i) => <ShoppingCartItem key={i} product={item}/>) : <p className='empty-cart'>Nothing was added yet</p>
     return (
         <>
-            <ShoppingCartIcon className={showCart ? 'active-cart' : ''} onClick={()=>toggleShoppingCart()}/>
+            <ShoppingCartIcon className={showCart ? 'active-cart' : ''}
+                              onClick={()=>toggleShoppingCart()}
+            />
             <Fade in={showCart} mountOnEnter unmountOnExit>
                 <div className='cart-wrap'>
                     <CloseIcon className='cart-wrap_close' fontSize='large' onClick={()=>setShowCart(false)}/>
@@ -46,7 +48,9 @@ const ShoppingCart = () => {
                                     style={{marginRight: '15px'}}
                                     onClick={()=>dispatch(resetCart())}
                             >Clear cart</Button>
-                            <Link to={''} className={`${cart.length === 0 && 'disabled-cart_link'} cart-checkout`} >Checkout</Link>
+                            <Link to='/checkout'
+                                  onClick={()=>setShowCart(false)}
+                                  className={`${cart.length === 0 && 'disabled-cart_link'} cart-checkout`} >Checkout</Link>
                         </div>
                     </div>
                 </div>
