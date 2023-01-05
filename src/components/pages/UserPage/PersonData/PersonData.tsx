@@ -1,9 +1,10 @@
 import {useAppDispatch} from "../../../../hooks/reduxHook";
 import createDate from "../../../StoreServices/createDateFunction";
 import {Box, Button, TextField} from "@mui/material";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getUserWithToken, logout, updateUserInformation} from "../../../../redux/slices/userReducer";
 import ProfileFunctionality from "./ProfileFunctionality/ProfileFunctionality";
+import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 export interface PersonDataProps {
     user: {
@@ -84,14 +85,13 @@ const PersonData = (props:PersonDataProps) => {
                                         disabled={(userMail === email && userPassword === password && userName === name)}
                                         onClick={() => onFormEdit()}>
                                     Update Profile</Button>
-                                <Button variant="outlined" onClick={() => dispatch(logout())}>Log Out</Button>
+                                <Button variant="outlined" onClick={() => {dispatch(logout())}}>Log Out</Button>
                             </div>
                         </Box>
                     </div>
                 </div>
                 <ProfileFunctionality role={role}/>
             </div>
-
         </>
 
     )

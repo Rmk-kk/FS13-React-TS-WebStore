@@ -5,7 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import React, {useState} from "react";
 import {Button, Fade} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../hooks/reduxHook";
-import {addItem, CartProduct, removeItem, resetCart} from "../../redux/slices/cartReducer";
+import {addItem, CartProduct, permanentlyDeleteItem, removeItem, resetCart} from "../../redux/slices/cartReducer";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CloseIcon from '@mui/icons-material/Close';
@@ -75,12 +75,14 @@ const ShoppingCartItem = (props:ShoppingCartItemProps) => {
                 <div className='cart-item_content-price'>{price}<span>$</span></div>
                 <div className='cart-item_content-quantity'>Quantity: <span>{quantity}</span>
                 <span className='cart-item_content-arrows'>
-                    <ArrowDropUpIcon fontSize='medium' onClick={()=> dispatch(addItem(props.product))}/>
+                    <ArrowDropUpIcon fontSize='medium' onClick={()=> {
+                        dispatch(addItem(props.product))
+                    }}/>
                     <ArrowDropDownIcon fontSize='medium' onClick={()=> dispatch(removeItem(id))}/>
                 </span>
                 </div>
             </div>
-            <DeleteForeverIcon onClick={() => dispatch(removeItem(id))}/>
+            <DeleteForeverIcon onClick={() => dispatch(permanentlyDeleteItem(id))}/>
         </li>
     )
 }

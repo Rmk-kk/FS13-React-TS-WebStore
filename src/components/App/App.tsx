@@ -13,6 +13,7 @@ import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import UserContent from "../pages/UserPage/UserContent/UserContent";
 import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
 import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
+import ErrorImageComponent from "../ErrorImageComponent/ErrorImageComponent";
 
 
 
@@ -33,6 +34,7 @@ const App = () => {
                   <Route path='/checkout' element={<CheckoutPage/>}/>
               </Route>
               <Route path='category/:category/:id' element={<ProductPage/>}/>  {/*Product page*/}
+              <Route path={'*'} element={<ErrorImageComponent path='404'/>}/>
           </Routes>
         <Footer/>
       </BrowserRouter>

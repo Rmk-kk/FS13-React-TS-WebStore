@@ -148,7 +148,7 @@ const CategoryPage = () => {
                                     />
                                 )})}
                     </div>
-                    : <ErrorImageComponent path='no-product'/>
+                    : <ErrorImageComponent path='categories/no-product'/>
             }
         </Container>
     )

@@ -1,5 +1,5 @@
 import './login.scss'
-import {Box, Container, TextField} from "@mui/material";
+import {Container} from "@mui/material";
 import React, {FormEvent, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
 import {useNavigate} from "react-router-dom";
@@ -33,6 +33,8 @@ const AuthPage = () => {
     const [newUser, setNewUser] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [newUserNotification, setNewUserNotification] = useState(false);
+
     const user = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -59,7 +61,6 @@ const AuthPage = () => {
             })
             .then(getUserLogin)
             .catch(() => setError(true))
-        setLoading(false)
     }
     const getUserLogin = () => {
         dispatch(getUserWithToken(localStorage.getItem('access_token')));
@@ -70,9 +71,11 @@ const AuthPage = () => {
         setLoading(true);
         e.preventDefault();
         service.createNewUser(data)
-            .then(data => console.log(data))
-            .catch(()=>setError(true))
-        setLoading(false)
+            .then(() => setNewUserNotification(true))
+            .then(() => setNewUser(false))
+            .catch(() => setError(true))
+        setLoading(false);
+        setNewUserNotification(false);
     }
 
     return(
@@ -89,6 +92,8 @@ const AuthPage = () => {
                           setNewUser={setNewUser}
                           loginFormHandle={loginFormHandle}
                 />}
+            {newUserNotification && <NotificationMessage message='User created successfully' type='success'/> }
+            {error && <NotificationMessage message='Something went wrong...' type='error'/> }
         </Container>
     )
 }

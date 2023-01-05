@@ -7,9 +7,10 @@ export interface NotificationMessageProps {
     type: string,
 }
 
-const customId = "custom-id-yes";
+
 const NotificationMessage = (props:NotificationMessageProps) => {
     const {message, type} = props;
+    const customId = "custom-id-yes";
 
     useEffect(() => {
         console.log(type)

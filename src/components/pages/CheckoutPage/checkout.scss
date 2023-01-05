@@ -3,21 +3,28 @@
 
 .checkout {
   display: flex;
-  height: 100vh;
-
+  max-height: 100vh;
   &_products {
     flex: 2;
-    background-color: grey;
     padding: 20px;
 
     & h1 {
+      display: flex;
+      align-items: center;
       margin-bottom: 15px;
+
+      & svg {
+        margin-left: 15px;
+      }
     }
 
     &-list {
       list-style: none;
+      max-height: 800px;
+      overflow: scroll;
+
       &_item {
-        border: 1px solid black;
+        border: 1px solid rgba(0, 0, 0, 0.16);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -25,25 +32,49 @@
         & .list_item-content {
           width: 100%;
           display: flex;
+
           &-text {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
+
+            & h3 {
+              margin-bottom: 10px;
+            }
+
+            & p {
+              margin-bottom: 10px;
+            }
+
+            & h5 {
+              font-size: 18px;
+
+              &:not(:last-child) {
+                margin-right: 20px;
+              }
+            }
           }
 
           &-buttons {
             display: flex;
             align-items: center;
             
-            & path {
+            & svg {
               cursor: pointer;
+              fill:#353535;
+              transition: all .1s linear;
+
+              &:hover {
+                fill:#043E85;
+              }
             }
           }
         }
 
         & img {
           max-width: 230px;
+          margin-right: 15px;
         }
 
         &:not(:last-child) {
@@ -54,8 +85,68 @@
   }
 
   &_payment {
-    background-color: #3f96cd;
+    position: relative;
     padding: 20px;
-    flex: 1
+    flex: 1;
+
+    &-greeting {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+
+      & img {
+        max-width: 180px;
+      }
+    }
+
+    &-list {
+      list-style: none;
+      margin-bottom: 20px;
+      max-height: 450px;
+      overflow: hidden;
+      overflow-y: scroll;
+
+      &-item {
+        padding: 5px;
+        &-info {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+      }
+    }
+
+    &-total {
+      &-info {
+        text-align: right;
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      &-cards {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 15px;
+      }
+
+      &-button {
+        text-align: right;
+        & button {
+          font-weight: bold;
+        }
+      }
+    }
+
+    &:after {
+      position: absolute;
+      content: '';
+      left: 0;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background-color: rgba(0,0,0,0.3);
+    }
   }
 }

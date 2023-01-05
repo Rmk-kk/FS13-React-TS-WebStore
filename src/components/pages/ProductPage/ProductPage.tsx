@@ -14,7 +14,6 @@ const ProductPage = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState<Product | null>(null);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [admin, setAdmin] = useState(false);
     const user = useState(() => {

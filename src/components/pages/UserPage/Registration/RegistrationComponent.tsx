@@ -1,6 +1,7 @@
 import {Box, Container, TextField} from "@mui/material";
-import {useState} from "react";
+import React, {useState} from "react";
 import {RegisterPageProps} from "../AuthPage/AuthPage";
+import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 
 
@@ -10,13 +11,10 @@ const RegistrationComponent = (props:RegisterPageProps) => {
     const [password, setPassword] = useState('');
     const {loading, error, setError, registerFormHandle, setNewUser} = props;
 
-
-
     const load = loading ? <p>Loading</p> : null;
     const err = error ? <p>Wrong username or password</p> : null;
     return(
         <Container maxWidth={"lg"} style={{margin: 'auto'}}>
-
             <div className='login-form-login'>
                 <h2>Sign Up</h2>
                 <Box onSubmit={(e) => registerFormHandle(e, {name, email,  password})}
@@ -57,7 +55,6 @@ const RegistrationComponent = (props:RegisterPageProps) => {
                     onClick={()=>setNewUser(false)}
                 >Already signed up? Login!</span>
             </div>
-
         </Container>
     )
 }
