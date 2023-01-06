@@ -14,29 +14,41 @@ import UserContent from "../pages/UserPage/UserContentContainer/UserContent";
 import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
 import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
 import ErrorImageComponent from "../ErrorImageComponent/ErrorImageComponent";
-
+import {createTheme, Paper, ThemeProvider} from "@mui/material";
 
 
 
 const App = () => {
 
+    const theme = createTheme({
+        palette: {
+            mode: 'dark',
+            primary: {
+                main: '#043E85',
+            }
+        }
+    })
 
   return (
       <BrowserRouter>
-        <Header/>
-          <Routes>
-              <Route path='/' element={<HomePage/>}/>
-              <Route path='/category/:category' element={<CategoryPage/>}/> {/*CATEGORY PAGE*/}
-              <Route path='/cart'/>
-              <Route path='/account/login' element={<AuthPage/>}/>
-              <Route element={<ProtectedRoutes/>}>
-                  <Route path='/account' element={<UserContent/>}/> {/*Account page*/}
-                  <Route path='/checkout' element={<CheckoutPage/>}/>
-              </Route>
-              <Route path='category/:category/:id' element={<ProductPage/>}/>  {/*Product page*/}
-              <Route path={'*'} element={<ErrorImageComponent path='404'/>}/>
-          </Routes>
-        <Footer/>
+          <ThemeProvider theme={theme}>
+              <Header/>
+              <Paper>
+              <Routes>
+                  <Route path='/' element={<HomePage/>}/>
+                  <Route path='/category/:category' element={<CategoryPage/>}/> {/*CATEGORY PAGE*/}
+                  <Route path='/cart'/>
+                  <Route path='/account/login' element={<AuthPage/>}/>
+                  <Route element={<ProtectedRoutes/>}>
+                      <Route path='/account' element={<UserContent/>}/> {/*Account page*/}
+                      <Route path='/checkout' element={<CheckoutPage/>}/>
+                  </Route>
+                  <Route path='category/:category/:id' element={<ProductPage/>}/>  {/*Product page*/}
+                  <Route path={'*'} element={<ErrorImageComponent path='404'/>}/>
+              </Routes>
+              </Paper>
+              <Footer/>
+          </ThemeProvider>
       </BrowserRouter>
   )
 }

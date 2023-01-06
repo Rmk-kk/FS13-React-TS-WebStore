@@ -1,12 +1,12 @@
 import './header.scss'
 
-import {Container} from "@mui/material";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import {Container, Switch} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import React, {useEffect, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../hooks/reduxHook";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
+import ThemeSwitchIcon from "./ThemeSwitchIcon";
 
 
 const Header = () => {
@@ -40,7 +40,7 @@ const Header = () => {
                     </Link>
                     <div className='header_wrap-menu'>
                     <span className='header_wrap-menu_icon'>
-                        <FavoriteIcon/>
+                        <ThemeSwitchIcon/>
                     </span>
                     <span className='shopping-cart_anchor header_wrap-menu_icon'>
                         <div className={`cart-notification ${cart.length > 0 && 'cart-notification-enabled'}`}>{cartTotalItems()}</div>
