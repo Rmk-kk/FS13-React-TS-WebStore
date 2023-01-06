@@ -10,7 +10,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CategoryPage from "../pages/Category/CategoryPage";
 import ProductPage from "../pages/ProductPage/ProductPage";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
-import UserContent from "../pages/UserPage/UserContent/UserContent";
+import UserContent from "../pages/UserPage/UserContentContainer/UserContent";
 import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
 import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
 import ErrorImageComponent from "../ErrorImageComponent/ErrorImageComponent";

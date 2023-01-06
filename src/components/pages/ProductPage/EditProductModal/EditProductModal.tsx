@@ -2,10 +2,8 @@ import './edit-product.scss'
 import React, {FormEvent, useEffect, useState} from 'react'
 import ReactDOM from 'react-dom';
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-import {Category} from "@mui/icons-material";
 import StoreServices from "../../../StoreServices/StoreServices";
 import {CategoryType} from "../../UserPage/NewItemModal/NewItemModal";
-import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 export interface EditProductModalProps {
     edit: boolean,

@@ -22,7 +22,12 @@
       list-style: none;
       max-height: 800px;
       overflow: scroll;
-
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar {
+        display: none;
+      }
       &_item {
         border: 1px solid rgba(0, 0, 0, 0.16);
         display: flex;

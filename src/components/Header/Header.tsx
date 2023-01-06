@@ -6,7 +6,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import React, {useEffect, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../hooks/reduxHook";
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import ShoppingCart from "./ShoppingCart/ShoppingCart";
 
 
 const Header = () => {

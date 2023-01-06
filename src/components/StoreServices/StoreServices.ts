@@ -33,6 +33,10 @@ export interface CreateNewCategoryData {
     "name": string,
     "image": string
 }
+
+export interface EditCategoryData {
+    [key: string]: string
+}
 class StoreServices {
     async fetchSingleProduct(id:string) {
         const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
@@ -96,6 +100,10 @@ class StoreServices {
     //     }
     //
     // }
+
+    async editCategory(id:number, data:EditCategoryData) {
+        return await axios.put(`https://api.escuelajs.co/api/v1/categories/${id}`, data)
+    }
 }
 
 export default StoreServices

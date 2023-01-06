@@ -92,8 +92,8 @@ const AuthPage = () => {
                           setNewUser={setNewUser}
                           loginFormHandle={loginFormHandle}
                 />}
-            {newUserNotification && <NotificationMessage message='User created successfully' type='success'/> }
-            {error && <NotificationMessage message='Something went wrong...' type='error'/> }
+            {newUserNotification && <NotificationMessage id={1} message='User created successfully' type='success'/>}
+            {error && <NotificationMessage id={2}  message='Something went wrong...' type='error'/> }
         </Container>
     )
 }

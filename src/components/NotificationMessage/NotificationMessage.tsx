@@ -1,42 +1,43 @@
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
+import {useAppSelector} from "../../hooks/reduxHook";
 export interface NotificationMessageProps {
     message: string,
     type: string,
+    id: number,
 }
 
 
 const NotificationMessage = (props:NotificationMessageProps) => {
-    const {message, type} = props;
-    const customId = "custom-id-yes";
+    const {message, type, id} = props;
+    // const customId = "custom-id-yes";
 
     useEffect(() => {
-        console.log(type)
         if(type === 'success') {
              toast.success(message, {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-                toastId: customId
+                toastId: id
             });
         } else if(type === 'error') {
             toast.error(message, {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-                toastId: customId
+                toastId: id
             });
         }
     }, [props])
@@ -44,7 +45,7 @@ const NotificationMessage = (props:NotificationMessageProps) => {
     return ReactDOM.createPortal(
         <>
             <ToastContainer position="bottom-right"
-                            autoClose={5000}
+                            autoClose={3000}
                             hideProgressBar={false}
                             newestOnTop={false}
                             closeOnClick

@@ -5,10 +5,13 @@ import {Link} from "react-router-dom";
 import {addItem} from "../../../../redux/slices/cartReducer";
 import {useAppDispatch} from "../../../../hooks/reduxHook";
 import ClearIcon from "@mui/icons-material/Clear";
+import {useEffect, useState} from "react";
+import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 const ProductCard = (props:ProductItem) => {
     const dispatch = useAppDispatch();
     const {title, price, description, images, category, id, deleteItem, admin} = props;
+    const [addItemNotification, setAddItemNotification] = useState(false);
     const product = {title, price, description, images, category, id};
 
     return (
@@ -31,7 +34,9 @@ const ProductCard = (props:ProductItem) => {
                     <div className="h-bg-inner"></div>
                 </div>
 
-                <button className="cart-link" onClick={() => dispatch(addItem(product))}>
+                <button className="cart-link" onClick={() => {
+                    dispatch(addItem(product));
+                }}>
                     <span className="price">${price}</span>
                     <span className="add-to-cart">
                         <span className="txt">Add to cart</span>
