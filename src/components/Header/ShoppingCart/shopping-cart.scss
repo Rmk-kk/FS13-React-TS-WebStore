@@ -1,5 +1,71 @@
 @import "../../../utility/variables";
 
+.cart-wrap-dark {
+  background-color: $black-background!important;
+  color: $main_beige!important;
+
+  & button {
+    color: $main_white;
+    border: 1px solid $main-white!important;
+  }
+
+  & .cart-checkout {
+    background-color: $main_beige!important;
+    color: $main_white;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+      background-color: transparent;
+      color: $main_blue
+    }
+  }
+
+  &-bottom_wrap {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 15px;
+    position: relative;
+
+    &:after {
+      width: 70%;
+      height: 1px;
+      margin-bottom: 10px;
+      content: '';
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.38);
+      top: 10%;
+      left: 15%;
+    }
+
+    &-buttons {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  }
+
+  &-notification {
+    display: none;
+    position: absolute;
+    top: -15px;
+    right: -13px;
+    color: $main_white;
+    background-color: $main_blue;
+    height: 24px;
+    text-align: center;
+    width: 24px;
+    cursor: default;
+    border-radius: 100%;
+    z-index: 1;
+  }
+}
+
 
 .cart {
   list-style: none;

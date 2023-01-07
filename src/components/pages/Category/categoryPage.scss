@@ -1,7 +1,7 @@
 @import "./src/utility/variables";
 
 .category_page {
-  padding-bottom: 40px;
+  padding: 25px 0 40px;
   & h2 {
     margin-bottom: 25px;
     font-size: 32px;
@@ -22,10 +22,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
 
     &-range {
       display: flex;
       width: 300px;
+    }
+  }
+}
+
+.category_page-dark {
+  background-color: $dark-grey-background;
+  & h2 {
+    color: $main_white;
+  }
+
+  & .category_page-filters {
+    background-color: #646464;
+
+    & * {
+      color: $main_white;
     }
   }
 }

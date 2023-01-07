@@ -1,15 +1,18 @@
 import './header.scss'
 
-import {Container, Switch} from "@mui/material";
+import {Container} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
-import React, {useEffect, useState} from "react";
+import React, {useContext} from "react";
 import {Link, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../hooks/reduxHook";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import ThemeSwitchIcon from "./ThemeSwitchIcon";
+import {ThemeContext} from "../ThemeContext";
 
 
 const Header = () => {
+    const {darkMode, toggleDarkMode} = useContext(ThemeContext)
+
     const categories = useAppSelector(state => state.categoriesReducer);
     const cart = useAppSelector(state => state.cartReducer);
 
@@ -19,6 +22,7 @@ const Header = () => {
         cursor: 'default'
     }
 
+    console.log(darkMode)
 
     //calculate cart total items
     const cartTotalItems = () => {
@@ -31,16 +35,16 @@ const Header = () => {
 
     return (
         <>
-            <div className='header'>
+            <div className={darkMode ? 'header header-dark' : 'header'}>
                 <Container maxWidth='lg' className='header_wrap'>
                     <Link to={'/'}>
                         <div className='header_wrap-logo'>
-                            <img src="../img/header/62b1a410aba6acdc8069cc3e_integrify-logo high.png" alt="logo"/>
+                            <img src={`../img/header/${darkMode ? 'logo-white' : 'logo-black'}.png`} alt="logo"/>
                         </div>
                     </Link>
                     <div className='header_wrap-menu'>
                     <span className='header_wrap-menu_icon'>
-                        <ThemeSwitchIcon/>
+                        <ThemeSwitchIcon onChange={() => toggleDarkMode()}/>
                     </span>
                     <span className='shopping-cart_anchor header_wrap-menu_icon'>
                         <div className={`cart-notification ${cart.length > 0 && 'cart-notification-enabled'}`}>{cartTotalItems()}</div>
@@ -52,7 +56,7 @@ const Header = () => {
                     </div>
                 </Container>
             </div>
-            <div className="header-categories">
+            <div className={darkMode ? 'header-categories header-categories-dark' : 'header-categories'}>
                 <Container maxWidth='lg'>
                     <ul className='header-categories_list'>
                         {categories.map(item => {

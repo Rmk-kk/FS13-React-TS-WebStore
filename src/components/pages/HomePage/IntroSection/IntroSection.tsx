@@ -1,11 +1,14 @@
 import './intro-section.scss'
 
-import React from "react";
+import React, {useContext} from "react";
 import {Container} from "@mui/material";
+import {ThemeContext} from "../../../ThemeContext";
 
 const IntroSection = () => {
+    const {darkMode} = useContext(ThemeContext)
+
     return (
-        <>
+        <div className={darkMode ? 'intro-section intro-section-dark' : 'intro-section'}>
             <Container maxWidth='lg' className='intro-section_wrap'>
                 <h2 className='intro-section_wrap-heading'>The Leading Nordic online store for different apparel </h2>
             </Container>
@@ -18,7 +21,7 @@ const IntroSection = () => {
                 <img src="../img/intro/cloths.jpg" alt="intro"/>
             </div>
 
-        </>
+        </div>
     )
 }
 

@@ -1,5 +1,5 @@
 import {Box, TextField} from "@mui/material";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {LoginPageProps} from "../AuthPage/AuthPage";
 
 
@@ -8,6 +8,7 @@ const LoginComponent = (props:LoginPageProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {loginFormHandle, loading, error, setError, setNewUser} = props;
+
 
     const load = loading ? <p>Loading</p> : null;
     const err = error ? <p>Wrong username or password</p> : null;

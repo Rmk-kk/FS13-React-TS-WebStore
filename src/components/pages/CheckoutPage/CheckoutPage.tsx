@@ -2,7 +2,7 @@ import './checkout.scss'
 import {Button, Container} from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import React from "react";
+import React, {useContext} from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHook";
@@ -10,9 +10,11 @@ import {UserProfile} from "../../../redux/slices/userReducer";
 import {addItem, permanentlyDeleteItem, removeItem} from "../../../redux/slices/cartReducer";
 import ErrorImageComponent from "../../ErrorImageComponent/ErrorImageComponent";
 import {ShoppingCartCheckout} from "@mui/icons-material";
+import {ThemeContext} from "../../ThemeContext";
 
 const CheckoutPage = () => {
     const dispatch = useAppDispatch();
+    const {darkMode} = useContext(ThemeContext)
     const cart = useAppSelector(state => state.cartReducer);
     const user:UserProfile | null = useAppSelector(state => state.userReducer);
 
@@ -26,78 +28,80 @@ const CheckoutPage = () => {
     }
 
     return (
-        <Container maxWidth='lg'>
-            <div className="checkout">
-                <div className="checkout_products">
-                    <h1>Checkout <ShoppingCartCheckout fontSize={'large'}/></h1>
+        <div className={darkMode ? 'checkout-wrap checkout-wrap-dark' : 'checkout-wrap'}>
+            <Container maxWidth='lg'>
+                <div className={darkMode ? 'checkout checkout-dark' : 'checkout'}>
+                    <div className="checkout_products">
+                        <h1>Checkout <ShoppingCartCheckout fontSize={'large'}/></h1>
 
                         {cart.length > 0 ?
                             <ul className='checkout_products-list'>
                                 { cart.map(product => {
-                                return (
-                                    <li className='checkout_products-list_item' key={product.id}>
-                                        <img src={product.images[0]} alt="product"/>
-                                        <div className='list_item-content'>
-                                            <div className='list_item-content-text'>
-                                                <h3>{product.title}</h3>
-                                                <p>{product.description}</p>
-                                                <div style={{display: 'flex', justifyContent: 'space-around', alignContent: 'center'}}>
-                                                    <h5>Quantity: {product.quantity}</h5>
-                                                    <h5>Price: {product.price}$</h5>
+                                    return (
+                                        <li className='checkout_products-list_item' key={product.id}>
+                                            <img src={product.images[0]} alt="product"/>
+                                            <div className='list_item-content'>
+                                                <div className='list_item-content-text'>
+                                                    <h3>{product.title}</h3>
+                                                    <p>{product.description}</p>
+                                                    <div style={{display: 'flex', justifyContent: 'space-around', alignContent: 'center'}}>
+                                                        <h5>Quantity: {product.quantity}</h5>
+                                                        <h5>Price: {product.price}$</h5>
+                                                    </div>
+                                                </div>
+                                                <div className='list_item-content-buttons'>
+                                                    <div>
+                                                        <ArrowDropUpIcon style={{marginBottom: '15px', marginRight: '10px'}}
+                                                                         onClick={()=>dispatch(addItem(product))}
+                                                                         fontSize='large'/>
+                                                        <ArrowDropDownIcon fontSize='large' onClick={()=>dispatch(removeItem(product.id))}/>
+                                                    </div>
+                                                    <DeleteForeverIcon fontSize='large' onClick={()=>dispatch(permanentlyDeleteItem(product.id))}/>
                                                 </div>
                                             </div>
-                                            <div className='list_item-content-buttons'>
-                                                <div>
-                                                    <ArrowDropUpIcon style={{marginBottom: '15px', marginRight: '10px'}}
-                                                                    onClick={()=>dispatch(addItem(product))}
-                                                                     fontSize='large'/>
-                                                    <ArrowDropDownIcon fontSize='large' onClick={()=>dispatch(removeItem(product.id))}/>
-                                                </div>
-                                                <DeleteForeverIcon fontSize='large' onClick={()=>dispatch(permanentlyDeleteItem(product.id))}/>
-                                            </div>
-                                        </div>
-                                    </li>
-                                )
-                            }) }
+                                        </li>
+                                    )
+                                }) }
                             </ul>
                             : <ErrorImageComponent path={'checkout/empty-cart'}></ErrorImageComponent>
                         }
-                </div>
-                <div className="checkout_payment">
-                    <div className="checkout_payment-greeting">
-                        <h2>Hello, {user!.name}!</h2>
-                        <img src={user!.avatar} alt="avatar"/>
                     </div>
-                    <ul className='checkout_payment-list'>
-                        {cart.length > 0 ? cart.map(product => {
-                            return (
-                                <li className='checkout_payment-list-item' key={product.id}>
-                                    <h3>{product.title}</h3>
-                                    <div className='checkout_payment-list-item-info'>
-                                        <p>Quantity: <b>{product.quantity}</b></p>
-                                        <p>Total: <b>{product.price * product.quantity}</b>$</p>
-                                    </div>
-                                </li>
-                            )
-                        }) : <h3>Your cart is empty</h3>
-                        }
-
-                    </ul>
-
-                    <div className='checkout_payment-total'>
-                        <div className="checkout_payment-total-info">
-                            <h3>Total: {cartTotal()}$</h3>
+                    <div className="checkout_payment">
+                        <div className="checkout_payment-greeting">
+                            <h2>Hello, {user!.name}!</h2>
+                            <img src={user!.avatar} alt="avatar"/>
                         </div>
-                        <div className="checkout_payment-total-cards">
-                            <CardIconsComponent/>
-                        </div>
-                        <div className="checkout_payment-total-button">
-                            <Button variant="outlined" size='large' disabled={!cart.length}>Pay <ArrowForwardIcon style={{marginLeft : '10px'}}/></Button>
+                        <ul className='checkout_payment-list'>
+                            {cart.length > 0 ? cart.map(product => {
+                                return (
+                                    <li className='checkout_payment-list-item' key={product.id}>
+                                        <h3>{product.title}</h3>
+                                        <div className='checkout_payment-list-item-info'>
+                                            <p>Quantity: <b>{product.quantity}</b></p>
+                                            <p>Total: <b>{product.price * product.quantity}</b>$</p>
+                                        </div>
+                                    </li>
+                                )
+                            }) : <h3>Your cart is empty</h3>
+                            }
+
+                        </ul>
+
+                        <div className='checkout_payment-total'>
+                            <div className="checkout_payment-total-info">
+                                <h3>Total: {cartTotal()}$</h3>
+                            </div>
+                            <div className="checkout_payment-total-cards">
+                                <CardIconsComponent/>
+                            </div>
+                            <div className="checkout_payment-total-button">
+                                <Button variant="outlined" size='large' disabled={!cart.length}>Pay <ArrowForwardIcon style={{marginLeft : '10px'}}/></Button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </Container>
+            </Container>
+        </div>
     )
 }
 

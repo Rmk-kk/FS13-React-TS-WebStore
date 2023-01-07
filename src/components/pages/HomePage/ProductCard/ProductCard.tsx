@@ -5,17 +5,18 @@ import {Link} from "react-router-dom";
 import {addItem} from "../../../../redux/slices/cartReducer";
 import {useAppDispatch} from "../../../../hooks/reduxHook";
 import ClearIcon from "@mui/icons-material/Clear";
-import {useEffect, useState} from "react";
-import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
+import {useContext, useState} from "react";
+import {ThemeContext} from "../../../ThemeContext";
 
 const ProductCard = (props:ProductItem) => {
     const dispatch = useAppDispatch();
+    const {darkMode} = useContext(ThemeContext)
     const {title, price, description, images, category, id, deleteItem, admin} = props;
     const [addItemNotification, setAddItemNotification] = useState(false);
     const product = {title, price, description, images, category, id};
 
     return (
-        <div className='product-card'>
+        <div className={darkMode ? 'product-card product-card-dark' : 'product-card'}>
             {admin && <ClearIcon onClick={()=>deleteItem(id)} className='product-card_delete-icon' fontSize='large'/>}
             <Link to={`/category/${category.name + category.id}/${id}`}>
                 <div className="product-card-up">

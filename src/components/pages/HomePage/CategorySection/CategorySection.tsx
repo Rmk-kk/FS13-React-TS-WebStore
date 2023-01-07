@@ -1,10 +1,12 @@
 import './categorySection.scss'
 import {Container} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import {fetchAllCategories} from "../../../../redux/slices/categoryReducer";
 import {Link} from "react-router-dom";
+import {ThemeContext} from "../../../ThemeContext";
 const CategorySection = () => {
+    const {darkMode} = useContext(ThemeContext)
     const categories = useAppSelector(state => state.categoriesReducer);
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -12,7 +14,7 @@ const CategorySection = () => {
     }, [])
 
     return (
-        <section className='category'>
+        <section className={darkMode ? 'category category-dark' : 'category'}>
             <Container maxWidth='lg'>
                 <h2>Shop by Category</h2>
                 <div  className='category-wrap'>

@@ -7,25 +7,24 @@
   box-sizing: border-box;
 }
 
-html {
-  background-color: $light_blue;
-}
 
 body {
   //font-family: 'Mulish', sans-serif;
   font-family: 'Raleway', sans-serif;
   color:$main_blue;
-
+  background-color: $light_blue;
 }
 
-.input_file-upload {
-
+.body-dark {
+  background-color: $dark-grey-background;
 }
+
 
 #root {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+
 }
 
 #menu- {

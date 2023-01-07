@@ -3,11 +3,14 @@ import './products.scss'
 import {Container, Pagination} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
 import ProductCard from "../ProductCard/ProductCard";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {fetchAllProducts} from "../../../../redux/slices/productReducer";
 import StoreServices from "../../../StoreServices/StoreServices";
+import {ThemeContext} from "../../../ThemeContext";
 
 const ProductsSection = () => {
+    const {darkMode} = useContext(ThemeContext)
+
     const [page, setPage] = useState(1);
     const productsState = useAppSelector(state => state.productReducer);
     const [productsLength, setProductsLength] = useState(0);
@@ -22,6 +25,7 @@ const ProductsSection = () => {
         }
         return  null
     })
+
     //getProductLength
     useEffect(() => {
         service.getAllProducts()
@@ -62,7 +66,7 @@ const ProductsSection = () => {
     };
 
     return (
-        <section className='products'>
+        <section className={darkMode ? 'products products-dark' : 'products'}>
             <Container maxWidth='lg'>
                 <h2>All our products</h2>
                 <div  className='products-wrap'>
@@ -80,7 +84,7 @@ const ProductsSection = () => {
                         })}
                     </ul>
                 </div>
-                <Pagination style={{display: 'flex', justifyContent: 'center'}}
+                <Pagination className={darkMode ? 'products-pagination products-pagination-dark' : 'products-pagination'}
                             count={Math.ceil(productsLength/12)}
                             page={page}
                             variant="outlined"

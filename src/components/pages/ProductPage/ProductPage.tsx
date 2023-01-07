@@ -2,16 +2,18 @@ import './product-page.scss';
 
 import {useNavigate, useParams} from "react-router-dom";
 import {Container} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Product, ProductItem} from "../../types-interfaces";
 import StoreServices from "../../StoreServices/StoreServices";
 import ProductImageSlider from "./ProductImageSlider";
 import {useAppDispatch} from "../../../hooks/reduxHook";
 import { addItem } from "../../../redux/slices/cartReducer";
 import EditProductModal from "./EditProductModal/EditProductModal";
+import {ThemeContext} from "../../ThemeContext";
 
 const ProductPage = () => {
     const {id} = useParams();
+    const {darkMode} = useContext(ThemeContext);
     const navigate = useNavigate();
     const [product, setProduct] = useState<Product | null>(null);
     const [error, setError] = useState(false);
@@ -70,11 +72,13 @@ const ProductPage = () => {
                                      images={product.images}
                                      category={product.category} /> : null;
     return (
-        <Container maxWidth='lg'>
-            <div className='singleProduct-wrap'>
-                {content}
-            </div>
-        </Container>
+        <div className={darkMode ? 'singleProduct singleProduct-dark' : 'singleProduct'}>
+            <Container maxWidth='lg'>
+                <div className='singleProduct-wrap'>
+                    {content}
+                </div>
+            </Container>
+        </div>
     )
 }
 

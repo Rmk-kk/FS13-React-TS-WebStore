@@ -1,5 +1,13 @@
 @import "../../../../utility/variables";
 
+.product-card-dark {
+  & .product-card_delete-icon {
+      fill: $main_beige;
+    &:hover {
+      fill: orange;
+    }
+  }
+}
 
 .product-card {
   width: 240px;

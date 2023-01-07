@@ -2,16 +2,18 @@ import './shopping-cart.scss'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Button, Fade} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHook";
 import {addItem, CartProduct, permanentlyDeleteItem, removeItem, resetCart} from "../../../redux/slices/cartReducer";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CloseIcon from '@mui/icons-material/Close';
+import {ThemeContext} from "../../ThemeContext";
 
 const ShoppingCart = () => {
     const [showCart, setShowCart] = useState(false);
+    const {darkMode} = useContext(ThemeContext)
     const dispatch = useAppDispatch();
     const cart = useAppSelector(state => state.cartReducer);
     const toggleShoppingCart = () => {
@@ -35,7 +37,7 @@ const ShoppingCart = () => {
                               onClick={()=>toggleShoppingCart()}
             />
             <Fade in={showCart} mountOnEnter unmountOnExit>
-                <div className='cart-wrap'>
+                <div className={darkMode ? 'cart-wrap cart-wrap-dark' : 'cart-wrap'}>
                     <CloseIcon className='cart-wrap_close' fontSize='large' onClick={()=>setShowCart(false)}/>
                     <ul className='cart'>
                         {elements}

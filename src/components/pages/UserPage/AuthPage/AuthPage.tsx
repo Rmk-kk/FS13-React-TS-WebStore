@@ -1,6 +1,6 @@
 import './login.scss'
 import {Container} from "@mui/material";
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {FormEvent, useContext, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
 import {useNavigate} from "react-router-dom";
 import StoreServices from "../../../StoreServices/StoreServices";
@@ -8,6 +8,7 @@ import {getUserWithToken} from "../../../../redux/slices/userReducer";
 import RegistrationComponent from "../Registration/RegistrationComponent";
 import LoginComponent from "../Login/LoginComponent";
 import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
+import {ThemeContext} from "../../../ThemeContext";
 
 export interface AuthPageProps {
     loading: boolean,
@@ -30,6 +31,8 @@ export type LoginDataType = {email:string, password: string}
 export type RegisterDataType = {email:string, password: string, name: string}
 
 const AuthPage = () => {
+    const {darkMode} = useContext(ThemeContext)
+
     const [newUser, setNewUser] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -60,7 +63,10 @@ const AuthPage = () => {
                 localStorage.setItem('access_token', res.data['access_token']);
             })
             .then(getUserLogin)
-            .catch(() => setError(true))
+            .catch(() => {
+                setError(true)
+                setLoading(false)
+            })
     }
     const getUserLogin = () => {
         dispatch(getUserWithToken(localStorage.getItem('access_token')));
@@ -79,22 +85,24 @@ const AuthPage = () => {
     }
 
     return(
-        <Container maxWidth={"lg"} style={{margin: 'auto'}}>
-            {newUser ? <RegistrationComponent
-                    setError={setError}
-                    error={error}
-                    loading={loading}
-                    setNewUser={setNewUser}
-                    registerFormHandle={registerFormHandle}/> :
-                <LoginComponent setError={setError}
-                          error={error}
-                          loading={loading}
-                          setNewUser={setNewUser}
-                          loginFormHandle={loginFormHandle}
-                />}
-            {newUserNotification && <NotificationMessage id={1} message='User created successfully' type='success'/>}
-            {error && <NotificationMessage id={2}  message='Something went wrong...' type='error'/> }
-        </Container>
+        <div className={darkMode ? 'login-wrap login-wrap-dark' : 'login-wrap'}>
+            <Container maxWidth={"lg"} style={{margin: 'auto'}}>
+                {newUser ? <RegistrationComponent
+                        setError={setError}
+                        error={error}
+                        loading={loading}
+                        setNewUser={setNewUser}
+                        registerFormHandle={registerFormHandle}/> :
+                    <LoginComponent setError={setError}
+                                    error={error}
+                                    loading={loading}
+                                    setNewUser={setNewUser}
+                                    loginFormHandle={loginFormHandle}
+                    />}
+                {newUserNotification && <NotificationMessage id={1} message='User created successfully' type='success'/>}
+                {error && <NotificationMessage id={2}  message='Something went wrong...' type='error'/> }
+            </Container>
+        </div>
     )
 }
 

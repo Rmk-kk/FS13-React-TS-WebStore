@@ -1,6 +1,8 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {ThemeContext} from "../../ThemeContext";
 
 const ProductImageSlider = (props:ProductImageSliderProps) => {
+    const {darkMode} = useContext(ThemeContext);
     const {slides} = props;
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -20,7 +22,7 @@ const ProductImageSlider = (props:ProductImageSliderProps) => {
         setCurrentIndex(index)
     }
     return (
-        <div className='slider-container'>
+        <div className={darkMode ? 'slider-container slider-dark' : 'slider-container'}>
             <div className='slider-left_arrow' onClick={() => changeToPrev()}>&#10096;</div>
             <div className='slider-right_arrow' onClick={() => changeToNext()}>&#10097;</div>
             <div className='slider-slide'

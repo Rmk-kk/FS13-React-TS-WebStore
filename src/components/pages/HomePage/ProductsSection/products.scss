@@ -1,9 +1,9 @@
 @import "./src/utility/variables";
 
-.products {
-  margin-top: -30px;
-
+.products-dark {
+  background-color: $dark-grey-background;
   & h2 {
+    color: $main_white;
     font-size: 36px;
     font-style: italic;
   }
@@ -15,4 +15,41 @@
       margin-bottom: 25px;
     }
   }
+}
+
+.products {
+  margin-top: -30px;
+
+  & h2 {
+    font-size: 36px;
+    font-style: italic;
+    margin-bottom: 25px;
+  }
+
+  &-wrap {
+    &_list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.products-pagination-dark {
+  & button {
+    border-color: rgba(221, 181, 124, 0.3);
+    color: $main_beige;
+    &:hover {
+      background-color: rgba(221, 181, 124, 0.1);
+    }
+  }
+
+  & div {
+    color: $main-beige;
+  }
+}
+
+.products-pagination {
+  display: flex;
+  justify-content: center;
 }

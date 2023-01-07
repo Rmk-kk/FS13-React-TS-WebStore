@@ -1,31 +1,40 @@
 @import "./src/utility/variables";
+.header-dark {
+  background-color: $dark-grey-background!important;
+
+  & .header_wrap-menu_icon {
+      & svg {
+        fill: $main_white;
+
+        &:hover {
+          fill:$main_beige
+        }
+      }
+    }
+}
+
+.header-categories-dark {
+  background-color: $black-background;
+
+  & .header-categories_list {
+
+    &-item {
+      color: $main_white;
+      &:not(:last-child) {
+        &:after {
+          background-color: rgba(171, 171, 171, 0.25);
+        }
+      }
+    }
+  }
+}
+
 .header {
   background-color: $main_beige;
-
   &_wrap {
     display: flex!important;
     justify-content: space-between;
     align-items: center;
-
-    &-input {
-      padding: 5px 10px;
-      font-size: 16px;
-      outline: none;
-      color: $main_blue;
-      width: 70px;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid $main_blue;
-      transition: all .1s linear;
-
-      &::placeholder {
-        color: $main_blue;
-      }
-
-      &:focus {
-        width: 200px;
-      }
-    }
 
     &-logo img{
       width: 200px;
@@ -63,7 +72,7 @@
 }
 
 .header-categories {
-  padding: 15px 5px 35px;
+  padding: 15px 5px 15px;
 
   &_list {
     display: flex;

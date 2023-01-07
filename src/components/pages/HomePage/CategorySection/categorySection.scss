@@ -1,8 +1,8 @@
 @import "./src/utility/variables";
 
 .category {
-  margin-bottom: 50px;
-  
+  padding-bottom: 70px;
+  padding-top: 30px;
   & h2 {
     margin-bottom: 30px;
     font-size: 36px;
@@ -39,4 +39,27 @@
       }
     }
   }
+}
+
+.category-dark {
+  background-color: $dark-grey-background;
+    & h2 {
+      margin-bottom: 30px;
+      font-size: 36px;
+      font-style: italic;
+      color: $main_white;
+    }
+    &-wrap {
+
+      &_list{
+        &-item{
+          background-color: $main_white;
+          color: $main_blue;
+          & h4 {
+            margin-bottom: 30px;
+            font-size: 24px;
+          }
+        }
+      }
+    }
 }

@@ -13,7 +13,7 @@
     width: 280px;
     border-radius: 15px;
     box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.14);
-    margin: 0 auto;
+    margin: 80px auto 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,12 +46,68 @@
 
     &:hover {
       background-color: #0652b4;
+      transform: translateY(-5px);
     }
 
     &:active {
-      transform: translateY(-5px);
       box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.2);
     }
   }
 
+}
+
+.login-wrap {
+  flex: 1;
+  position: relative;
+}
+
+.login-wrap-dark {
+  background-color: $dark-grey-background;
+
+  .login-form-login {
+    background-color: $main-white;
+    color: $dark-grey-background;
+
+    & input {
+      &:focus, &:active {
+        border: $dark-grey-background!important;
+      }
+    }
+
+    & button {
+      background-color: $dark-grey-background;
+    }
+  }
+}
+
+.user-content-wrap {
+  flex: 1;
+}
+
+.user-content-wrap-dark {
+  background-color: $dark-grey-background;
+  color: $main_white;
+
+  & .profile-functionality button {
+    background-color: $main_white;
+    color: $dark-grey-background;
+    border: 1px solid $dark-grey-background;
+    outline: $dark-grey-background;
+
+  }
+
+  & .profile-wrap_content-buttons button {
+    border: 1px solid $main_white;
+    color: $main_white;
+
+    &:first-child {
+      border: none;
+      background-color: $main_white;
+      color: $dark-grey-background;
+
+      &:disabled {
+        opacity: 0.3;
+      }
+    }
+  }
 }
