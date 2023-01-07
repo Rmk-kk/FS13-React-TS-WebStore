@@ -71,7 +71,7 @@ const ShoppingCartItem = (props:ShoppingCartItemProps) => {
     const {images, title, price,id, quantity, category} = props.product;
     return (
             <li className="cart-item">
-                <Link to={`/category/${category.name+category.id}/${id}`} className="cart-item">
+                <Link to={`/category/${category.name+category.id}/${id}`} className="cart-item" style={{margin: 0, padding: 0}}>
                     <img src={images[0]} alt="PLACEHOLDER"/>
                 </Link>
                 <div className="cart-item_content">

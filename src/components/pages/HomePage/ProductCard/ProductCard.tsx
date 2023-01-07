@@ -26,7 +26,7 @@ const ProductCard = (props:ProductItem) => {
                             <span className="p-name">{title}</span>
                             <span className="p-company">{category.name}</span>
                         </div>
-                        <div className="a-size">{description}</div>
+                        <div className="a-size">{description.length <= 100 ? description : description.slice(0, 100) + '...'}</div>
                     </div>
                 </div>
             </Link>
