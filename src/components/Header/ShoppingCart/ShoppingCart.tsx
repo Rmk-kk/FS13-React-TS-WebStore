@@ -68,23 +68,25 @@ interface ShoppingCartItemProps {
 }
 const ShoppingCartItem = (props:ShoppingCartItemProps) => {
     const dispatch = useAppDispatch();
-    const {images, title, price,id, quantity} = props.product;
+    const {images, title, price,id, quantity, category} = props.product;
     return (
-        <li className="cart-item">
-            <img src={images[0]} alt="PLACEHOLDER"/>
-            <div className="cart-item_content">
-                <h3>{title}</h3>
-                <div className='cart-item_content-price'>{price}<span>$</span></div>
-                <div className='cart-item_content-quantity'>Quantity: <span>{quantity}</span>
-                <span className='cart-item_content-arrows'>
-                    <ArrowDropUpIcon fontSize='medium' onClick={()=> {
-                        dispatch(addItem(props.product))
-                    }}/>
-                    <ArrowDropDownIcon fontSize='medium' onClick={()=> dispatch(removeItem(id))}/>
-                </span>
+            <li className="cart-item">
+                <Link to={`/category/${category.name+category.id}/${id}`} className="cart-item">
+                    <img src={images[0]} alt="PLACEHOLDER"/>
+                </Link>
+                <div className="cart-item_content">
+                    <h3>{title}</h3>
+                    <div className='cart-item_content-price'>{price}<span>$</span></div>
+                    <div className='cart-item_content-quantity'>Quantity: <span>{quantity}</span>
+                    <span className='cart-item_content-arrows'>
+                        <ArrowDropUpIcon fontSize='medium' onClick={()=> {
+                            dispatch(addItem(props.product))
+                        }}/>
+                        <ArrowDropDownIcon fontSize='medium' onClick={()=> dispatch(removeItem(id))}/>
+                    </span>
+                    </div>
                 </div>
-            </div>
-            <DeleteForeverIcon onClick={() => dispatch(permanentlyDeleteItem(id))}/>
-        </li>
+                <DeleteForeverIcon onClick={() => dispatch(permanentlyDeleteItem(id))}/>
+            </li>
     )
 }
