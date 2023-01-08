@@ -22,8 +22,6 @@ const Header = () => {
         cursor: 'default'
     }
 
-    console.log(darkMode)
-
     //calculate cart total items
     const cartTotalItems = () => {
         let total = 0;

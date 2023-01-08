@@ -31,6 +31,8 @@
 
 .header {
   background-color: $main_beige;
+  height: 85px;
+
   &_wrap {
     display: flex!important;
     justify-content: space-between;

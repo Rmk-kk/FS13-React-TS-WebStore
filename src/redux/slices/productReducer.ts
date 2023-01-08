@@ -20,7 +20,7 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
     async (data:{offset: number, limit: number}) => {
     const {offset, limit} = data;
     try {
-        const response = await axios.get(`https://api.escuelajs.co/api/v1/products?offset=${offset + 3}&limit=${limit + 4}`);
+        const response = await axios.get(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit + 4}`);
         return response.data
     } catch (error) {
         console.log(error);
@@ -77,8 +77,7 @@ const productSlice = createSlice({
         },
 
         onSearchFilter: (state:ProductSliceType, action) => {
-            return {
-                ...state,
+            return {...state,
                 products: state.productsRef.filter(product => {
                     if(product.title.toLowerCase().includes(action.payload.toLowerCase())){
                         return product
