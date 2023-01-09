@@ -1,5 +1,4 @@
-import './product-page.scss';
-
+import './_product-page.scss';
 import {useNavigate, useParams} from "react-router-dom";
 import {Container} from "@mui/material";
 import {useContext, useEffect, useState} from "react";

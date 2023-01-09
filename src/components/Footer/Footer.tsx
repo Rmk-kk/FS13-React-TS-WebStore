@@ -1,8 +1,9 @@
-import './footer.scss'
+import './_footer.scss'
 import {Container} from "@mui/material";
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {useAppSelector} from "../../hooks/reduxHook";
+
 const Footer = () => {
     const categories = useAppSelector(state => state.categoriesReducer);
 
@@ -10,7 +11,6 @@ const Footer = () => {
         textDecoration: "underline",
         color: '#043E85'
     }
-
 
     return (
         <footer className='footer'>

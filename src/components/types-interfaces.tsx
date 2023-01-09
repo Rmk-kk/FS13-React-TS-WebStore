@@ -1,6 +1,4 @@
 //PRODUCT AND PRODUCT LIST
-import React from "react";
-
 export type ProductList = Product[]
 export interface Product {
     id: number,
@@ -17,7 +15,6 @@ export interface ProductListItemCategory {
 }
 
 //CATEGORY AND CATEGORY ITEM
-
 export type CategoryList = Category[]
 export interface Category {
     id: number,
@@ -26,7 +23,6 @@ export interface Category {
 }
 
 //PRODUCT ITEM
-
 export interface ProductItem {
     deleteItem:(id: number) => void,
     admin?: boolean,

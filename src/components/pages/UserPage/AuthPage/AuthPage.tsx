@@ -1,4 +1,4 @@
-import './login.scss'
+import './_login.scss'
 import {Container} from "@mui/material";
 import React, {FormEvent, useContext, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
@@ -32,12 +32,10 @@ export type RegisterDataType = {email:string, password: string, name: string}
 
 const AuthPage = () => {
     const {darkMode} = useContext(ThemeContext)
-
     const [newUser, setNewUser] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [newUserNotification, setNewUserNotification] = useState(false);
-
     const user = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -53,7 +51,6 @@ const AuthPage = () => {
         }
     }, [user])
 
-
     //LOGIN
     const loginFormHandle = (e:FormEvent, data:LoginDataType) => {
         setLoading(true);
@@ -68,6 +65,7 @@ const AuthPage = () => {
                 setLoading(false)
             })
     }
+
     const getUserLogin = () => {
         dispatch(getUserWithToken(localStorage.getItem('access_token')));
     }

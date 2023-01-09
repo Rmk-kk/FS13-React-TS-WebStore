@@ -1,15 +1,13 @@
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import ReactDOM from "react-dom";
-import {useAppSelector} from "../../hooks/reduxHook";
+
 export interface NotificationMessageProps {
     message: string,
     type: string,
     id: number,
 }
-
-
 const NotificationMessage = (props:NotificationMessageProps) => {
     const {message, type, id} = props;
     // const customId = "custom-id-yes";

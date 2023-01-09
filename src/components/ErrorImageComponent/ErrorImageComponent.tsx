@@ -1,4 +1,3 @@
-
 interface ErrorImageComponentProps {
     path: string
 }

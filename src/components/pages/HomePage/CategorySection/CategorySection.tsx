@@ -1,10 +1,11 @@
-import './categorySection.scss'
+import './_categorySection.scss'
 import {Container} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
 import {useContext, useEffect} from "react";
 import {fetchAllCategories} from "../../../../redux/slices/categoryReducer";
 import {Link} from "react-router-dom";
 import {ThemeContext} from "../../../ThemeContext";
+
 const CategorySection = () => {
     const {darkMode} = useContext(ThemeContext)
     const categories = useAppSelector(state => state.categoriesReducer);

@@ -21,6 +21,7 @@ const ProductImageSlider = (props:ProductImageSliderProps) => {
     const changeSlide = (index:number) => {
         setCurrentIndex(index)
     }
+
     return (
         <div className={darkMode ? 'slider-container slider-dark' : 'slider-container'}>
             <div className='slider-left_arrow' onClick={() => changeToPrev()}>&#10096;</div>

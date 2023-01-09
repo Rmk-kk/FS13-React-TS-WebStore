@@ -1,4 +1,3 @@
-
 const createDate = (data:Date) => {
     const today = new Date(data);
     const year = today.getFullYear();

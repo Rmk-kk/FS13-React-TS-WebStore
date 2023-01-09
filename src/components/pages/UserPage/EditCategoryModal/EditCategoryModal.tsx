@@ -1,11 +1,8 @@
-import '../../ProductPage/EditProductModal/edit-product.scss'
-
+import '../../ProductPage/EditProductModal/_edit-product.scss'
 import React, {FormEvent, useEffect, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import StoreServices from "../../../StoreServices/StoreServices";
 import {Category} from "../../../types-interfaces";
-
-
 
 export interface EditCategoryProps {
     editCategory: boolean,
@@ -13,6 +10,7 @@ export interface EditCategoryProps {
     setEditCategoryError:React.Dispatch<React.SetStateAction<boolean>>,
     setEditCategorySucceed: React.Dispatch<React.SetStateAction<boolean>>,
 }
+
 const EditCategoryModal = (props:EditCategoryProps) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState<string>('');

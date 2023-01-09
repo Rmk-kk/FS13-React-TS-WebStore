@@ -1,4 +1,4 @@
-import './edit-product.scss'
+import './_edit-product.scss'
 import React, {FormEvent, useEffect, useState} from 'react'
 import ReactDOM from 'react-dom';
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
@@ -14,6 +14,7 @@ export interface EditProductModalProps {
     description: string,
     id: number,
 }
+
 const EditProductModal = (props:EditProductModalProps) => {
     const {edit, setEdit, title, price, description, id, category} = props;
     const [newName, setNewName] = useState(title);
@@ -21,8 +22,6 @@ const EditProductModal = (props:EditProductModalProps) => {
     const [categories, setCategories] = useState<CategoryType[]>([]);
     const [newPrice, setNewPrice] = useState(price);
     const [newDesc, setNewDesc] = useState(description);
-
-
     const service = new StoreServices();
 
     useEffect(() => {

@@ -20,7 +20,7 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
     async (data:{offset: number, limit: number}) => {
     const {offset, limit} = data;
     try {
-        const response = await axios.get(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit + 4}`);
+        const response = await axios.get(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`);
         return response.data
     } catch (error) {
         console.log(error);

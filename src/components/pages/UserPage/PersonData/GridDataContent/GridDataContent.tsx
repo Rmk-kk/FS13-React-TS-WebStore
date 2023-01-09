@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import {CategoryType} from "../../NewItemModal/NewItemModal";
 import createDate from "../../../../StoreServices/createDateFunction";
 import StoreServices from "../../../../StoreServices/StoreServices";

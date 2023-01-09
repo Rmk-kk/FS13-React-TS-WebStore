@@ -1,4 +1,4 @@
-import './profile-functionality.scss'
+import './_profile-functionality.scss'
 import {Button} from "@mui/material";
 import NewItemModal, {CategoryType} from "../../NewItemModal/NewItemModal";
 import React, {useEffect, useState} from "react";
@@ -11,6 +11,7 @@ import EditCategoryModal from "../../EditCategoryModal/EditCategoryModal";
 export interface ProfileFunctionalityProps{
     role: string,
 }
+
 const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
     const service = new StoreServices();
     const [categories, setCategories] = useState<CategoryType[]>([]);
@@ -28,7 +29,6 @@ const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
     //Edit Category
     const [editCategoryError, setEditCategoryError] = useState(false);
     const [editCategorySucceed, setEditCategorySucceed] = useState(false);
-
     //DATA GRID
     const [show, setShow] = useState(false);
     const [type, setType] = useState<string>('categories')

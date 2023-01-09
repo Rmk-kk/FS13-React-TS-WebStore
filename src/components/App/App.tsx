@@ -1,8 +1,4 @@
-import './app.scss'
-import '../Header/header.scss'
-
 import React from 'react'
-
 import Header from "../Header/Header";
 import HomePage from "../pages/HomePage/HomePage";
 import Footer from "../Footer/Footer";
@@ -14,8 +10,6 @@ import UserContent from "../pages/UserPage/UserContentContainer/UserContent";
 import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
 import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
 import ErrorImageComponent from "../ErrorImageComponent/ErrorImageComponent";
-
-
 
 const App = () => {
   return (

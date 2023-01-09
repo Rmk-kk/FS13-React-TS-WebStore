@@ -1,10 +1,7 @@
-import '../../ProductPage/EditProductModal/edit-product.scss'
-
+import '../../ProductPage/EditProductModal/_edit-product.scss'
 import React, {FormEvent, useState} from 'react'
 import {Box,TextField} from "@mui/material";
 import StoreServices from "../../../StoreServices/StoreServices";
-
-
 
 export interface NewCategoryModalProps {
     createCategory: boolean,
@@ -12,10 +9,10 @@ export interface NewCategoryModalProps {
     setNewCategoryError:React.Dispatch<React.SetStateAction<boolean>>,
     setNewCategorySucceed: React.Dispatch<React.SetStateAction<boolean>>,
 }
+
 const NewCategoryModal = (props:NewCategoryModalProps) => {
     const [name, setName] = useState('');
-    const [image, setImage] = useState<string>('');
-
+    const [image, setImage] = useState('');
     const service = new StoreServices();
     const {createCategory, setCreateCategory, setNewCategoryError, setNewCategorySucceed} = props;
 

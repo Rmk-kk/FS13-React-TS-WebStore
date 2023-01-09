@@ -1,5 +1,4 @@
-import './header.scss'
-
+import './_header.scss'
 import {Container} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import React, {useContext} from "react";
@@ -8,7 +7,6 @@ import {useAppSelector} from "../../hooks/reduxHook";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import ThemeSwitchIcon from "./ThemeSwitchIcon";
 import {ThemeContext} from "../ThemeContext";
-
 
 const Header = () => {
     const {darkMode, toggleDarkMode} = useContext(ThemeContext)

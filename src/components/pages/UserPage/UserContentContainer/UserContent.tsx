@@ -1,5 +1,4 @@
-import '../PersonData/profile.scss'
-import StoreServices from "../../../StoreServices/StoreServices";
+import '../PersonData/_profile.scss'
 import {useAppSelector} from "../../../../hooks/reduxHook";
 import {Container} from "@mui/material";
 import PersonData from "../PersonData/PersonData";
@@ -8,8 +7,6 @@ import {ThemeContext} from "../../../ThemeContext";
 
 const UserContent = () => {
     const {darkMode} = useContext(ThemeContext)
-
-    const service = new StoreServices();
     const user = useAppSelector(state => state.userReducer)
 
     const element = user ? <PersonData user={user}/> : <h1>Loading</h1>

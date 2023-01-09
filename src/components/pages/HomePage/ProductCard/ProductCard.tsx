@@ -1,18 +1,16 @@
-import './productCard.scss'
-
+import './_productCard.scss'
 import {ProductItem} from "../../../types-interfaces";
 import {Link} from "react-router-dom";
 import {addItem} from "../../../../redux/slices/cartReducer";
 import {useAppDispatch} from "../../../../hooks/reduxHook";
 import ClearIcon from "@mui/icons-material/Clear";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {ThemeContext} from "../../../ThemeContext";
 
 const ProductCard = (props:ProductItem) => {
     const dispatch = useAppDispatch();
     const {darkMode} = useContext(ThemeContext)
     const {title, price, description, images, category, id, deleteItem, admin} = props;
-    const [addItemNotification, setAddItemNotification] = useState(false);
     const product = {title, price, description, images, category, id};
 
     return (

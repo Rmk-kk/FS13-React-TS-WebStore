@@ -1,4 +1,4 @@
-import '../../ProductPage/EditProductModal/edit-product.scss'
+import '../../ProductPage/EditProductModal/_edit-product.scss'
 import React, {FormEvent, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 
@@ -26,10 +26,9 @@ const NewItemModal = (props: NewItemModalProps) => {
     const [title, setTitle] = useState('');
     const [categoryId, setCategoryId] = useState<number | string>('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState<number>(0);
-    const [image, setImage] = useState<string>('');
-    const [image2, setImage2] = useState<string>('');
-
+    const [price, setPrice] = useState(0);
+    const [image, setImage] = useState('');
+    const [image2, setImage2] = useState('');
     const service = new StoreServices();
     const {createProduct, setCreateProduct, categories, setNewProductError, setNewProductSucceed} = props;
 

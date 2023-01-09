@@ -1,5 +1,4 @@
-import './intro-section.scss'
-
+import './_intro-section.scss'
 import React, {useContext} from "react";
 import {Container} from "@mui/material";
 import {ThemeContext} from "../../../ThemeContext";

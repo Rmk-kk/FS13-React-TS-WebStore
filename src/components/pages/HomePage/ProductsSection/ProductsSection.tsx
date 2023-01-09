@@ -1,5 +1,4 @@
-import './products.scss'
-
+import './_products.scss'
 import {Container, Pagination} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHook";
 import ProductCard from "../ProductCard/ProductCard";
@@ -10,14 +9,9 @@ import {ThemeContext} from "../../../ThemeContext";
 
 const ProductsSection = () => {
     const {darkMode} = useContext(ThemeContext)
-
     const [page, setPage] = useState(1);
-    const productsState = useAppSelector(state => state.productReducer);
     const [productsLength, setProductsLength] = useState(0);
-    const dispatch = useAppDispatch();
-    const service = new StoreServices();
     const [admin, setAdmin] = useState(false);
-
     const user = useState(() => {
         const data = localStorage.getItem('user');
         if(data) {
@@ -25,6 +19,9 @@ const ProductsSection = () => {
         }
         return  null
     })
+    const dispatch = useAppDispatch();
+    const service = new StoreServices();
+    const productsState = useAppSelector(state => state.productReducer);
 
     //getProductLength
     useEffect(() => {

@@ -1,5 +1,4 @@
-import './categoryPage.scss'
-
+import './_categoryPage.scss'
 import {useParams} from "react-router-dom";
 import {Container, FormControl, InputLabel, MenuItem, Select, Slider, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHook";
@@ -13,7 +12,6 @@ import ProductCard from "../HomePage/ProductCard/ProductCard";
 import StoreServices from "../../StoreServices/StoreServices";
 import ErrorImageComponent from "../../ErrorImageComponent/ErrorImageComponent";
 import {ThemeContext} from "../../ThemeContext";
-
 
 const CategoryPage = () => {
     const {darkMode} = useContext(ThemeContext)

@@ -1,4 +1,4 @@
-import './checkout.scss'
+import './_checkout.scss'
 import {Button, Container} from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";

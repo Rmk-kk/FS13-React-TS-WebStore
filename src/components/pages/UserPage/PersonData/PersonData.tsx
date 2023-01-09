@@ -1,10 +1,9 @@
 import {useAppDispatch} from "../../../../hooks/reduxHook";
 import createDate from "../../../StoreServices/createDateFunction";
 import {Box, Button, TextField} from "@mui/material";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {getUserWithToken, logout, updateUserInformation} from "../../../../redux/slices/userReducer";
 import ProfileFunctionality from "./ProfileFunctionality/ProfileFunctionality";
-import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 
 export interface PersonDataProps {
     user: {
@@ -18,13 +17,13 @@ export interface PersonDataProps {
         password: string,
     }
 }
+
 const PersonData = (props:PersonDataProps) => {
     const dispatch = useAppDispatch();
     const {avatar,creationAt, email, name, role, updatedAt, password, id} = props.user;
     const [userMail, setUserMail] = useState(email);
     const [userName, setUserName] = useState(name);
     const [userPassword, setUserPassword] = useState(password);
-
 
     const onFormEdit = () => {
         dispatch(updateUserInformation(
