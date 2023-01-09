@@ -5,7 +5,7 @@ import Footer from "../Footer/Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CategoryPage from "../pages/Category/CategoryPage";
 import ProductPage from "../pages/ProductPage/ProductPage";
-import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
+import UserValidation from "../UserValidation/UserValidation";
 import UserContent from "../pages/UserPage/UserContentContainer/UserContent";
 import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
 import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
@@ -17,14 +17,13 @@ const App = () => {
               <Header/>
               <Routes>
                   <Route path='/' element={<HomePage/>}/>
-                  <Route path='/category/:category' element={<CategoryPage/>}/> {/*CATEGORY PAGE*/}
-                  <Route path='/cart'/>
+                  <Route path='/categories/:category' element={<CategoryPage/>}/> {/*CATEGORY PAGE*/}
+                  <Route path='/categories/:category/:id' element={<ProductPage/>}/>  {/*Product page*/}
                   <Route path='/account/login' element={<AuthPage/>}/>
-                  <Route element={<ProtectedRoutes/>}>
+                  <Route element={<UserValidation/>}> {/*Validate user auth*/}
                       <Route path='/account' element={<UserContent/>}/> {/*Account page*/}
                       <Route path='/checkout' element={<CheckoutPage/>}/>
                   </Route>
-                  <Route path='category/:category/:id' element={<ProductPage/>}/>  {/*Product page*/}
                   <Route path={'*'} element={<ErrorImageComponent path='404'/>}/>
               </Routes>
               <Footer/>

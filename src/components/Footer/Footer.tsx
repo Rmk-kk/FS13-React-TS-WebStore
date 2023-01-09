@@ -24,7 +24,7 @@ const Footer = () => {
                         >Main Page</NavLink>
                         {
                             categories.map(item => {
-                                return <NavLink to={`/category/${item.name + item.id}`}
+                                return <NavLink to={`/categories/${item.name + item.id}`}
                                                 key={item.id}
                                                 style={({ isActive }) =>
                                                     isActive ? activeStyle : undefined

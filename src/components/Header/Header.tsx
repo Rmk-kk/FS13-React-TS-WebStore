@@ -62,7 +62,7 @@ const Header = () => {
                                 }
                                 className='header-categories_list-item'
                                 key={item.id}
-                                to={`/category/${item.name + item.id}`}>{item.name}</NavLink>
+                                to={`/categories/${item.name + item.id}`}>{item.name}</NavLink>
                         })}
                     </ul>
                 </Container>

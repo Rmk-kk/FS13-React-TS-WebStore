@@ -16,7 +16,7 @@ const ProductCard = (props:ProductItem) => {
     return (
         <div className={darkMode ? 'product-card product-card-dark' : 'product-card'}>
             {admin && <ClearIcon onClick={()=>deleteItem(id)} className='product-card_delete-icon' fontSize='large'/>}
-            <Link to={`/category/${category.name + category.id}/${id}`}>
+            <Link to={`/categories/${category.name + category.id}/${id}`}>
                 <div className="product-card-up">
                     <img className="img" src={images[0]} alt=""/>
                     <div className="img-info">

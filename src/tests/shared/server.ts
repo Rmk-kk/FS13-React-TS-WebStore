@@ -111,7 +111,6 @@ const handler = [
             )
         )
     }),
-
     //offset products
     rest.get('https://api.escuelajs.co/api/v1/products?offset=0&limit=2', (req, res, context) => {
         return res(
