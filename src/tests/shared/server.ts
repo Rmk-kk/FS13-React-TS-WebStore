@@ -1,6 +1,5 @@
 import {rest} from "msw";
 import {setupServer} from "msw/native";
-import {all} from "axios";
 
 let allProducts = [
     {

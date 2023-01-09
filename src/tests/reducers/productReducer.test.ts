@@ -1,5 +1,5 @@
 import {store} from "../../redux/store";
-import {fetchAllProducts, fetchCategoryProducts} from "../../redux/slices/productReducer";
+import {fetchAllProducts, fetchCategoryProducts, onSearchFilter} from "../../redux/slices/productReducer";
 import server from "../shared/server";
 
 beforeAll(() => {
@@ -24,6 +24,11 @@ describe('productReducer tests', () => {
         await store.dispatch(fetchCategoryProducts(1));
         expect(store.getState().productReducer.products.length).toBe(3);
     })
-})
 
+    test('productReducer filters', async () => {
+        await store.dispatch(fetchAllProducts({offset: 0, limit: 5}))
+        store.dispatch(onSearchFilter('Intelligent Fresh Salad'));
+        expect(store.getState().productReducer.products.length).toBe(1)
+    })
+})
 export  {}
