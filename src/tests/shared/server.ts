@@ -176,10 +176,23 @@ let allCategories = [
         "creationAt": "2023-01-08T23:40:24.000Z",
         "updatedAt": "2023-01-08T23:40:24.000Z"
     },
+    {
+        "id": 5,
+        "name": "Shoes",
+        "image": "https://api.lorem.space/image/shoes?w=640&h=480&r=1570",
+        "creationAt": "2023-01-08T23:40:24.000Z",
+        "updatedAt": "2023-01-08T23:40:24.000Z"
+    },
+    {
+        "id": 6,
+        "name": "Shoes",
+        "image": "https://api.lorem.space/image/shoes?w=640&h=480&r=1570",
+        "creationAt": "2023-01-08T23:40:24.000Z",
+        "updatedAt": "2023-01-08T23:40:24.000Z"
+    },
 ]
 
 const handler = [
-
     //PRODUCT REDUCER
     //offset products
     rest.get('https://api.escuelajs.co/api/v1/products?offset=0&limit=5', (req, res, context) => {
@@ -343,6 +356,7 @@ const handler = [
         })
         return res(context.json(allCategories.filter(item => item.id === 1)))
     })
+
 ]
 
 const server = setupServer(...handler);

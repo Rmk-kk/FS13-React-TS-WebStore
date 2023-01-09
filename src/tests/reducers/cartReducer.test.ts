@@ -1,6 +1,6 @@
 import server from "../shared/server";
 import {store} from "../../redux/store";
-import cartReducer, {addItem, permanentlyDeleteItem, removeItem, resetCart} from "../../redux/slices/cartReducer";
+import {addItem, permanentlyDeleteItem, removeItem, resetCart} from "../../redux/slices/cartReducer";
 
 beforeAll(() => {
     server.listen();
