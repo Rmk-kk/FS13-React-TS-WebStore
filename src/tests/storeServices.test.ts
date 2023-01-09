@@ -27,6 +27,10 @@ describe('store services testing - user', () => {
         expect(res.status).toBe(200);
         expect(users.length).toBe(5)
     })
+    test('get auth token', async () => {
+        const res = await service.getAuthToken({email: 'test', password: 'test'})
+        expect(res.data).toBe( 'test_access_token' )
+    })
 });
 
 describe('store services testing - product', () => {
