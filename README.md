@@ -1,5 +1,5 @@
 # Integrify WebStore - Final assigment
-![Generic badge](https://img.shields.io/badge/JS-ES5-yellow.svg)
+![Generic badge](https://img.shields.io/badge/JS-ES6-yellow.svg)
 ![Generic badge](https://img.shields.io/badge/SCSS-v.1.57-red.svg)
 ![Generic badge](https://img.shields.io/badge/Redux-v.8.0.5-orangered.svg)
 ![Generic badge](https://img.shields.io/badge/MUI-v.5.11-darkblue.svg)
@@ -271,7 +271,7 @@ Functional WebStore was created with calls to Fake API.
 #### Website is deployed on Netlify and [can be viewed here](https://cheerful-malasada-f9dc2f.netlify.app/) <br>
 
 ### Cloning and launch
-Clone the repository from GitHub with `git clone `. <br>
+Clone the repository from GitHub with `git clone https://github.com/Rmk-kk/FS13-React-TS-WebStore`. <br>
 Check public repository on `https://github.com/Rmk-kk/FS13-React-TS-WebStore`
 
 * `npm install` - install all project dependencies
