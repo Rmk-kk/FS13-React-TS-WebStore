@@ -11,6 +11,8 @@ import AuthPage from "../pages/UserPage/AuthPage/AuthPage";
 import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
 import ErrorImageComponent from "../ErrorImageComponent/ErrorImageComponent";
 
+const NoPageFound404 = require('../../assets/img/404.png')
+
 const App = () => {
   return (
       <BrowserRouter>
@@ -24,7 +26,7 @@ const App = () => {
                       <Route path='/account' element={<UserContent/>}/> {/*Account page*/}
                       <Route path='/checkout' element={<CheckoutPage/>}/>
                   </Route>
-                  <Route path={'*'} element={<ErrorImageComponent path='404'/>}/>
+                  <Route path={'*'} element={<ErrorImageComponent image={NoPageFound404} type='404'/>}/>
               </Routes>
               <Footer/>
       </BrowserRouter>

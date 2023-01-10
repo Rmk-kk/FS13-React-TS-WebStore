@@ -29,11 +29,11 @@ const ProductsSection = () => {
             .then(data => setProductsLength(data.length))
             .catch(e => console.log(e))
     }, [])
+
     //getItems
     useEffect(() => {
         dispatch(fetchAllProducts({offset: page * 12 - 12, limit: 12}));
     }, [page])
-
 
     //Check user status
     useEffect(() => {

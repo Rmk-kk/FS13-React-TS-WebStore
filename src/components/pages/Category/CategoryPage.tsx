@@ -14,6 +14,7 @@ import ErrorImageComponent from "../../ErrorImageComponent/ErrorImageComponent";
 import {ThemeContext} from "../../ThemeContext";
 import {useDebounce} from "../../../hooks/useDebounce";
 
+const NoProductsImage = require('../../../assets/img/categories/no-product.png')
 const CategoryPage = () => {
     const {darkMode} = useContext(ThemeContext)
     const {category} = useParams();
@@ -35,7 +36,8 @@ const CategoryPage = () => {
     const [dropFilter, setDropFilter] = useState('');
     const [searchFilter, setSearchFilter] = useState('');
     const [isSearching, setIsSearching] = useState(false);
-    const debouncedSearchFilter = useDebounce(searchFilter, 300);
+    const debouncedSearchFilter = useDebounce(searchFilter, 500);
+    const debouncedRangeFilter = useDebounce(value, 500);
 
     //UPLOAD PRODUCTS FROM CATEGORY
     useEffect(() => {
@@ -68,17 +70,23 @@ const CategoryPage = () => {
         }
     }, [user])
 
-    //Search delay with debounce hook logic to avoid API overload
+    //Search delay with debounce hook logic to avoid API overload for search input text
     useEffect(() => {
             setIsSearching(true);
             dispatch(onSearchFilter(searchFilter))
+            setIsSearching(false);
         }, [debouncedSearchFilter])
+
+    useEffect(() => {
+        setIsSearching(true);
+        dispatch(sortByPriceRange(value));
+        setIsSearching(false);
+    }, [debouncedRangeFilter])
+
 
 
     //PRICE RANGE
-    const handleRangeChange = (e:Event, data:number[]) => {
-        dispatch(sortByPriceRange(data))
-    }
+
 
     const getTextFromValue = (value:number) => {
         return `${value}`
@@ -137,7 +145,6 @@ const CategoryPage = () => {
                             max={maxPrice}
                             onChange={(e, data:any) => {
                                 setValue(data)
-                                handleRangeChange(e, data)
                             }}
                             valueLabelDisplay="auto"
                             getAriaValueText={(value) => getTextFromValue(value)}
@@ -162,7 +169,7 @@ const CategoryPage = () => {
                                 />
                             )})}
                     </div>
-                    : <ErrorImageComponent path='categories/no-product'/>
+                    : <ErrorImageComponent type='no-products' image={NoProductsImage}/>
                 }
             </Container>
         </div>
