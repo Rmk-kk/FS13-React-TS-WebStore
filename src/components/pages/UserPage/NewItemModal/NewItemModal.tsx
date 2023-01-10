@@ -57,6 +57,17 @@ const NewItemModal = (props: NewItemModalProps) => {
         resetAllStates();
     }
 
+    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if(e.target.files) {
+            const files = Array.from(e.target.files)
+            service.uploadFile(files[0])
+                .then((res) => {
+                    setImage(res.data.location)
+                })
+                .catch(e => console.log(e))
+        }
+    }
+
     const resetAllStates = () => {
         setNewProductError(false);
         setNewProductSucceed(false);
@@ -113,14 +124,8 @@ const NewItemModal = (props: NewItemModalProps) => {
                                onChange={(e)=>setPrice(Number(e.target.value))}
                     />
                     <TextField fullWidth
-                               label="Image URL"
-                               value={image}
-                               onChange={(e)=>setImage(e.target.value)}
-                    />
-                    <TextField fullWidth
-                               label="Image 2 URL"
-                               value={image2}
-                               onChange={(e)=>setImage2(e.target.value)}
+                               type={'file'}
+                               onChange={handleFileSelected}
                     />
                     <div className='edit-product_modal-buttons'>
                         <button className='login-form_btn' onClick={() => {setCreateProduct(false)}}>Close</button>

@@ -88,18 +88,13 @@ class StoreServices {
         return await axios.post('https://api.escuelajs.co/api/v1/categories/', data)
     }
 
-    // async uploadFile(file:File) {
-    //     const reader = new FileReader()
-    //     reader.readAsBinaryString(file)
-    //     reader.onloadend = () => {
-    //         console.log(reader.result)
-    //         return axios.post('https://api.escuelajs.co/api/v1/files/upload', {
-    //             headers: {'Content-Type': 'multipart/form-data'},
-    //             body: {'file' : reader.result}
-    //         })
-    //     }
-    //
-    // }
+    async uploadFile(file:File) {
+        return await axios.post("https://api.escuelajs.co/api/v1/files/upload",
+            { 'file': file },
+            { headers:
+                    { 'Content-Type': 'multipart/form-data' }
+            })
+    }
 
     async editCategory(id:number, data:EditCategoryData) {
         return await axios.put(`https://api.escuelajs.co/api/v1/categories/${id}`, data)

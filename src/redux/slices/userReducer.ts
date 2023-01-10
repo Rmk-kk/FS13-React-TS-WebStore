@@ -42,7 +42,14 @@ export interface UserProfile {
     updatedAt: string,
 }
 
-const initialState: UserProfile | null =  null;
+const initialState: UserProfile | null =  (()=> {
+    const data = localStorage.getItem('user');
+    if(data) {
+        return JSON.parse(data)
+    } else {
+        return null
+    }
+})()
 
 const userSlice = createSlice({
     name: 'userSlice',

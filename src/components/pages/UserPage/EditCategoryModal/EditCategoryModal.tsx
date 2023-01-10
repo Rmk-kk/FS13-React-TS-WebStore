@@ -3,6 +3,7 @@ import React, {FormEvent, useEffect, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import StoreServices from "../../../StoreServices/StoreServices";
 import {Category} from "../../../types-interfaces";
+import axios from "axios";
 
 export interface EditCategoryProps {
     editCategory: boolean,
@@ -13,7 +14,7 @@ export interface EditCategoryProps {
 
 const EditCategoryModal = (props:EditCategoryProps) => {
     const [name, setName] = useState('');
-    const [image, setImage] = useState<string>('');
+    const [image, setImage] = useState('');
     const [categories, setCategories] = useState<Category[]>([]);
     const [categoryId, setCategoryId] = useState<number | string>('');
     const service = new StoreServices();
@@ -25,23 +26,34 @@ const EditCategoryModal = (props:EditCategoryProps) => {
             .catch(() => setEditCategoryError(true))
     }, [])
 
-    if(!editCategory) {
+     if(!editCategory) {
         return null
+    }
+
+     //handle uploaded image
+    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if(e.target.files) {
+            const files = Array.from(e.target.files)
+            service.uploadFile(files[0])
+                .then((res) => {
+                    setImage(res.data.location)
+                })
+                .catch(e => console.log(e))
+        }
     }
 
     const onSelectChange = (id:number) => {
         setCategoryId(id)
         categories.forEach(item => {
             if(item.id === id) {
-                setImage(item.image)
                 setName(item.name)
+                setImage(item.image)
             }
         })
     }
 
     const onFormSubmit = (e:FormEvent) => {
         e.preventDefault();
-
         service.editCategory(Number(categoryId), {name, image})
             .then(res => {
                 console.log(res)
@@ -67,7 +79,7 @@ const EditCategoryModal = (props:EditCategoryProps) => {
     return (
         <>
             <div className='edit-product_modal-overlay'></div>
-            <div className='edit-product_modal'>
+            <div className='edit-product_modal' style={{maxWidth: '400px'}}>
                 <Box
                     component="form"
                     sx={{
@@ -85,7 +97,7 @@ const EditCategoryModal = (props:EditCategoryProps) => {
                             label="Categories"
                             value={categoryId}
                             onChange={(e)=>{
-
+                                console.log(e.target.value)
                                 onSelectChange(Number(e.target.value));
                             }}
                         >
@@ -94,16 +106,21 @@ const EditCategoryModal = (props:EditCategoryProps) => {
                     </FormControl>
                     <TextField
                         label="Category Name"
+                        disabled={!name}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                     <TextField fullWidth
-                               label="Category Image URL"
-                               value={image}
-                               onChange={(e) => setImage(e.target.value)}
+                               type='file'
+                               onChange={handleFileSelected}
+                               disabled={!name}
                     />
+                    {image && <img src={image} alt="preview" style={{maxWidth : '200px'}}/>}
                     <div className='edit-product_modal-buttons'>
-                        <button className='login-form_btn' onClick={() => {setEditCategory(false)}}>Close</button>
+                        <button className='login-form_btn' onClick={() => {
+                            resetAllStates()
+                            setEditCategory(false)
+                        }}>Close</button>
                         <button type='submit' className='login-form_btn' onClick={(e) => onFormSubmit(e)}>Edit Category</button>
                     </div>
                 </Box>

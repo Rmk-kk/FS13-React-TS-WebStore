@@ -1,6 +1,5 @@
 import server from "../shared/server";
 import {store} from "../../redux/store";
-import StoreServices from "../../components/StoreServices/StoreServices";
 
 beforeAll(() => {
     server.listen();

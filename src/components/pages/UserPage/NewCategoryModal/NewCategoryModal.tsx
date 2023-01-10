@@ -14,11 +14,24 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const service = new StoreServices();
+
     const {createCategory, setCreateCategory, setNewCategoryError, setNewCategorySucceed} = props;
 
     if(!createCategory) {
         return null
     }
+
+    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if(e.target.files) {
+            const files = Array.from(e.target.files)
+            service.uploadFile(files[0])
+                .then((res) => {
+                    setImage(res.data.location)
+                })
+                .catch(e => console.log(e))
+        }
+    }
+
 
     const onFormSubmit = (e:FormEvent) => {
         e.preventDefault();
@@ -48,7 +61,7 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
     return (
         <>
             <div className='edit-product_modal-overlay'></div>
-            <div className='edit-product_modal'>
+            <div className='edit-product_modal' style={{maxWidth: '400px'}}>
                 <Box
                     component="form"
                     sx={{
@@ -60,17 +73,21 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
                     onSubmit={e => onFormSubmit(e)}
                 >
                     <TextField
-                        label="Product Name"
+                        label="Category Name"
                         value={name}
                         onChange={(e)=>setName(e.target.value)}
                     />
                     <TextField fullWidth
-                               label="Image URL"
-                               value={image}
-                               onChange={(e)=>setImage(e.target.value)}
+                               disabled={!name}
+                               type={"file"}
+                               onChange={handleFileSelected}
                     />
-                    <div className='edit-product_modal-buttons'>
-                        <button className='login-form_btn' onClick={() => {setCreateCategory(false)}}>Close</button>
+                    {image && <img src={image} alt="preview" style={{maxWidth : '200px'}}/>}
+                    <div className='edit-product_modal-buttons' style={{display: 'flex', justifyContent: 'space-around'}}>
+                        <button className='login-form_btn' onClick={() => {
+                            setCreateCategory(false)
+                            resetAllStates()
+                        }}>Close</button>
                         <button type='submit' className='login-form_btn'>Create Item</button>
                     </div>
                 </Box>

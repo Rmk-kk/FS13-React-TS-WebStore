@@ -120,6 +120,4 @@ describe('cart reducer test', () => {
         store.dispatch(resetCart());
         expect(store.getState().cartReducer.length).toBe(0);
     })
-
-
 })

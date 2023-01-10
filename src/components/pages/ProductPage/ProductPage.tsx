@@ -86,7 +86,7 @@ const View = (product:ProductItem) => {
     const item = {title, price, description, images, category, id}
     const dispatch = useAppDispatch();
     const [edit, setEdit] = useState(false);
-    // @ts-ignore
+
     return (
         <>
             <div className="singleProduct-wrap_images">

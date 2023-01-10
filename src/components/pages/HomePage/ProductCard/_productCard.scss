@@ -99,7 +99,7 @@
 .product-card .img {
   padding: 20px 0;
   max-width: 100%;
-  height: auto;
+  max-height: 200px;
   -webkit-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
   -moz-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
   -o-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);

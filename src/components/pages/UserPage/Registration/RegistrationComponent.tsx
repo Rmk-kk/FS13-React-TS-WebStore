@@ -7,6 +7,7 @@ const RegistrationComponent = (props:RegisterPageProps) => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const {loading, error, setError, registerFormHandle, setNewUser} = props;
+
     const load = loading ? <p>Loading</p> : null;
     const err = error ? <p>Wrong username or password</p> : null;
 
