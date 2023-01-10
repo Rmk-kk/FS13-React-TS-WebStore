@@ -12,6 +12,7 @@ import ProductCard from "../HomePage/ProductCard/ProductCard";
 import StoreServices from "../../StoreServices/StoreServices";
 import ErrorImageComponent from "../../ErrorImageComponent/ErrorImageComponent";
 import {ThemeContext} from "../../ThemeContext";
+import {useDebounce} from "../../../hooks/useDebounce";
 
 const CategoryPage = () => {
     const {darkMode} = useContext(ThemeContext)
@@ -31,7 +32,10 @@ const CategoryPage = () => {
     //Filters
     const [maxPrice, setMaxPrice] = useState(500);
     const [value, setValue] = useState<number[]>([0, 10000]);
-    const[dropFilter, setDropFilter] = useState<string>('')
+    const [dropFilter, setDropFilter] = useState('');
+    const [searchFilter, setSearchFilter] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
+    const debouncedSearchFilter = useDebounce(searchFilter, 300);
 
     //UPLOAD PRODUCTS FROM CATEGORY
     useEffect(() => {
@@ -64,6 +68,13 @@ const CategoryPage = () => {
         }
     }, [user])
 
+    //Search delay with debounce hook logic to avoid API overload
+    useEffect(() => {
+            setIsSearching(true);
+            dispatch(onSearchFilter(searchFilter))
+        }, [debouncedSearchFilter])
+
+
     //PRICE RANGE
     const handleRangeChange = (e:Event, data:number[]) => {
         dispatch(sortByPriceRange(data))
@@ -95,7 +106,9 @@ const CategoryPage = () => {
                                label="Product"
                                variant="outlined"
                                size='small'
-                               onChange={(e) => dispatch(onSearchFilter(e.target.value))}
+                               onChange={(e) => {
+                                   setSearchFilter(e.target.value);
+                               }}
                     />
                     <FormControl size='small'  style={{width: '220px'}}>
                         <InputLabel id="demo-simple-select-label">Filter</InputLabel>

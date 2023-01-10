@@ -26,7 +26,6 @@ const Header = () => {
 
     useEffect(() => {
         if(categories.length === 0) {
-            console.log(123)
             dispatch(fetchAllCategories());
         }
     },[])
