@@ -3,7 +3,6 @@ import React, {FormEvent, useEffect, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import StoreServices from "../../../StoreServices/StoreServices";
 import {Category} from "../../../types-interfaces";
-import axios from "axios";
 
 export interface EditCategoryProps {
     editCategory: boolean,
@@ -52,6 +51,14 @@ const EditCategoryModal = (props:EditCategoryProps) => {
         })
     }
 
+     const resetAllStates = () => {
+         setEditCategoryError(false);
+         setEditCategorySucceed(false);
+         setCategoryId('');
+         setName('');
+         setImage('');
+         setEditCategory(false);
+     }
     const onFormSubmit = (e:FormEvent) => {
         e.preventDefault();
         service.editCategory(Number(categoryId), {name, image})
@@ -64,16 +71,7 @@ const EditCategoryModal = (props:EditCategoryProps) => {
                 }
             })
             .catch(() => setEditCategoryError(true))
-        resetAllStates();
-    }
-
-    const resetAllStates = () => {
-        setEditCategoryError(false);
-        setEditCategorySucceed(false);
-        setCategoryId('');
-        setName('')
-        setImage('');
-        setEditCategory(false);
+        resetAllStates()
     }
 
     return (
@@ -117,10 +115,7 @@ const EditCategoryModal = (props:EditCategoryProps) => {
                     />
                     {image && <img src={image} alt="preview" style={{maxWidth : '200px'}}/>}
                     <div className='edit-product_modal-buttons'>
-                        <button className='login-form_btn' onClick={() => {
-                            resetAllStates()
-                            setEditCategory(false)
-                        }}>Close</button>
+                        <button className='login-form_btn' onClick={() => {resetAllStates()}}>Close</button>
                         <button type='submit' className='login-form_btn' onClick={(e) => onFormSubmit(e)}>Edit Category</button>
                     </div>
                 </Box>

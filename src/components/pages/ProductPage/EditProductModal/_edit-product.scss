@@ -2,6 +2,7 @@
 
 .edit-product_modal {
   position: fixed;
+  width: 420px;
   border-radius: 15px;
   top: 50%;
   left: 50%;
@@ -17,7 +18,7 @@
 
   &-buttons {
     display: flex;
-
+    justify-content: space-around;
     & button:first-child {
       margin-right: 15px;
       background: transparent;

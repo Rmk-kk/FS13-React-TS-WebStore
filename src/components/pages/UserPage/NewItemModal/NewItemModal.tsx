@@ -1,5 +1,5 @@
 import '../../ProductPage/EditProductModal/_edit-product.scss'
-import React, {FormEvent, useState} from 'react'
+import React, {FormEvent, useEffect, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 
 import StoreServices from "../../../StoreServices/StoreServices";
@@ -28,7 +28,6 @@ const NewItemModal = (props: NewItemModalProps) => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [image, setImage] = useState('');
-    const [image2, setImage2] = useState('');
     const service = new StoreServices();
     const {createProduct, setCreateProduct, categories, setNewProductError, setNewProductSucceed} = props;
 
@@ -43,7 +42,7 @@ const NewItemModal = (props: NewItemModalProps) => {
             price,
             categoryId: Number(categoryId),
             description,
-            images: [image, image2]
+            images: [image]
         }
         service.addNewProduct(product)
             .then(res => {
@@ -57,6 +56,16 @@ const NewItemModal = (props: NewItemModalProps) => {
         resetAllStates();
     }
 
+    const resetAllStates = () => {
+        setNewProductError(false);
+        setNewProductSucceed(false);
+        setImage('');
+        setCategoryId('');
+        setTitle('');
+        setDescription('');
+        setPrice(0);
+        setCreateProduct(false)
+    }
     const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
         if(e.target.files) {
             const files = Array.from(e.target.files)
@@ -66,18 +75,6 @@ const NewItemModal = (props: NewItemModalProps) => {
                 })
                 .catch(e => console.log(e))
         }
-    }
-
-    const resetAllStates = () => {
-        setNewProductError(false);
-        setNewProductSucceed(false);
-        setImage('');
-        setImage2('');
-        setCategoryId('');
-        setTitle('');
-        setDescription('');
-        setPrice(0);
-        setCreateProduct(false);
     }
 
     return (
@@ -127,8 +124,11 @@ const NewItemModal = (props: NewItemModalProps) => {
                                type={'file'}
                                onChange={handleFileSelected}
                     />
-                    <div className='edit-product_modal-buttons'>
-                        <button className='login-form_btn' onClick={() => {setCreateProduct(false)}}>Close</button>
+                    {image && <img src={image} alt="preview" style={{maxWidth : '200px'}}/>}
+                    <div className='edit-product_modal-buttons' style={{display: 'flex', justifyContent: 'space-around'}}>
+                        <button className='login-form_btn' onClick={() => {
+                            resetAllStates()
+                        }}>Close</button>
                         <button type='submit' className='login-form_btn'>Create Item</button>
                     </div>
                 </Box>

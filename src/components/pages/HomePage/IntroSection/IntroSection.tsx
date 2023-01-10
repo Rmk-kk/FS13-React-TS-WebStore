@@ -3,6 +3,9 @@ import React, {useContext} from "react";
 import {Container} from "@mui/material";
 import {ThemeContext} from "../../../ThemeContext";
 
+const WomenImage = require('../../../../assets/img/intro/women.jpg')
+const ClothImage = require("../../../../assets/img/intro/cloths.jpg");
+
 const IntroSection = () => {
     const {darkMode} = useContext(ThemeContext)
 
@@ -16,8 +19,8 @@ const IntroSection = () => {
                 <iframe className='intro-section_spline' src='https://my.spline.design/miniroomcopy-73cef3f0e430711614a2e2da8f20a602/' frameBorder='0'/>
             </section>
             <div className='intro-section_photos'>
-                <img src="../img/intro/women.jpg" alt="woman"/>
-                <img src="../img/intro/cloths.jpg" alt="intro"/>
+                <img src={WomenImage} alt="woman"/>
+                <img src={ClothImage} alt="intro"/>
             </div>
 
         </div>

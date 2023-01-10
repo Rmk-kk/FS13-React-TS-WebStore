@@ -10,18 +10,20 @@ export interface EditProductModalProps {
     setEdit:  React.Dispatch<React.SetStateAction<boolean>>,
     category: number,
     title: string,
+    images: string[],
     price: number,
     description: string,
     id: number,
 }
 
 const EditProductModal = (props:EditProductModalProps) => {
-    const {edit, setEdit, title, price, description, id, category} = props;
+    const {edit, setEdit, title, price, description, id, category, images} = props;
     const [newName, setNewName] = useState(title);
     const [categoryId, setCategoryId] = useState<number>(category);
     const [categories, setCategories] = useState<CategoryType[]>([]);
     const [newPrice, setNewPrice] = useState(price);
     const [newDesc, setNewDesc] = useState(description);
+    const [newImages, setNewImages] = useState(images);
     const service = new StoreServices();
 
     useEffect(() => {
@@ -33,6 +35,21 @@ const EditProductModal = (props:EditProductModalProps) => {
         return null
     }
 
+    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if(e.target.files) {
+            const files = Array.from(e.target.files)
+            const images:string[] = []
+            files.forEach(image => {
+                service.uploadFile(image)
+                    .then((res) => {
+                        images.push(res.data.location)
+                    })
+                    .catch(e => console.log(e));
+            })
+            setNewImages(images);
+        }
+    }
+
     const handleForm = (e:FormEvent) => {
         e.preventDefault()
         const category = categories.filter(item => item.id === categoryId)[0];
@@ -40,8 +57,10 @@ const EditProductModal = (props:EditProductModalProps) => {
             'title': newName,
             'price': newPrice,
             'description': newDesc,
+            'images': newImages,
             category
         }
+        console.log(newImages)
         service.updateProduct(id, data)
             .then(() => setEdit(false))
             .catch((e) => console.log(e))
@@ -93,9 +112,14 @@ const EditProductModal = (props:EditProductModalProps) => {
                                value={newPrice}
                                onChange={(e) => setNewPrice(Number(e.target.value))}
                     />
+                    <TextField fullWidth
+                               type={'file'}
+                               inputProps={{ multiple: true }}
+                               onChange={handleFileSelected}
+                    />
                     <div className='edit-product_modal-buttons'>
                         <button className='login-form_btn' onClick={() => setEdit(false)}>Close</button>
-                        <button type='submit' className='login-form_btn'>Edit Product</button>
+                        <button type='submit' className='login-form_btn' >Edit Product</button>
                     </div>
                 </Box>
             </div>

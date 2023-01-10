@@ -1,5 +1,5 @@
 import '../../ProductPage/EditProductModal/_edit-product.scss'
-import React, {FormEvent, useState} from 'react'
+import React, {FormEvent, useEffect, useState} from 'react'
 import {Box,TextField} from "@mui/material";
 import StoreServices from "../../../StoreServices/StoreServices";
 
@@ -14,7 +14,6 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const service = new StoreServices();
-
     const {createCategory, setCreateCategory, setNewCategoryError, setNewCategorySucceed} = props;
 
     if(!createCategory) {
@@ -32,6 +31,13 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
         }
     }
 
+    const resetAllStates = () => {
+        setNewCategoryError(false);
+        setNewCategorySucceed(false);
+        setName('')
+        setImage('');
+        setCreateCategory(false)
+    }
 
     const onFormSubmit = (e:FormEvent) => {
         e.preventDefault();
@@ -47,15 +53,7 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
                 }
             })
             .catch(() => setNewCategoryError(true))
-        resetAllStates();
-    }
-
-    const resetAllStates = () => {
-        setNewCategoryError(false);
-        setNewCategorySucceed(false);
-        setName('')
-        setImage('');
-        setCreateCategory(false);
+        resetAllStates()
     }
 
     return (
@@ -85,7 +83,6 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
                     {image && <img src={image} alt="preview" style={{maxWidth : '200px'}}/>}
                     <div className='edit-product_modal-buttons' style={{display: 'flex', justifyContent: 'space-around'}}>
                         <button className='login-form_btn' onClick={() => {
-                            setCreateCategory(false)
                             resetAllStates()
                         }}>Close</button>
                         <button type='submit' className='login-form_btn'>Create Item</button>
