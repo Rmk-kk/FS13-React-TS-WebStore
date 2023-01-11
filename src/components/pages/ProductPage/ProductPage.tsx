@@ -5,36 +5,34 @@ import {useContext, useEffect, useState} from "react";
 import {Product, ProductItem} from "../../types-interfaces";
 import StoreServices from "../../StoreServices/StoreServices";
 import ProductImageSlider from "./ProductImageSlider";
-import {useAppDispatch} from "../../../hooks/reduxHook";
+import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHook";
 import { addItem } from "../../../redux/slices/cartReducer";
 import EditProductModal from "./EditProductModal/EditProductModal";
 import {ThemeContext} from "../../ThemeContext";
+import {Store} from "react-notifications-component";
 
 const ProductPage = () => {
     const {id} = useParams();
     const {darkMode} = useContext(ThemeContext);
     const navigate = useNavigate();
     const [product, setProduct] = useState<Product | null>(null);
-    const [error, setError] = useState(false);
     const [admin, setAdmin] = useState(false);
-    const user = useState(() => {
-        const data = localStorage.getItem('user');
-        if(data) {
-            return JSON.parse(data)
-        }
-        return  null
-    })
+    const user = useAppSelector(state => state.userReducer);
     const service = new StoreServices();
 
     //Check user Status
     useEffect(() => {
-        if(user[0] && user[0].role === 'admin') {
+        if(user && user.role === 'admin') {
             setAdmin(true);
         }
         else {
             setAdmin(false)
         }
     }, [user])
+
+    useEffect(() => {
+        updateProduct();
+    }, [id])
 
     //Delete Item Logic for admins
     const deleteItem = (id:number) => {
@@ -44,7 +42,30 @@ const ProductPage = () => {
                     navigate('/');
                 }
             })
-            .catch(e => console.log(e))
+            .then(() => Store.addNotification({
+                title: `${product?.title} was deleted`,
+                type: "success",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1500,
+                    onScreen: true
+                }
+            }))
+            .catch(() => Store.addNotification({
+                title: "Couldn't delete selected product",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1500,
+                    onScreen: true
+                }
+            }))
     }
 
     const updateProduct = () => {
@@ -53,16 +74,21 @@ const ProductPage = () => {
         }
         service.fetchSingleProduct(id)
             .then(setProduct)
-            .catch(() => setError(true))
+            .catch(() => Store.addNotification({
+                title: "Couldn't get the product",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
     }
 
-    useEffect(() => {
-        updateProduct();
-    }, [id])
-
-
-    const content = (product) ? <View
-                                     deleteItem={deleteItem}
+    const content = (product) ? <View deleteItem={deleteItem}
                                      admin={admin}
                                      id={product.id}
                                      title={product.title}

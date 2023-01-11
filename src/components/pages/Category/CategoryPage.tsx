@@ -13,6 +13,7 @@ import StoreServices from "../../StoreServices/StoreServices";
 import ErrorImageComponent from "../../ErrorImageComponent/ErrorImageComponent";
 import {ThemeContext} from "../../ThemeContext";
 import {useDebounce} from "../../../hooks/useDebounce";
+import {Store} from "react-notifications-component";
 
 const NoProductsImage = require('../../../assets/img/categories/no-product.png')
 const CategoryPage = () => {
@@ -22,20 +23,13 @@ const CategoryPage = () => {
     const productsState = useAppSelector(state => state.productReducer);
     const [admin, setAdmin] = useState(false);
     const service = new StoreServices();
-    const user = useState(() => {
-        const data = localStorage.getItem('user');
-        if(data) {
-            return JSON.parse(data)
-        }
-        return  null
-    })
+    const user = useAppSelector(state => state.userReducer)
 
     //Filters
     const [maxPrice, setMaxPrice] = useState(500);
     const [value, setValue] = useState<number[]>([0, 10000]);
     const [dropFilter, setDropFilter] = useState('');
     const [searchFilter, setSearchFilter] = useState('');
-    const [isSearching, setIsSearching] = useState(false);
     const debouncedSearchFilter = useDebounce(searchFilter, 500);
     const debouncedRangeFilter = useDebounce(value, 500);
 
@@ -62,7 +56,7 @@ const CategoryPage = () => {
 
     //Check user Status
     useEffect(() => {
-        if(user[0] && user[0].role === 'admin') {
+        if(user && user.role === 'admin') {
             setAdmin(true);
         }
         else {
@@ -72,26 +66,13 @@ const CategoryPage = () => {
 
     //Search delay with debounce hook logic to avoid API overload for search input text
     useEffect(() => {
-            setIsSearching(true);
             dispatch(onSearchFilter(searchFilter))
-            setIsSearching(false);
-        }, [debouncedSearchFilter])
+    }, [debouncedSearchFilter])
 
+    //Search delay with debounce hook logic to avoid API overload for price range
     useEffect(() => {
-        setIsSearching(true);
         dispatch(sortByPriceRange(value));
-        setIsSearching(false);
     }, [debouncedRangeFilter])
-
-
-
-    //PRICE RANGE
-
-
-    const getTextFromValue = (value:number) => {
-        return `${value}`
-    }
-
 
     //Delete Item Logic for admins
     const deleteItem = (id:number) => {
@@ -99,8 +80,45 @@ const CategoryPage = () => {
             .then(data => {
                 if(category && data.status === 200) {
                     dispatch(fetchCategoryProducts(category.charAt(category.length-1)));
+                } else {
+                    Store.addNotification({
+                        message: "Couldn't delete item, try again later",
+                        type: "danger",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    })
                 }
             })
+            .then(() => Store.addNotification({
+                title: "Item deleted successfully",
+                type: "success",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
+            .catch(()=> Store.addNotification({
+                message: "Couldn't delete item, try again later",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
     }
 
     return (
@@ -146,7 +164,7 @@ const CategoryPage = () => {
                                 setValue(data)
                             }}
                             valueLabelDisplay="auto"
-                            getAriaValueText={(value) => getTextFromValue(value)}
+                            getAriaValueText={(value) => `${value}`}
                         />
                     </div>
 

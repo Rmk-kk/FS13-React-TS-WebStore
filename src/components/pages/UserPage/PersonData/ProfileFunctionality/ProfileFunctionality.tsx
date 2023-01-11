@@ -3,11 +3,10 @@ import {Button} from "@mui/material";
 import NewItemModal, {CategoryType} from "../../NewItemModal/NewItemModal";
 import React, {useEffect, useState} from "react";
 import StoreServices from "../../../../StoreServices/StoreServices";
-import NotificationMessage from "../../../../NotificationMessage/NotificationMessage";
 import GridDataContent from "../GridDataContent/GridDataContent";
 import NewCategoryModal from "../../NewCategoryModal/NewCategoryModal";
 import EditCategoryModal from "../../EditCategoryModal/EditCategoryModal";
-
+import {Store} from "react-notifications-component";
 export interface ProfileFunctionalityProps{
     role: string,
 }
@@ -18,17 +17,7 @@ const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
     const [createProduct, setCreateProduct] = useState(false);
     const [createCategory, setCreateCategory] = useState(false);
     const [editCategory, setEditCategory] = useState(false);
-    //ERROR HANDLING
-    const [categoriesError, setCategoriesError] = useState(false);
-    //New Product
-    const [newProductError, setNewProductError] = useState(false);
-    const [newProductSucceed, setNewProductSucceed] = useState(false);
-    //New Category
-    const [newCategoryError, setNewCategoryError] = useState(false);
-    const [newCategorySucceed, setNewCategorySucceed] = useState(false);
-    //Edit Category
-    const [editCategoryError, setEditCategoryError] = useState(false);
-    const [editCategorySucceed, setEditCategorySucceed] = useState(false);
+
     //DATA GRID
     const [show, setShow] = useState(false);
     const [type, setType] = useState<string>('categories')
@@ -36,9 +25,19 @@ const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
     useEffect(() => {
         service.getAllCategories()
             .then(setCategories)
-            .catch(()=>setCategoriesError(true))
+            .catch(()=>Store.addNotification({
+                title: "Couldn't upload categories",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
     }, []);
-
 
     const handleDataButton = (e:React.MouseEvent<HTMLButtonElement>, value: string) => {
         if(show && type === value) {
@@ -48,6 +47,7 @@ const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
             setType(value);
         }
     }
+
     const {role} = props;
 
     return (
@@ -55,20 +55,14 @@ const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
             <h2>Store controls for {role}</h2>
             <div className="profile-functionality_btn-group">
                 <Button variant="contained" onClick={()=> {
-                    setNewProductError(false);
-                    setNewProductSucceed(false);
                     setCreateProduct(true)
                 }}>Add New product</Button>
                 { role === 'admin' &&
                     <>
                         <Button variant="contained" onClick={()=> {
-                            setNewCategoryError(false);
-                            setNewCategorySucceed(false);
                             setCreateCategory(true);
                         }}>Add New Category</Button>
                         <Button variant="contained" value='users' onClick={()=> {
-                            setEditCategoryError(false);
-                            setEditCategorySucceed(false);
                             setEditCategory(true);
                         }}>Edit Category</Button>
                         <Button variant="contained" value='products' onClick={(e)=> {
@@ -85,27 +79,14 @@ const ProfileFunctionality = (props:ProfileFunctionalityProps) => {
             </div>
             {show && <GridDataContent type={type} categories={categories}/>}
             <EditCategoryModal editCategory={editCategory}
-                               setEditCategory={setEditCategory}
-                               setEditCategoryError={setEditCategoryError}
-                               setEditCategorySucceed={setEditCategorySucceed}/>
+                               setEditCategory={setEditCategory}/>
             <NewItemModal categories={categories}
-                          setNewProductSucceed={setNewProductSucceed}
                           setCreateProduct={setCreateProduct}
-                          setNewProductError={setNewProductError}
                           createProduct={createProduct}/>
             <NewCategoryModal
                         createCategory={createCategory}
                         setCreateCategory={setCreateCategory}
-                        setNewCategorySucceed={setNewCategorySucceed}
-                        setNewCategoryError={setNewCategoryError}
             />
-            {categoriesError && <NotificationMessage message={`Couldn't upload categories, try again later`}  id={1} type={'error'}/>}
-            {newProductError && <NotificationMessage message={`Couldn't create new item, try again later`}  id={2}  type={'error'}/>}
-            {newProductSucceed && <NotificationMessage message={`Item was successfully created`} id={3}  type={'success'}/>}
-            {newCategoryError && <NotificationMessage message={`Couldn't create new category, try again later`}  id={4}  type={'error'}/>}
-            {newCategorySucceed && <NotificationMessage message={`New category was successfully created`} id={5}  type={'success'}/>}
-            {editCategoryError && <NotificationMessage message={`Couldn't edit category, try again later`}  id={6}  type={'error'}/>}
-            {editCategorySucceed && <NotificationMessage message={`Category was edited successfully`} id={7}  type={'success'}/>}
         </div>)
 }
 

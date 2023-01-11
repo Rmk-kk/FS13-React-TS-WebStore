@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {Product, ProductList} from "../../components/types-interfaces";
 import axios from "axios";
+import {Store} from "react-notifications-component";
 
 export type ProductSliceType = {
     error: boolean,
@@ -23,7 +24,18 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
         const response = await axios.get(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`);
         return response.data
     } catch (error) {
-        console.log(error);
+        Store.addNotification({
+            title: "Couldn't get the products",
+            type: "danger",
+            insert: "top",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+                duration: 1500,
+                onScreen: true
+            }
+        })
     }
 });
 
@@ -32,7 +44,18 @@ export const fetchCategoryProducts = createAsyncThunk('fetchCategoryProducts', a
         const response = await fetch(`https://api.escuelajs.co/api/v1/categories/${id}/products`);
         return await response.json()
     } catch (e) {
-        console.log(e)
+        Store.addNotification({
+            title: "Couldn't get the products",
+            type: "danger",
+            insert: "top",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+                duration: 1500,
+                onScreen: true
+            }
+        })
     }
 })
 
@@ -96,7 +119,6 @@ const productSlice = createSlice({
     extraReducers: (build) => {
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
             if(action.payload && 'message' in action.payload) {
-                console.log('fetching products error')
                 return {...state, error: true, loading: false}
             }
             return {loading:false, error: false, products: action.payload, productsRef: action.payload}
@@ -111,7 +133,6 @@ const productSlice = createSlice({
                 return {...state, error: true, loading: false}
             }
             if(action.payload && 'message' in action.payload) {
-                console.log('fetching category products error')
                 return {...state, error: true, loading: false}
             }
             return {...initialState, products: action.payload, productsRef: action.payload}

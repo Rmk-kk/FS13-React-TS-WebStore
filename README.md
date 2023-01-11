@@ -71,9 +71,10 @@ Functional WebStore was created with calls to Fake API.
   * Jest unit tests to check functionality and correctness of all functions related to API
   * Tested all Redux global states, and service component with async calls to API
   * 5 suits, 21 test total
+* Dark theme
+  * Dark theme status is saved in LocalStorage to avoid reset after page refresh
 * Extra features:
   * Users can upload images to server from their PC, while creating, editing product or category
-  * Dark theme
   * Protected Routes (Without logging in user can't get into checkout or personal page) with useAuth hook
   * Pagination with dynamic pages count on HomePage
   * Redux is also used for categories(as header component, shortened to 6 due to design purposes)

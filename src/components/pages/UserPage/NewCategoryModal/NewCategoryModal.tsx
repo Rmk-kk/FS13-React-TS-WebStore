@@ -1,39 +1,26 @@
 import '../../ProductPage/EditProductModal/_edit-product.scss'
-import React, {FormEvent, useEffect, useState} from 'react'
+import React, {FormEvent, useState} from 'react'
 import {Box,TextField} from "@mui/material";
 import StoreServices from "../../../StoreServices/StoreServices";
+import {Store} from "react-notifications-component";
+import handleFileSelected from "../../../StoreServices/handleFilesUpload";
 
 export interface NewCategoryModalProps {
     createCategory: boolean,
     setCreateCategory:  React.Dispatch<React.SetStateAction<boolean>>,
-    setNewCategoryError:React.Dispatch<React.SetStateAction<boolean>>,
-    setNewCategorySucceed: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const NewCategoryModal = (props:NewCategoryModalProps) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const service = new StoreServices();
-    const {createCategory, setCreateCategory, setNewCategoryError, setNewCategorySucceed} = props;
+    const {createCategory, setCreateCategory} = props;
 
     if(!createCategory) {
         return null
     }
 
-    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        if(e.target.files) {
-            const files = Array.from(e.target.files)
-            service.uploadFile(files[0])
-                .then((res) => {
-                    setImage(res.data.location)
-                })
-                .catch(e => console.log(e))
-        }
-    }
-
     const resetAllStates = () => {
-        setNewCategoryError(false);
-        setNewCategorySucceed(false);
         setName('')
         setImage('');
         setCreateCategory(false)
@@ -47,12 +34,45 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
         service.addNewCategory(category)
             .then(res => {
                 if(res.status === 201){
-                    setNewCategorySucceed(true);
+                    Store.addNotification({
+                        title: "Category was created successfully",
+                        type: "success",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    })
                 } else if(res.status === 400) {
-                    setNewCategoryError(true)
+                    Store.addNotification({
+                        title: "Something went wrong, try again later",
+                        type: "danger",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    })
                 }
             })
-            .catch(() => setNewCategoryError(true))
+            .catch(() => Store.addNotification({
+                title: "Something went wrong, try again later",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
         resetAllStates()
     }
 
@@ -78,7 +98,7 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
                     <TextField fullWidth
                                disabled={!name}
                                type={"file"}
-                               onChange={handleFileSelected}
+                               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileSelected(e, setImage)}
                     />
                     {image && <img src={image} alt="preview" style={{maxWidth : '200px'}}/>}
                     <div className='edit-product_modal-buttons' style={{display: 'flex', justifyContent: 'space-around'}}>

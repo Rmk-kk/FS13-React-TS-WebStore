@@ -1,7 +1,7 @@
 import './_header.scss'
 import {Container} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import {Link, NavLink} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/reduxHook";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
@@ -21,6 +21,7 @@ const Header = () => {
         cursor: 'default'
     }
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         if(categories.length === 0) {
             dispatch(fetchAllCategories());

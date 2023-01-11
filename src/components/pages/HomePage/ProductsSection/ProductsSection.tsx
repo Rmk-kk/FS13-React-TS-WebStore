@@ -6,19 +6,14 @@ import {useContext, useEffect, useState} from "react";
 import {fetchAllProducts} from "../../../../redux/slices/productReducer";
 import StoreServices from "../../../StoreServices/StoreServices";
 import {ThemeContext} from "../../../ThemeContext";
+import {Store} from "react-notifications-component";
 
 const ProductsSection = () => {
     const {darkMode} = useContext(ThemeContext)
     const [page, setPage] = useState(1);
     const [productsLength, setProductsLength] = useState(0);
     const [admin, setAdmin] = useState(false);
-    const user = useState(() => {
-        const data = localStorage.getItem('user');
-        if(data) {
-            return JSON.parse(data)
-        }
-        return  null
-    })
+    const user = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch();
     const service = new StoreServices();
     const productsState = useAppSelector(state => state.productReducer);
@@ -27,7 +22,18 @@ const ProductsSection = () => {
     useEffect(() => {
         service.getAllProducts()
             .then(data => setProductsLength(data.length))
-            .catch(e => console.log(e))
+            .catch(() => Store.addNotification({
+                title: "Some error occurred, reload the page",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1500,
+                    onScreen: true
+                }
+            }))
     }, [])
 
     //getItems
@@ -37,7 +43,7 @@ const ProductsSection = () => {
 
     //Check user status
     useEffect(() => {
-        if(user[0] && user[0].role === 'admin') {
+        if(user && user.role === 'admin') {
             setAdmin(true);
         }
         else {
@@ -54,7 +60,30 @@ const ProductsSection = () => {
                     dispatch(fetchAllProducts({offset: page * 12 - 12, limit: 12}));
                 }
             })
-            .catch(e => console.log(e))
+            .then(() => Store.addNotification({
+                title: `Product was deleted`,
+                type: "success",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1500,
+                    onScreen: true
+                }
+            }))
+            .catch(() => Store.addNotification({
+                title: "Couldn't delete selected product",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1500,
+                    onScreen: true
+                }
+            }))
     }
 
     //Change Page

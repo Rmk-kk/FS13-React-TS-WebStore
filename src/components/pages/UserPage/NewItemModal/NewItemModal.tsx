@@ -1,8 +1,10 @@
 import '../../ProductPage/EditProductModal/_edit-product.scss'
-import React, {FormEvent, useEffect, useState} from 'react'
+import React, {FormEvent, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 
 import StoreServices from "../../../StoreServices/StoreServices";
+import {Store} from "react-notifications-component";
+import handleFileSelected from "../../../StoreServices/handleFilesUpload";
 
 export type CategoryType = {
     creationAt: string,
@@ -16,8 +18,6 @@ export type CategoryType = {
 
 export interface NewItemModalProps {
     setCreateProduct:  React.Dispatch<React.SetStateAction<boolean>>,
-    setNewProductError: React.Dispatch<React.SetStateAction<boolean>>,
-    setNewProductSucceed: React.Dispatch<React.SetStateAction<boolean>>,
     createProduct: boolean,
     categories: CategoryType[]
 }
@@ -29,7 +29,7 @@ const NewItemModal = (props: NewItemModalProps) => {
     const [price, setPrice] = useState(0);
     const [image, setImage] = useState('');
     const service = new StoreServices();
-    const {createProduct, setCreateProduct, categories, setNewProductError, setNewProductSucceed} = props;
+    const {createProduct, setCreateProduct, categories} = props;
 
     if(!createProduct) {
         return null
@@ -47,34 +47,55 @@ const NewItemModal = (props: NewItemModalProps) => {
         service.addNewProduct(product)
             .then(res => {
                 if(res.status === 201){
-                    setNewProductSucceed(true);
+                    Store.addNotification({
+                        title: "Product was created successfully",
+                        type: "success",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    })
                 } else if(res.status === 400) {
-                    setNewProductError(true)
+                    Store.addNotification({
+                        title: "Something went wrong, try again later",
+                        type: "danger",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    })
                 }
             })
-            .catch(() => setNewProductError(true))
+            .catch(() => Store.addNotification({
+                title: "Something went wrong, try again later",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
         resetAllStates();
     }
 
     const resetAllStates = () => {
-        setNewProductError(false);
-        setNewProductSucceed(false);
         setImage('');
         setCategoryId('');
         setTitle('');
         setDescription('');
         setPrice(0);
         setCreateProduct(false)
-    }
-    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        if(e.target.files) {
-            const files = Array.from(e.target.files)
-            service.uploadFile(files[0])
-                .then((res) => {
-                    setImage(res.data.location)
-                })
-                .catch(e => console.log(e))
-        }
     }
 
     return (
@@ -122,7 +143,7 @@ const NewItemModal = (props: NewItemModalProps) => {
                     />
                     <TextField fullWidth
                                type={'file'}
-                               onChange={handleFileSelected}
+                               onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleFileSelected(e, setImage)}
                     />
                     {image && <img src={image} alt="preview" style={{maxWidth : '200px'}}/>}
                     <div className='edit-product_modal-buttons' style={{display: 'flex', justifyContent: 'space-around'}}>

@@ -74,7 +74,8 @@ const CheckoutPage = () => {
                             <img src={user!.avatar} alt="avatar"/>
                         </div>
                         <ul className='checkout_payment-list'>
-                            {cart.length > 0 ? cart.map(product => {
+                            {
+                                cart.length > 0 ? cart.map(product => {
                                 return (
                                     <li className='checkout_payment-list-item' key={product.id}>
                                         <h3>{product.title}</h3>
@@ -84,11 +85,10 @@ const CheckoutPage = () => {
                                         </div>
                                     </li>
                                 )
-                            }) : <h3>Your cart is empty</h3>
+                                })
+                                : <h3>Your cart is empty</h3>
                             }
-
                         </ul>
-
                         <div className='checkout_payment-total'>
                             <div className="checkout_payment-total-info">
                                 <h3>Total: {cartTotal()}$</h3>

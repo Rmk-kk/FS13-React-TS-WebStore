@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import StoreServices from "../../../StoreServices/StoreServices";
 import {CategoryType} from "../../UserPage/NewItemModal/NewItemModal";
+import {Store} from "react-notifications-component";
 
 export interface EditProductModalProps {
     edit: boolean,
@@ -29,6 +30,18 @@ const EditProductModal = (props:EditProductModalProps) => {
     useEffect(() => {
         service.getAllCategories()
             .then(setCategories)
+            .catch(() => Store.addNotification({
+                message: `Couldn't get categories`,
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
     }, [])
 
     if(!edit) {
@@ -44,9 +57,32 @@ const EditProductModal = (props:EditProductModalProps) => {
                     .then((res) => {
                         images.push(res.data.location)
                     })
-                    .catch(e => console.log(e));
+                    .then(() => setNewImages(images))
+                    .then(() => Store.addNotification({
+                        title: "Image uploaded successfully",
+                        type: "success",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    }))
+                    .catch(() => Store.addNotification({
+                        title: "Couldn't upload the image",
+                        type: "danger",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    }))
             })
-            setNewImages(images);
         }
     }
 
@@ -62,7 +98,30 @@ const EditProductModal = (props:EditProductModalProps) => {
         }
         service.updateProduct(id, data)
             .then(() => setEdit(false))
-            .catch((e) => console.log(e))
+            .then(() => Store.addNotification({
+                title: "Product was edited successfully",
+                type: "success",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
+            .catch(() => Store.addNotification({
+                title: "Couldn't edit the product",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
     }
 
     return ReactDOM.createPortal(

@@ -7,22 +7,17 @@ import StoreServices from "../../../StoreServices/StoreServices";
 import {getUserWithToken} from "../../../../redux/slices/userReducer";
 import RegistrationComponent from "../Registration/RegistrationComponent";
 import LoginComponent from "../Login/LoginComponent";
-import NotificationMessage from "../../../NotificationMessage/NotificationMessage";
 import {ThemeContext} from "../../../ThemeContext";
+import { Store } from 'react-notifications-component';
 
-export interface AuthPageProps {
-    loading: boolean,
-    error: boolean,
 
-    setError: React.Dispatch<React.SetStateAction<boolean>>,
+export interface LoginPageProps{
+    loginFormHandle: (e:FormEvent, data:LoginDataType) => void,
     setNewUser:React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-export interface LoginPageProps extends AuthPageProps {
-    loginFormHandle: (e:FormEvent, data:LoginDataType) => void,
-}
-
-export interface RegisterPageProps extends AuthPageProps {
+export interface RegisterPageProps{
+    setNewUser:React.Dispatch<React.SetStateAction<boolean>>,
     registerFormHandle: (e:FormEvent, data:RegisterDataType) => void,
 }
 
@@ -33,9 +28,6 @@ export type RegisterDataType = {email:string, password: string, name: string}
 const AuthPage = () => {
     const {darkMode} = useContext(ThemeContext)
     const [newUser, setNewUser] = useState(false);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [newUserNotification, setNewUserNotification] = useState(false);
     const user = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -53,17 +45,37 @@ const AuthPage = () => {
 
     //LOGIN
     const loginFormHandle = (e:FormEvent, data:LoginDataType) => {
-        setLoading(true);
         e.preventDefault()
         service.getAuthToken(data)
             .then((res:any)=> {
                 localStorage.setItem('access_token', res.data['access_token']);
             })
             .then(getUserLogin)
-            .catch(() => {
-                setError(true)
-                setLoading(false)
-            })
+            .then(()=>Store.addNotification({
+                title: "Logged in successfully",
+                type: "success",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
+            .catch(() => Store.addNotification({
+                    title: "Oops!",
+                    message: `Wrong username or password`,
+                    type: "danger",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        onScreen: true
+                    }
+                }))
     }
 
     const getUserLogin = () => {
@@ -72,29 +84,45 @@ const AuthPage = () => {
 
     //REGISTRATION
     const registerFormHandle = (e:FormEvent, data:RegisterDataType) => {
-        setLoading(true);
         e.preventDefault();
         service.createNewUser(data)
-            .then(() => setNewUserNotification(true))
             .then(() => setNewUser(false))
-            .catch(() => setError(true))
-        setLoading(false);
-        setNewUserNotification(false);
+            .then(() => Store.addNotification({
+                title: "Great!",
+                message: "User created successfully!",
+                type: "success",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
+            .catch((e) => Store.addNotification({
+                    title: "Oops!",
+                    message: `${e.response.data.message[0]}}`,
+                    type: "danger",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        onScreen: true
+                    }
+                }))
     }
 
     return(
         <div className={darkMode ? 'login-wrap login-wrap-dark' : 'login-wrap'}>
             <Container maxWidth={"lg"} style={{margin: 'auto'}}>
-                {newUser ? <RegistrationComponent
-                        setError={setError}
-                        error={error}
-                        loading={loading}
+                {newUser ?
+                    <RegistrationComponent
                         setNewUser={setNewUser}
                         registerFormHandle={registerFormHandle}/> :
-                    <LoginComponent setError={setError}
-                                    error={error}
-                                    loading={loading}
-                                    setNewUser={setNewUser}
+                    <LoginComponent setNewUser={setNewUser}
                                     loginFormHandle={loginFormHandle}
                     />}
             </Container>

@@ -3,12 +3,12 @@ import React, {FormEvent, useEffect, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import StoreServices from "../../../StoreServices/StoreServices";
 import {Category} from "../../../types-interfaces";
+import handleFileSelected from "../../../StoreServices/handleFilesUpload";
+import {Store} from "react-notifications-component";
 
 export interface EditCategoryProps {
     editCategory: boolean,
     setEditCategory:  React.Dispatch<React.SetStateAction<boolean>>,
-    setEditCategoryError:React.Dispatch<React.SetStateAction<boolean>>,
-    setEditCategorySucceed: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const EditCategoryModal = (props:EditCategoryProps) => {
@@ -17,28 +17,27 @@ const EditCategoryModal = (props:EditCategoryProps) => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [categoryId, setCategoryId] = useState<number | string>('');
     const service = new StoreServices();
-    const {editCategory, setEditCategory, setEditCategoryError, setEditCategorySucceed} = props;
+    const {editCategory, setEditCategory} = props;
 
     useEffect(() => {
         service.getAllCategories()
             .then(setCategories)
-            .catch(() => setEditCategoryError(true))
+            .catch(() => Store.addNotification({
+                title: "Couldn't upload categories",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
     }, [])
 
      if(!editCategory) {
         return null
-    }
-
-     //handle uploaded image
-    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        if(e.target.files) {
-            const files = Array.from(e.target.files)
-            service.uploadFile(files[0])
-                .then((res) => {
-                    setImage(res.data.location)
-                })
-                .catch(e => console.log(e))
-        }
     }
 
     const onSelectChange = (id:number) => {
@@ -52,24 +51,57 @@ const EditCategoryModal = (props:EditCategoryProps) => {
     }
 
      const resetAllStates = () => {
-         setEditCategoryError(false);
-         setEditCategorySucceed(false);
          setCategoryId('');
          setName('');
          setImage('');
          setEditCategory(false);
      }
+
     const onFormSubmit = (e:FormEvent) => {
         e.preventDefault();
         service.editCategory(Number(categoryId), {name, image})
             .then(res => {
                 if(res.status === 201 || res.status === 200){
-                    setEditCategorySucceed(true);
-                } else if(res.status === 400) {
-                    setEditCategoryError(true)
+                    Store.addNotification({
+                        title: "Category was edited successfully",
+                        type: "success",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    })
+                }
+                else if(res.status === 400) {
+                    Store.addNotification({
+                        title: "Something went wrong, try again later",
+                        type: "danger",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2000,
+                            onScreen: true
+                        }
+                    })
                 }
             })
-            .catch(() => setEditCategoryError(true))
+            .catch(() => Store.addNotification({
+                title: "Something went wrong, try again later",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 2000,
+                    onScreen: true
+                }
+            }))
         resetAllStates()
     }
 
@@ -108,7 +140,7 @@ const EditCategoryModal = (props:EditCategoryProps) => {
                     />
                     <TextField fullWidth
                                type='file'
-                               onChange={handleFileSelected}
+                               onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleFileSelected(e, setImage)}
                                disabled={!name}
                     />
                     {image && <img src={image} alt="preview" style={{maxWidth : '200px'}}/>}

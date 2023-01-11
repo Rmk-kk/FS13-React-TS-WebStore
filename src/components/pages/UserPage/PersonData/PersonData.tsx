@@ -34,7 +34,6 @@ const PersonData = (props:PersonDataProps) => {
                     "password": userPassword
                 }
             }))
-            .catch(e => console.log(e))
         dispatch(getUserWithToken(localStorage.getItem('access_token')));
     }
 
@@ -84,7 +83,9 @@ const PersonData = (props:PersonDataProps) => {
                                         disabled={(userMail === email && userPassword === password && userName === name)}
                                         onClick={() => onFormEdit()}>
                                     Update Profile</Button>
-                                <Button variant="outlined" onClick={() => {dispatch(logout())}}>Log Out</Button>
+                                <Button variant="outlined" onClick={() => {
+                                    dispatch(logout())}
+                                }>Log Out</Button>
                             </div>
                         </Box>
                     </div>

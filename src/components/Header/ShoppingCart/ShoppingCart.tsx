@@ -10,6 +10,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CloseIcon from '@mui/icons-material/Close';
 import {ThemeContext} from "../../ThemeContext";
+import {Store} from "react-notifications-component";
 
 const ShoppingCart = () => {
     const [showCart, setShowCart] = useState(false);
@@ -29,8 +30,8 @@ const ShoppingCart = () => {
         return total
     }
 
-
     const elements = cart.length > 0 ? cart.map((item, i) => <ShoppingCartItem key={i} product={item}/>) : <p className='empty-cart'>Nothing was added yet</p>
+
     return (
         <>
             <ShoppingCartIcon className={showCart ? 'active-cart' : ''}
@@ -48,7 +49,7 @@ const ShoppingCart = () => {
                             <Button disabled={cart.length === 0}
                                     variant="outlined" size='small'
                                     style={{marginRight: '15px'}}
-                                    onClick={()=>dispatch(resetCart())}
+                                    onClick={()=> {dispatch(resetCart())}}
                             >Clear cart</Button>
                             <Link to='/checkout'
                                   onClick={()=>setShowCart(false)}
@@ -69,6 +70,7 @@ interface ShoppingCartItemProps {
 const ShoppingCartItem = (props:ShoppingCartItemProps) => {
     const dispatch = useAppDispatch();
     const {images, title, price,id, quantity, category} = props.product;
+
     return (
             <li className="cart-item">
                 <Link to={`/categories/${category.name+category.id}/${id}`} className="cart-item" style={{margin: 0, padding: 0}}>
@@ -82,7 +84,9 @@ const ShoppingCartItem = (props:ShoppingCartItemProps) => {
                         <ArrowDropUpIcon fontSize='medium' onClick={()=> {
                             dispatch(addItem(props.product))
                         }}/>
-                        <ArrowDropDownIcon fontSize='medium' onClick={()=> dispatch(removeItem(id))}/>
+                        <ArrowDropDownIcon fontSize='medium' onClick={()=> {
+                            dispatch(removeItem(id))
+                        }}/>
                     </span>
                     </div>
                 </div>

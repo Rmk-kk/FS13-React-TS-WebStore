@@ -10,6 +10,7 @@ const CategorySection = () => {
     const {darkMode} = useContext(ThemeContext)
     const categories = useAppSelector(state => state.categoriesReducer);
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         dispatch(fetchAllCategories())
     }, [])
@@ -29,7 +30,6 @@ const CategorySection = () => {
                             )})}
                     </ul>
                 </div>
-
             </Container>
         </section>
     )

@@ -1,12 +1,24 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {CategoryList} from "../../components/types-interfaces";
 import axios from "axios";
+import {Store} from "react-notifications-component";
 export const fetchAllCategories = createAsyncThunk('fetchAllCategories', async () => {
     try {
         const res = await axios.get('https://api.escuelajs.co/api/v1/categories');
         return res.data
     } catch (e) {
-        console.log(e)
+        Store.addNotification({
+                title: "Couldn't get categories, reload the page",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1500,
+                    onScreen: true
+                }
+            })
     }
 })
 
@@ -22,7 +34,18 @@ const categorySlice = createSlice({
             return action.payload.filter((item: any) => item.id < 6)
         })
         build.addCase(fetchAllCategories.rejected, (state) => {
-            console.log('error in getting categories');
+            Store.addNotification({
+                title: "Couldn't get categories, reload the page",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1500,
+                    onScreen: true
+                }
+            })
             return state
         })
     }

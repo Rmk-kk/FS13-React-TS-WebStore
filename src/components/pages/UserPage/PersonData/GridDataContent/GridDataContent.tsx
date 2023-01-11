@@ -6,6 +6,7 @@ import createDate from "../../../../StoreServices/createDateFunction";
 import StoreServices from "../../../../StoreServices/StoreServices";
 import {useEffect, useState} from "react";
 import {ProductList} from "../../../../types-interfaces";
+import {Store} from "react-notifications-component";
 
 const CategoryColumns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 45 },
@@ -116,11 +117,33 @@ const GridDataContent = (props:GridDataContentProps) => {
         if(type === 'users'){
             service.getAllUsers()
                 .then(setUsers)
-                .catch(e => console.log(e))
+                .catch(() => Store.addNotification({
+                    title: "Couldn't get users",
+                    type: "danger",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 1500,
+                        onScreen: true
+                    }
+                }))
         } else if(type === 'products') {
             service.getAllProducts()
                 .then(setProducts)
-                .catch(e => console.log(e))
+                .catch(() => Store.addNotification({
+                    title: "Couldn't get products",
+                    type: "danger",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 1500,
+                        onScreen: true
+                    }
+                }))
         }
     }, [type])
 

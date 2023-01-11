@@ -6,6 +6,7 @@ import {useAppDispatch} from "../../../../hooks/reduxHook";
 import ClearIcon from "@mui/icons-material/Clear";
 import {useContext} from "react";
 import {ThemeContext} from "../../../ThemeContext";
+import {Store} from "react-notifications-component";
 
 const ProductCard = (props:ProductItem) => {
     const dispatch = useAppDispatch();
@@ -32,10 +33,10 @@ const ProductCard = (props:ProductItem) => {
                 <div className="h-bg">
                     <div className="h-bg-inner"></div>
                 </div>
-
-                <button className="cart-link" onClick={() => {
-                    dispatch(addItem(product));
-                }}>
+                <button className="cart-link"
+                        onClick={() => {
+                            dispatch(addItem(product));
+                        }}>
                     <span className="price">${price}</span>
                     <span className="add-to-cart">
                         <span className="txt">Add to cart</span>

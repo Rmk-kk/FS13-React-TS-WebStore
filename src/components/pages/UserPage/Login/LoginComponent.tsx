@@ -5,9 +5,7 @@ import {LoginPageProps} from "../AuthPage/AuthPage";
 const LoginComponent = (props:LoginPageProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {loginFormHandle, loading, error, setError, setNewUser} = props;
-    const load = loading ? <p>Loading</p> : null;
-    const err = error ? <p>Wrong username or password</p> : null;
+    const {loginFormHandle, setNewUser} = props;
 
     return(
             <div className='login-form-login'>
@@ -27,7 +25,6 @@ const LoginComponent = (props:LoginPageProps) => {
                         label="Email"
                         onChange={(e)=> {
                             setEmail(e.target.value);
-                            setError(false)
                         }}
                         // helperText="Incorrect entry."
                     />
@@ -36,12 +33,9 @@ const LoginComponent = (props:LoginPageProps) => {
                         // id="outlined-error-helper-text"
                         onChange={(e)=>{
                             setPassword(e.target.value);
-                            setError(false)
                         }}
                         label="Password"
                     />
-                    {load}
-                    {err}
                     <button type='submit' className='login-form_btn'>Login</button>
                 </Box>
                 <span className='login-form-login_switch'

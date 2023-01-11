@@ -4,7 +4,7 @@ import {useContext} from "react";
 import {ThemeContext} from "../ThemeContext";
 
 const ThemeSwitchIcon = styled(Switch)(({ theme }) => {
-    const {darkMode, toggleDarkMode} = useContext(ThemeContext)
+    const {darkMode} = useContext(ThemeContext)
 
     return ({
         width: 62,

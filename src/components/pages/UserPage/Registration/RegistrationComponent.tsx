@@ -6,10 +6,7 @@ const RegistrationComponent = (props:RegisterPageProps) => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const {loading, error, setError, registerFormHandle, setNewUser} = props;
-
-    const load = loading ? <p>Loading</p> : null;
-    const err = error ? <p>Wrong username or password</p> : null;
+    const {registerFormHandle, setNewUser} = props;
 
     return(
         <Container maxWidth={"lg"} style={{margin: 'auto'}}>
@@ -28,25 +25,20 @@ const RegistrationComponent = (props:RegisterPageProps) => {
                         label="Name"
                         onChange={(e)=> {
                             setName(e.target.value);
-                            setError(false)
                         }}
                     />
                     <TextField
                         label="Email"
                         onChange={(e)=> {
                             setEmail(e.target.value);
-                            setError(false)
                         }}
                     />
                     <TextField
                         onChange={(e)=>{
                             setPassword(e.target.value);
-                            setError(false)
                         }}
                         label="Password"
                     />
-                    {load}
-                    {err}
                     <button type='submit' className='login-form_btn'>Sign Up</button>
                 </Box>
                 <span className='login-form-login_switch'
