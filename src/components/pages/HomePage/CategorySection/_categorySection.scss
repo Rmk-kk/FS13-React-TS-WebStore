@@ -1,4 +1,4 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 
 .category {
   padding-bottom: 70px;
@@ -18,10 +18,10 @@
       &-item{
         max-width: 300px;
         padding: 20px 10px;
-        background-color: $main_white;
+        background-color: variables.$main_white;
         text-align: center;
         text-decoration: none;
-        color: $main_blue;
+        color: variables.$main_blue;
         &:not(:last-child) {
           margin-right: 20px;
         }
@@ -42,19 +42,19 @@
 }
 
 .category-dark {
-  background-color: $dark-grey-background;
+  background-color: variables.$dark-grey-background;
     & h2 {
       margin-bottom: 30px;
       font-size: 36px;
       font-style: italic;
-      color: $main_white;
+      color: variables.$main_white;
     }
     &-wrap {
 
       &_list{
         &-item{
-          background-color: $main_white;
-          color: $main_blue;
+          background-color: variables.$main_white;
+          color: variables.$main_blue;
           & h4 {
             margin-bottom: 30px;
             font-size: 24px;

@@ -1,17 +1,17 @@
-@import "../../../utility/variables";
+@use "../../../utility/variables";
 
 .cart-wrap-dark {
-  background-color: $black-background!important;
-  color: $main_beige!important;
+  background-color: variables.$black-background!important;
+  color: variables.$main_beige!important;
 
   & button {
-    color: $main_white;
-    border: 1px solid $main-white!important;
+    color: variables.$main_white;
+    border: 1px solid variables.$main-white!important;
   }
 
   & .cart-checkout {
-    background-color: $main_beige!important;
-    color: $main_white;
+    background-color: variables.$main_beige!important;
+    color: variables.$main_white;
 
     &:hover {
       transform: translateY(-2px);
@@ -20,49 +20,13 @@
 
     &:active {
       background-color: transparent;
-      color: $main_blue
-    }
-  }
-
-  &-bottom_wrap {
-    display: flex;
-    height: 50px;
-    align-items: center;
-    justify-content: space-around;
-    padding-top: 15px;
-    position: relative;
-
-    &:after {
-      width: 70%;
-      height: 1px;
-      margin-bottom: 10px;
-      content: '';
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.38);
-      top: 10%;
-      left: 15%;
-    }
-
-    &-buttons {
-      display: flex;
-      align-items: center;
-      height: 100%;
+      color: variables.$main_blue
     }
   }
 
   &-notification {
-    display: none;
-    position: absolute;
-    top: -15px;
-    right: -13px;
-    color: $main_white;
-    background-color: $main_blue;
-    height: 24px;
-    text-align: center;
-    width: 24px;
-    cursor: default;
-    border-radius: 100%;
-    z-index: 1;
+    color: variables.$main_white;
+    background-color: variables.$main_blue;
   }
 }
 
@@ -80,7 +44,7 @@
     cursor: default;
     top:100%;
     right: -20px;
-    background-color: $main_white;
+    background-color: variables.$main_white;
     border-radius: 5px;
     box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.1);
     z-index: 10000;
@@ -173,8 +137,8 @@
   }
 
   &-checkout {
-    background-color: $main_blue;
-    color:$main_white;
+    background-color: variables.$main_blue;
+    color: variables.$main_white;
     text-decoration: none;
     padding: 8px 12px;
     border-radius: 5px;
@@ -187,8 +151,8 @@
     }
 
     &:active {
-      background-color: $main_beige;
-      color:$main_blue
+      background-color: variables.$main_beige;
+      color: variables.$main_blue
     }
   }
 
@@ -223,8 +187,8 @@
     position: absolute;
     top: -15px;
     right: -13px;
-    color: $main_white;
-    background-color: $main_blue;
+    color: variables.$main_white;
+    background-color: variables.$main_blue;
     height: 24px;
     text-align: center;
     width: 24px;

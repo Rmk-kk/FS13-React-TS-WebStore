@@ -1,4 +1,4 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 
 .category_page {
   padding: 25px 0 40px;
@@ -19,7 +19,7 @@
 
   &-filters {
     padding: 10px 15px;
-    background-color: $main_white;
+    background-color: variables.$main_white;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
@@ -34,16 +34,16 @@
 }
 
 .category_page-dark {
-  background-color: $dark-grey-background;
+  background-color: variables.$dark-grey-background;
   & h2 {
-    color: $main_white;
+    color: variables.$main_white;
   }
 
   & .category_page-filters {
     background-color: #646464;
 
     & * {
-      color: $main_white;
+      color: variables.$main_white;
     }
   }
 }

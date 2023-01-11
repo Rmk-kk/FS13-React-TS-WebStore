@@ -1,4 +1,4 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 @import "./src/utility/mixins";
 
 
@@ -57,17 +57,17 @@
         cursor: pointer;
         border: none;
         border-radius: 0;
-        color:$main_blue;
-        background-color: $main_beige;
+        color: variables.$main_blue;
+        background-color: variables.$main_beige;
         transition: background-color .1s linear;
 
         &:hover {
-          background-color:$main_blue;
-          color:$main_beige
+          background-color: variables.$main_blue;
+          color: variables.$main_beige
         }
 
         &:active {
-          color:$main_blue;
+          color: variables.$main_blue;
           background-color: orange;
         }
       }
@@ -76,7 +76,7 @@
     &-admin {
       display: flex;
       justify-content: space-between;
-      background-color: $main_white;
+      background-color: variables.$main_white;
       @include productPage-elements;
       transform: rotate(1deg);
 
@@ -85,7 +85,7 @@
         border: none;
         cursor: pointer;
         background-color: #043E85;
-        color:$main_white;
+        color: variables.$main_white;
 
         &:hover {
           transform: translateY(-3px);
@@ -95,9 +95,9 @@
 
         &:first-child {
           margin-right: 15px;
-          border:1px solid $main_blue;
+          border:1px solid variables.$main_blue;
           background-color: transparent;
-          color:$main_blue;
+          color: variables.$main_blue;
         }
       }
     }
@@ -106,16 +106,16 @@
 }
 
 .singleProduct-dark {
-  background-color: $dark-grey-background;
+  background-color: variables.$dark-grey-background;
 }
 
 .slider-dark {
   .slider {
     &-left_arrow {
-      color: $dark-grey-background;
+      color: variables.$dark-grey-background;
     }
     &-right_arrow {
-      color: $dark-grey-background;
+      color: variables.$dark-grey-background;
     }
   }
 }
@@ -139,7 +139,7 @@
 
   &-circles {
     font-size: 24px;
-    color:$main_beige;
+    color: variables.$main_beige;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -156,7 +156,7 @@
     transform: translate(0, -50%);
     left: 32px;
     font-size: 64px;
-    color: $main_beige;
+    color: variables.$main_beige;
     z-index: 1;
     cursor: pointer;
     transition: color .1s linear;
@@ -165,7 +165,7 @@
     user-select: none; /* Standard syntax */
 
     &:hover {
-      color:$main_blue
+      color: variables.$main_blue
     }
   }
 
@@ -175,7 +175,7 @@
     transform: translate(0, -50%);
     right: 32px;
     font-size: 64px;
-    color: $main_beige;
+    color: variables.$main_beige;
     z-index: 1;
     cursor: pointer;
     transition: color .1s linear;
@@ -184,11 +184,11 @@
     user-select: none; /* Standard syntax */
 
     &:hover {
-      color:$main_blue
+      color: variables.$main_blue
     }
   }
 }
 
 .active-dot {
-  color:$main_blue
+  color: variables.$main_blue
 }

@@ -1,8 +1,8 @@
-@import "../../../../utility/variables";
+@use "../../../../utility/variables";
 
 .product-card-dark {
   & .product-card_delete-icon {
-      fill: $main_beige;
+      fill: variables.$main_beige;
     &:hover {
       fill: orange;
     }
@@ -23,7 +23,7 @@
     right: -15px;
 
     &:hover {
-      fill: $main_beige;
+      fill: variables.$main_beige;
       transform: scale(1.2);
     }
   }
@@ -168,7 +168,7 @@
   margin-bottom: 10px;
   font-size: 12px;
   text-transform: uppercase;
-  color: $main_blue;
+  color: variables.$main_blue;
 }
 
 .a-size {
@@ -208,7 +208,7 @@
   font-weight: 700;
 
   &:active {
-    background-color: $main_blue;
+    background-color: variables.$main_blue;
   }
 }
 

@@ -1,4 +1,4 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 
 .edit-product_modal {
   position: fixed;
@@ -7,8 +7,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -70%);
-  background-color: $main_white;
-  color: $main_blue;
+  background-color: variables.$main_white;
+  color: variables.$main_blue;
   padding: 50px 50px 10px;
   z-index: 10000;
 
@@ -22,12 +22,12 @@
     & button:first-child {
       margin-right: 15px;
       background: transparent;
-      color:$main_blue;
-      border: 1px solid $main_blue;
+      color: variables.$main_blue;
+      border: 1px solid variables.$main_blue;
 
       &:hover {
         background: #0652b4;
-        color: $main_white;
+        color: variables.$main_white;
       }
     }
   }

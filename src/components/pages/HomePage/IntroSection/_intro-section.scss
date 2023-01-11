@@ -1,11 +1,11 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 
 .intro-section-dark {
-  background-color: $dark-grey-background;
+  background-color: variables.$dark-grey-background;
 
   & .intro-section {
     &_intro {
-    background-color: $main_blue;
+    background-color: variables.$main_blue;
     display: flex;
     justify-content: center;
   }
@@ -21,7 +21,7 @@
 
       &-heading {
         text-align: center;
-        color:$main_white;
+        color: variables.$main_white;
       }
     }
 
@@ -45,7 +45,7 @@
 
 .intro-section {
   &_intro {
-    background-color: $main_blue;
+    background-color: variables.$main_blue;
     display: flex;
     justify-content: center;
   }
@@ -61,13 +61,13 @@
 
     &-heading {
       text-align: center;
-      color:$main_blue;
+      color: variables.$main_blue;
     }
   }
 
   &_title {
     font-size: 100px;
-    color: $main_white;
+    color: variables.$main_white;
     padding: 50px 20px;
     max-width:720px;
     z-index: 3;

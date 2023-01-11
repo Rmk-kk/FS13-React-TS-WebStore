@@ -1,4 +1,4 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 
 .login-form {
   display: flex;
@@ -38,8 +38,8 @@
     padding: 15px 30px;
     cursor: pointer;
     font-size: 18px;
-    background-color: $main_blue;
-    color:$main_white;
+    background-color: variables.$main_blue;
+    color: variables.$main_white;
     border-radius: 8px;
     border: none;
     transition: .1s linear;
@@ -63,20 +63,20 @@
 }
 
 .login-wrap-dark {
-  background-color: $dark-grey-background;
+  background-color: variables.$dark-grey-background;
 
   .login-form-login {
-    background-color: $main-white;
-    color: $dark-grey-background;
+    background-color: variables.$main-white;
+    color: variables.$dark-grey-background;
 
     & input {
       &:focus, &:active {
-        border: $dark-grey-background!important;
+        border: variables.$dark-grey-background!important;
       }
     }
 
     & button {
-      background-color: $dark-grey-background;
+      background-color: variables.$dark-grey-background;
     }
   }
 }
@@ -86,25 +86,25 @@
 }
 
 .user-content-wrap-dark {
-  background-color: $dark-grey-background;
-  color: $main_white;
+  background-color: variables.$dark-grey-background;
+  color: variables.$main_white;
 
   & .profile-functionality button {
-    background-color: $main_white;
-    color: $dark-grey-background;
-    border: 1px solid $dark-grey-background;
-    outline: $dark-grey-background;
+    background-color: variables.$main_white;
+    color: variables.$dark-grey-background;
+    border: 1px solid variables.$dark-grey-background;
+    outline: variables.$dark-grey-background;
 
   }
 
   & .profile-wrap_content-buttons button {
-    border: 1px solid $main_white;
-    color: $main_white;
+    border: 1px solid variables.$main_white;
+    color: variables.$main_white;
 
     &:first-child {
       border: none;
-      background-color: $main_white;
-      color: $dark-grey-background;
+      background-color: variables.$main_white;
+      color: variables.$dark-grey-background;
 
       &:disabled {
         opacity: 0.3;

@@ -1,4 +1,4 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 
 .checkout {
   display: flex;
@@ -161,22 +161,22 @@
 }
 
 .checkout-dark {
-  color: $main-white;
+  color: variables.$main-white;
 
   & .list_item-content-buttons  svg{
-    fill: $main-white;
+    fill: variables.$main-white;
 
     &:hover {
-      fill: $main-beige;
+      fill: variables.$main-beige;
     }
   }
 
   & .checkout_payment-total-button button {
-    color:$main_white;
-    border-color: $main_white;
+    color: variables.$main_white;
+    border-color: variables.$main_white;
   }
 }
 
 .checkout-wrap-dark {
-  background-color: $dark-grey-background;
+  background-color: variables.$dark-grey-background;
 }

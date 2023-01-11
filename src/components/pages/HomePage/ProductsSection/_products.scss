@@ -1,9 +1,9 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 
 .products-dark {
-  background-color: $dark-grey-background;
+  background-color: variables.$dark-grey-background;
   & h2 {
-    color: $main_white;
+    color: variables.$main_white;
     font-size: 36px;
     font-style: italic;
   }
@@ -38,14 +38,14 @@
 .products-pagination-dark {
   & button {
     border-color: rgba(221, 181, 124, 0.3);
-    color: $main_beige;
+    color: variables.$main_beige;
     &:hover {
       background-color: rgba(221, 181, 124, 0.1);
     }
   }
 
   & div {
-    color: $main-beige;
+    color: variables.$main-beige;
   }
 }
 

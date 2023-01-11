@@ -1,5 +1,6 @@
+@use "./src/utility/variables";
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;900&family=Raleway:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap');
-@import "./src/utility/variables";
+
 
 * {
   padding: 0;
@@ -11,12 +12,12 @@
 body {
   //font-family: 'Mulish', sans-serif;
   font-family: 'Raleway', sans-serif;
-  color:$main_blue;
-  background-color: $light_blue;
+  color: variables.$main_blue;
+  background-color: variables.$light_blue;
 }
 
 .body-dark {
-  background-color: $dark-grey-background;
+  background-color: variables.$dark-grey-background;
 }
 
 

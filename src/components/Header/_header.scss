@@ -1,25 +1,24 @@
-@import "./src/utility/variables";
+@use "./src/utility/variables";
 .header-dark {
-  background-color: $dark-grey-background!important;
+  background-color: variables.$dark-grey-background!important;
 
   & .header_wrap-menu_icon {
       & svg {
-        fill: $main_white;
+        fill: variables.$main_white;
 
         &:hover {
-          fill:$main_beige
+          fill: variables.$main_beige
         }
       }
     }
 }
 
 .header-categories-dark {
-  background-color: $black-background;
+  background-color: variables.$black-background;
 
   & .header-categories_list {
-
     &-item {
-      color: $main_white;
+      color: variables.$main_white;
       &:not(:last-child) {
         &:after {
           background-color: rgba(171, 171, 171, 0.25);
@@ -30,7 +29,7 @@
 }
 
 .header {
-  background-color: $main_beige;
+  background-color: variables.$main_beige;
   height: 85px;
 
   &_wrap {
@@ -63,9 +62,8 @@
       & svg {
         fill: #353535;
 
-
         &:hover {
-          fill:$main_blue;
+          fill: variables.$main_blue;
         }
 
       }
@@ -80,10 +78,10 @@
     display: flex;
     justify-content: space-between;
     list-style: none;
-    color: $main_blue;
+    color: variables.$main_blue;
 
     &-item {
-      color: $main_blue;
+      color: variables.$main_blue;
       text-decoration: none;
       font-size: 1.3rem;
       cursor: pointer;
