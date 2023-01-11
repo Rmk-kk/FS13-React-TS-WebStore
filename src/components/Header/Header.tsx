@@ -9,10 +9,8 @@ import ThemeSwitchIcon from "./ThemeSwitchIcon";
 import {ThemeContext} from "../ThemeContext";
 import {fetchAllCategories} from "../../redux/slices/categoryReducer";
 
-
 const WhiteLogoImage = require('../../assets/img/header/logo-white.png')
 const BlackLogoImage = require('../../assets/img/header/logo-black.png')
-
 const Header = () => {
     const {darkMode, toggleDarkMode} = useContext(ThemeContext)
     const categories = useAppSelector(state => state.categoriesReducer);
@@ -23,7 +21,6 @@ const Header = () => {
         cursor: 'default'
     }
     const dispatch = useAppDispatch();
-
     useEffect(() => {
         if(categories.length === 0) {
             dispatch(fetchAllCategories());
@@ -50,7 +47,7 @@ const Header = () => {
                     </Link>
                     <div className='header_wrap-menu'>
                     <span className='header_wrap-menu_icon'>
-                        <ThemeSwitchIcon onChange={() => toggleDarkMode()}/>
+                        <ThemeSwitchIcon checked={darkMode} onChange={() => toggleDarkMode()}/>
                     </span>
                     <span className='shopping-cart_anchor header_wrap-menu_icon'>
                         <div className={`cart-notification ${cart.length > 0 && 'cart-notification-enabled'}`}>{cartTotalItems()}</div>

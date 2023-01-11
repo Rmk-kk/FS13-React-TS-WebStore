@@ -26,7 +26,7 @@ const App = () => {
                       <Route path='/account' element={<UserContent/>}/> {/*Account page*/}
                       <Route path='/checkout' element={<CheckoutPage/>}/>
                   </Route>
-                  <Route path={'*'} element={<ErrorImageComponent image={NoPageFound404} type='404'/>}/>
+                  <Route path={'/*'} element={<ErrorImageComponent image={NoPageFound404} type='404'/>}/>
               </Routes>
               <Footer/>
       </BrowserRouter>

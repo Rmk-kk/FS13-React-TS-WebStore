@@ -6,7 +6,6 @@ import {useAppSelector} from "../../hooks/reduxHook";
 
 const Footer = () => {
     const categories = useAppSelector(state => state.categoriesReducer);
-
     const activeStyle = {
         textDecoration: "underline",
         color: '#043E85'

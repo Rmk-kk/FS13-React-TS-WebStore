@@ -1,9 +1,9 @@
-import {rest} from "msw";
 import {setupServer} from "msw/native";
+import {rest} from "msw";
 import {fakeData} from "./fakeData";
 
+
 const handler = [
-    //PRODUCT REDUCER
     //offset products
     rest.get('https://api.escuelajs.co/api/v1/products?offset=0&limit=5', (req, res, context) => {
         return res(
@@ -83,7 +83,19 @@ const handler = [
         )
     }),
 
-    //STORE SERVICES
+    //get all products
+    rest.get('https://api.escuelajs.co/api/v1/products?offset=3&limit=500', (req, res, context) => {
+        return res(
+            context.json(fakeData.allProducts)
+        )
+    }),
+
+    //delete product
+    rest.delete('https://api.escuelajs.co/api/v1/products/9', async (req, res, context) => {
+        fakeData.allProducts = fakeData.allProducts.filter(item => item.id !== 9);
+        return res(context.json(fakeData.allProducts))
+    }),
+
     //get single product
     rest.get('https://api.escuelajs.co/api/v1/products/41', (req, res, context) => {
         return res(
@@ -111,75 +123,7 @@ const handler = [
             )
         )
     }),
-
-    //get all users
-    rest.get('https://api.escuelajs.co/api/v1/users', (req, res, context) => {
-        return res(
-            context.json(fakeData.allUsers)
-        )
-    }),
-
-    //get all categories
-    rest.get('https://api.escuelajs.co/api/v1/categories', (req, res, context) => {
-       return res(
-           context.json(fakeData.allCategories)
-       )
-    }),
-
-    //add new category
-    rest.post('https://api.escuelajs.co/api/v1/categories/', async (req,res,context) => {
-        const category = await req.json();
-        return res(
-            context.json(category)
-        )
-    }),
-
-    //add new user
-    rest.post('https://api.escuelajs.co/api/v1/users/', async (req,res,context) => {
-        const user = await req.json();
-        fakeData.allUsers.push(user);
-        return res(
-            context.json(user)
-        )
-    }),
-
-    //get all products
-    rest.get('https://api.escuelajs.co/api/v1/products?offset=3&limit=500', (req, res, context) => {
-        return res(
-            context.json(fakeData.allProducts)
-        )
-    }),
-
-    //delete product
-    rest.delete('https://api.escuelajs.co/api/v1/products/9', async (req, res, context) => {
-        fakeData.allProducts = fakeData.allProducts.filter(item => item.id !== 9);
-        return res(context.json(fakeData.allProducts))
-    }),
-
-    //edit category
-    rest.put('https://api.escuelajs.co/api/v1/categories/1', async (req, res, context) => {
-        const { name } = await req.json();
-        fakeData.allCategories.map(item => {
-            if(item.id === 1) {
-                item.name = name
-            }
-            return item
-        })
-        return res(context.json(fakeData.allCategories.filter(item => item.id === 1)))
-    }),
-
-    //get Auth Token with email and pass
-    rest.post('https://api.escuelajs.co/api/v1/auth/login', async (req, res, context) => {
-        const { email, password } = await req.json();
-        if(email === 'test' && password === 'test') {
-            return res(
-                context.json(fakeData.authToken.access_token)
-            )
-        }
-    })
 ]
 
-const server = setupServer(...handler);
-export default server
-
-
+const productServer = setupServer(...handler);
+export default productServer

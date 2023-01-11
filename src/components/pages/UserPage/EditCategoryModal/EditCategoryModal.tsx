@@ -63,7 +63,6 @@ const EditCategoryModal = (props:EditCategoryProps) => {
         e.preventDefault();
         service.editCategory(Number(categoryId), {name, image})
             .then(res => {
-                console.log(res)
                 if(res.status === 201 || res.status === 200){
                     setEditCategorySucceed(true);
                 } else if(res.status === 400) {
@@ -95,7 +94,6 @@ const EditCategoryModal = (props:EditCategoryProps) => {
                             label="Categories"
                             value={categoryId}
                             onChange={(e)=>{
-                                console.log(e.target.value)
                                 onSelectChange(Number(e.target.value));
                             }}
                         >

@@ -60,7 +60,6 @@ const EditProductModal = (props:EditProductModalProps) => {
             'images': newImages,
             category
         }
-        console.log(newImages)
         service.updateProduct(id, data)
             .then(() => setEdit(false))
             .catch((e) => console.log(e))

@@ -1,13 +1,15 @@
-import server from "../shared/server";
 import {store} from "../../redux/store";
 import {fetchAllCategories} from "../../redux/slices/categoryReducer";
+import categoryServer from "../shared/categoryServer";
+import StoreServices from "../../components/StoreServices/StoreServices";
 
+const service = new StoreServices();
 beforeAll(() => {
-    server.listen();
+    categoryServer.listen();
 })
 
 afterAll(() => {
-    server.close()
+    categoryServer.close()
 })
 
 describe('categories reducer test', () => {
@@ -19,5 +21,21 @@ describe('categories reducer test', () => {
         await store.dispatch(fetchAllCategories());
         expect(store.getState().categoriesReducer.length).toBe(5)
     })
-
 })
+
+describe('store services testing - categories', () => {
+    test('add new category', async () => {
+        const newCategory = {
+            "name": "test",
+            "image": "test"
+        };
+        const res = await service.addNewCategory(newCategory);
+        expect(res.status).toBe(200)
+        expect(res.data['name']).toBe('test')
+        expect(res.data['image']).toBe('test')
+    })
+    test('edit category', async () => {
+        const res = await service.editCategory(1, {'name' : 'test edit'});
+        expect(res.data[0].name).toBe('test edit')
+    })
+});

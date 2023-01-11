@@ -1,14 +1,5 @@
-import server from "../shared/server";
 import {store} from "../../redux/store";
 import {addItem, permanentlyDeleteItem, removeItem, resetCart} from "../../redux/slices/cartReducer";
-
-beforeAll(() => {
-    server.listen();
-})
-
-afterAll(() => {
-    server.close()
-})
 
 describe('cart reducer test', () => {
     test('cart initial value', () => {

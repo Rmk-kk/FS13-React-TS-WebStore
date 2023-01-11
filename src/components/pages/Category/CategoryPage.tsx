@@ -101,7 +101,6 @@ const CategoryPage = () => {
                     dispatch(fetchCategoryProducts(category.charAt(category.length-1)));
                 }
             })
-            .catch(e => console.log(e))
     }
 
     return (
