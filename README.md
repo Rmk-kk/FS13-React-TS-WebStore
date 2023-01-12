@@ -86,9 +86,16 @@ Functional WebStore was created with calls to Fake API.
   * useAuth - for Protected Routes
   * useAppDispatch - for Redux
   * useAppSelector - for Redux
-* Upcoming features
-  * Full form validations
-  * Notifications
+* Notifications
+  * Each user action is followed by notification, to give information about success or fail
+    * registration
+    * editing
+    * creating
+    * updating
+    * logging in
+    * adding to cart/ removing from cart/ clearing cart
+* Form Validations
+  * All form have validation with upcoming notifications, if something is wrong
 
 ## Project Structure
 <details>
