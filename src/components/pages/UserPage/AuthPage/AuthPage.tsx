@@ -10,19 +10,15 @@ import LoginComponent from "../Login/LoginComponent";
 import {ThemeContext} from "../../../ThemeContext";
 import { Store } from 'react-notifications-component';
 
-
 export interface LoginPageProps{
     loginFormHandle: (e:FormEvent, data:LoginDataType) => void,
     setNewUser:React.Dispatch<React.SetStateAction<boolean>>,
 }
-
 export interface RegisterPageProps{
     setNewUser:React.Dispatch<React.SetStateAction<boolean>>,
     registerFormHandle: (e:FormEvent, data:RegisterDataType) => void,
 }
-
 export type LoginDataType = {email:string, password: string}
-
 export type RegisterDataType = {email:string, password: string, name: string}
 
 const AuthPage = () => {
@@ -47,7 +43,7 @@ const AuthPage = () => {
     const loginFormHandle = (e:FormEvent, data:LoginDataType) => {
         e.preventDefault()
         service.getAuthToken(data)
-            .then((res:any)=> {
+            .then((res)=> {
                 localStorage.setItem('access_token', res.data['access_token']);
             })
             .then(getUserLogin)
@@ -85,24 +81,53 @@ const AuthPage = () => {
     //REGISTRATION
     const registerFormHandle = (e:FormEvent, data:RegisterDataType) => {
         e.preventDefault();
-        service.createNewUser(data)
-            .then(() => setNewUser(false))
-            .then(() => Store.addNotification({
-                title: "Great!",
-                message: "User created successfully!",
-                type: "success",
+        if(data.name.length === 0 || !data.name.match(/^[a-zA-Z\s]+$/)) {
+            Store.addNotification({
+                title: "Name can contain only letters",
+                type: "danger",
                 insert: "top",
                 container: "bottom-right",
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                    duration: 2000,
+                    duration: 1000,
                     onScreen: true
                 }
-            }))
-            .catch((e) => Store.addNotification({
+            })
+        }
+        else if(data.password.length < 5) {
+            Store.addNotification({
+                title: "Password must be at least 5 characters",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1000,
+                    onScreen: true
+                }
+            })
+        }
+        else {
+            service.createNewUser(data)
+                .then(() => setNewUser(false))
+                .then(() => Store.addNotification({
+                    title: "Great!",
+                    message: "User created successfully!",
+                    type: "success",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        onScreen: true
+                    }
+                }))
+                .catch((e) => Store.addNotification({
                     title: "Oops!",
-                    message: `${e.response.data.message[0]}}`,
+                    message: `${e.response.data.message[0]}`,
                     type: "danger",
                     insert: "top",
                     container: "bottom-right",
@@ -113,6 +138,7 @@ const AuthPage = () => {
                         onScreen: true
                     }
                 }))
+        }
     }
 
     return(

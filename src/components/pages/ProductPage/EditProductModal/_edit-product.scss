@@ -10,7 +10,7 @@
   background-color: variables.$main_white;
   color: variables.$main_blue;
   padding: 50px 50px 10px;
-  z-index: 10000;
+  z-index: 100;
 
   &-form > div{
     width: 100% !important;
@@ -45,6 +45,6 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.7);
-    z-index: 10000;
+    z-index: 100;
   }
 }

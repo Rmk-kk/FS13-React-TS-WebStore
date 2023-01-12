@@ -29,11 +29,13 @@ const RegistrationComponent = (props:RegisterPageProps) => {
                     />
                     <TextField
                         label="Email"
+                        type={'email'}
                         onChange={(e)=> {
                             setEmail(e.target.value);
                         }}
                     />
                     <TextField
+                        type={'password'}
                         onChange={(e)=>{
                             setPassword(e.target.value);
                         }}

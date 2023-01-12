@@ -31,49 +31,79 @@ const NewCategoryModal = (props:NewCategoryModalProps) => {
         const category = {
             name, image
         }
-        service.addNewCategory(category)
-            .then(res => {
-                if(res.status === 201){
-                    Store.addNotification({
-                        title: "Category was created successfully",
-                        type: "success",
-                        insert: "top",
-                        container: "bottom-right",
-                        animationIn: ["animate__animated", "animate__fadeIn"],
-                        animationOut: ["animate__animated", "animate__fadeOut"],
-                        dismiss: {
-                            duration: 2000,
-                            onScreen: true
-                        }
-                    })
-                } else if(res.status === 400) {
-                    Store.addNotification({
-                        title: "Something went wrong, try again later",
-                        type: "danger",
-                        insert: "top",
-                        container: "bottom-right",
-                        animationIn: ["animate__animated", "animate__fadeIn"],
-                        animationOut: ["animate__animated", "animate__fadeOut"],
-                        dismiss: {
-                            duration: 2000,
-                            onScreen: true
-                        }
-                    })
-                }
-            })
-            .catch(() => Store.addNotification({
-                title: "Something went wrong, try again later",
+        if(name.length === 0 || !name.match(/^[a-zA-Z\s]+$/)) {
+            Store.addNotification({
+                title: "Сategory title can contain only letters",
                 type: "danger",
                 insert: "top",
                 container: "bottom-right",
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                    duration: 2000,
+                    duration: 1000,
                     onScreen: true
                 }
-            }))
-        resetAllStates()
+            })
+        }
+        else if(image.length === 0) {
+            Store.addNotification({
+                title: "Category must have image",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1000,
+                    onScreen: true
+                }
+            })
+        }
+        else {
+            service.addNewCategory(category)
+                .then(res => {
+                    if(res.status === 201){
+                        Store.addNotification({
+                            title: "Category was created successfully",
+                            type: "success",
+                            insert: "top",
+                            container: "bottom-right",
+                            animationIn: ["animate__animated", "animate__fadeIn"],
+                            animationOut: ["animate__animated", "animate__fadeOut"],
+                            dismiss: {
+                                duration: 2000,
+                                onScreen: true
+                            }
+                        })
+                    } else if(res.status === 400) {
+                        Store.addNotification({
+                            title: "Something went wrong, try again later",
+                            type: "danger",
+                            insert: "top",
+                            container: "bottom-right",
+                            animationIn: ["animate__animated", "animate__fadeIn"],
+                            animationOut: ["animate__animated", "animate__fadeOut"],
+                            dismiss: {
+                                duration: 2000,
+                                onScreen: true
+                            }
+                        })
+                    }
+                })
+                .catch(() => Store.addNotification({
+                    title: "Something went wrong, try again later",
+                    type: "danger",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        onScreen: true
+                    }
+                }))
+            resetAllStates()
+        }
     }
 
     return (

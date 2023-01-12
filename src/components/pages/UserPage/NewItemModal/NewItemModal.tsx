@@ -1,7 +1,6 @@
 import '../../ProductPage/EditProductModal/_edit-product.scss'
 import React, {FormEvent, useState} from 'react'
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-
 import StoreServices from "../../../StoreServices/StoreServices";
 import {Store} from "react-notifications-component";
 import handleFileSelected from "../../../StoreServices/handleFilesUpload";
@@ -15,7 +14,6 @@ export type CategoryType = {
 
     updatedAt: string,
 }
-
 export interface NewItemModalProps {
     setCreateProduct:  React.Dispatch<React.SetStateAction<boolean>>,
     createProduct: boolean,
@@ -44,49 +42,93 @@ const NewItemModal = (props: NewItemModalProps) => {
             description,
             images: [image]
         }
-        service.addNewProduct(product)
-            .then(res => {
-                if(res.status === 201){
-                    Store.addNotification({
-                        title: "Product was created successfully",
-                        type: "success",
-                        insert: "top",
-                        container: "bottom-right",
-                        animationIn: ["animate__animated", "animate__fadeIn"],
-                        animationOut: ["animate__animated", "animate__fadeOut"],
-                        dismiss: {
-                            duration: 2000,
-                            onScreen: true
-                        }
-                    })
-                } else if(res.status === 400) {
-                    Store.addNotification({
-                        title: "Something went wrong, try again later",
-                        type: "danger",
-                        insert: "top",
-                        container: "bottom-right",
-                        animationIn: ["animate__animated", "animate__fadeIn"],
-                        animationOut: ["animate__animated", "animate__fadeOut"],
-                        dismiss: {
-                            duration: 2000,
-                            onScreen: true
-                        }
-                    })
-                }
-            })
-            .catch(() => Store.addNotification({
-                title: "Something went wrong, try again later",
+        if(title.length === 0 || !title.match(/^[a-zA-Z\s]+$/)) {
+            Store.addNotification({
+                title: "Title can contain only letters",
                 type: "danger",
                 insert: "top",
                 container: "bottom-right",
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                    duration: 2000,
+                    duration: 1000,
                     onScreen: true
                 }
-            }))
-        resetAllStates();
+            })
+        }
+        else if (price <= 0) {
+            Store.addNotification({
+                title: "Price must be greater than 0",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1000,
+                    onScreen: true
+                }
+            })
+        }
+        else if(image.length === 0) {
+            Store.addNotification({
+                title: "Product must have image",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1000,
+                    onScreen: true
+                }
+            })
+        }
+        else {
+            service.addNewProduct(product)
+                .then(res => {
+                    if(res.status === 201){
+                        Store.addNotification({
+                            title: "Product was created successfully",
+                            type: "success",
+                            insert: "top",
+                            container: "bottom-right",
+                            animationIn: ["animate__animated", "animate__fadeIn"],
+                            animationOut: ["animate__animated", "animate__fadeOut"],
+                            dismiss: {
+                                duration: 2000,
+                                onScreen: true
+                            }
+                        })
+                    } else if(res.status === 400) {
+                        Store.addNotification({
+                            title: "Something went wrong, try again later",
+                            type: "danger",
+                            insert: "top",
+                            container: "bottom-right",
+                            animationIn: ["animate__animated", "animate__fadeIn"],
+                            animationOut: ["animate__animated", "animate__fadeOut"],
+                            dismiss: {
+                                duration: 2000,
+                                onScreen: true
+                            }
+                        })
+                    }
+                })
+                .catch(() => Store.addNotification({
+                    title: "Something went wrong, try again later",
+                    type: "danger",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        onScreen: true
+                    }
+                }))
+            resetAllStates();
+        }
     }
 
     const resetAllStates = () => {

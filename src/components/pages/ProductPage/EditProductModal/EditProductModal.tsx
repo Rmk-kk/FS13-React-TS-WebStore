@@ -96,32 +96,76 @@ const EditProductModal = (props:EditProductModalProps) => {
             'images': newImages,
             category
         }
-        service.updateProduct(id, data)
-            .then(() => setEdit(false))
-            .then(() => Store.addNotification({
-                title: "Product was edited successfully",
-                type: "success",
-                insert: "top",
-                container: "bottom-right",
-                animationIn: ["animate__animated", "animate__fadeIn"],
-                animationOut: ["animate__animated", "animate__fadeOut"],
-                dismiss: {
-                    duration: 2000,
-                    onScreen: true
-                }
-            }))
-            .catch(() => Store.addNotification({
-                title: "Couldn't edit the product",
+        if(newName.length === 0 || !newName.match(/^[a-zA-Z\s]+$/)) {
+            Store.addNotification({
+                title: "Title can contain only letters",
                 type: "danger",
                 insert: "top",
                 container: "bottom-right",
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                    duration: 2000,
+                    duration: 1000,
                     onScreen: true
                 }
-            }))
+            })
+        }
+        else if (newPrice <= 0) {
+            Store.addNotification({
+                title: "Price must be greater than 0",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1000,
+                    onScreen: true
+                }
+            })
+        }
+        else if(newImages.length === 0) {
+            Store.addNotification({
+                title: "Product must have image",
+                type: "danger",
+                insert: "top",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1000,
+                    onScreen: true
+                }
+            })
+        }
+        else {
+            service.updateProduct(id, data)
+                .then(() => setEdit(false))
+                .then(() => Store.addNotification({
+                    title: "Product was edited successfully",
+                    type: "success",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        onScreen: true
+                    }
+                }))
+                .catch(() => Store.addNotification({
+                    title: "Couldn't edit the product",
+                    type: "danger",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        onScreen: true
+                    }
+                }))
+        }
     }
 
     return ReactDOM.createPortal(

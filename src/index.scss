@@ -20,7 +20,10 @@ body {
   background-color: variables.$dark-grey-background;
 }
 
-
+.rnc__notification {
+  position: relative;
+  z-index: 100000!important;
+}
 #root {
   display: flex;
   min-height: 100vh;

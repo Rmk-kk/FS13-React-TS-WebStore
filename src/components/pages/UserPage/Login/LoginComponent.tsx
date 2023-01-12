@@ -20,17 +20,13 @@ const LoginComponent = (props:LoginPageProps) => {
                      autoComplete="off"
                 >
                     <TextField
-                        // error
-                        // id="outlined-error-helper-text"
                         label="Email"
                         onChange={(e)=> {
                             setEmail(e.target.value);
                         }}
-                        // helperText="Incorrect entry."
                     />
                     <TextField
-                        // error
-                        // id="outlined-error-helper-text"
+                        type='password'
                         onChange={(e)=>{
                             setPassword(e.target.value);
                         }}

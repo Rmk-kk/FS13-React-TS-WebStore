@@ -13,6 +13,7 @@ export interface EditCategoryProps {
 
 const EditCategoryModal = (props:EditCategoryProps) => {
     const [name, setName] = useState('');
+    const [savedName, setSavedName] = useState('');
     const [image, setImage] = useState('');
     const [categories, setCategories] = useState<Category[]>([]);
     const [categoryId, setCategoryId] = useState<number | string>('');
@@ -45,6 +46,7 @@ const EditCategoryModal = (props:EditCategoryProps) => {
         categories.forEach(item => {
             if(item.id === id) {
                 setName(item.name)
+                setSavedName(item.name)
                 setImage(item.image)
             }
         })
@@ -59,50 +61,67 @@ const EditCategoryModal = (props:EditCategoryProps) => {
 
     const onFormSubmit = (e:FormEvent) => {
         e.preventDefault();
-        service.editCategory(Number(categoryId), {name, image})
-            .then(res => {
-                if(res.status === 201 || res.status === 200){
-                    Store.addNotification({
-                        title: "Category was edited successfully",
-                        type: "success",
-                        insert: "top",
-                        container: "bottom-right",
-                        animationIn: ["animate__animated", "animate__fadeIn"],
-                        animationOut: ["animate__animated", "animate__fadeOut"],
-                        dismiss: {
-                            duration: 2000,
-                            onScreen: true
-                        }
-                    })
-                }
-                else if(res.status === 400) {
-                    Store.addNotification({
-                        title: "Something went wrong, try again later",
-                        type: "danger",
-                        insert: "top",
-                        container: "bottom-right",
-                        animationIn: ["animate__animated", "animate__fadeIn"],
-                        animationOut: ["animate__animated", "animate__fadeOut"],
-                        dismiss: {
-                            duration: 2000,
-                            onScreen: true
-                        }
-                    })
-                }
-            })
-            .catch(() => Store.addNotification({
-                title: "Something went wrong, try again later",
+        if(name.length === 0 || !name.match(/^[a-zA-Z\s]+$/)) {
+            setName(savedName)
+            Store.addNotification({
+                title: "Сategory title can contain only letters",
                 type: "danger",
                 insert: "top",
                 container: "bottom-right",
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                    duration: 2000,
+                    duration: 1000,
                     onScreen: true
                 }
-            }))
-        resetAllStates()
+            })
+        }
+        else {
+            service.editCategory(Number(categoryId), {name, image})
+                .then(res => {
+                    if(res.status === 201 || res.status === 200){
+                        Store.addNotification({
+                            title: "Category was edited successfully",
+                            type: "success",
+                            insert: "top",
+                            container: "bottom-right",
+                            animationIn: ["animate__animated", "animate__fadeIn"],
+                            animationOut: ["animate__animated", "animate__fadeOut"],
+                            dismiss: {
+                                duration: 2000,
+                                onScreen: true
+                            }
+                        })
+                    }
+                    else if(res.status === 400) {
+                        Store.addNotification({
+                            title: "Something went wrong, try again later",
+                            type: "danger",
+                            insert: "top",
+                            container: "bottom-right",
+                            animationIn: ["animate__animated", "animate__fadeIn"],
+                            animationOut: ["animate__animated", "animate__fadeOut"],
+                            dismiss: {
+                                duration: 2000,
+                                onScreen: true
+                            }
+                        })
+                    }
+                })
+                .catch(() => Store.addNotification({
+                    title: "Something went wrong, try again later",
+                    type: "danger",
+                    insert: "top",
+                    container: "bottom-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        onScreen: true
+                    }
+                }))
+            resetAllStates()
+        }
     }
 
     return (
