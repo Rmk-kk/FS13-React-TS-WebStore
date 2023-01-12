@@ -63,14 +63,16 @@ const Header = () => {
             <div className={darkMode ? 'header-categories header-categories-dark' : 'header-categories'}>
                 <Container maxWidth='lg'>
                     <ul className='header-categories_list'>
-                        {categories.map(item => {
-                            return <NavLink
-                                style={({ isActive }) =>
-                                    isActive ? activeStyle : undefined
-                                }
-                                className='header-categories_list-item'
-                                key={item.id}
-                                to={`/categories/${item.name + item.id}`}>{item.name}</NavLink>
+                        {categories.map((item, i )=> {
+                            if(i < 5) {
+                                return <NavLink
+                                    style={({ isActive }) =>
+                                        isActive ? activeStyle : undefined
+                                    }
+                                    className='header-categories_list-item'
+                                    key={item.id}
+                                    to={`/categories/${item.name + item.id}`}>{item.name}</NavLink>
+                            }
                         })}
                     </ul>
                 </Container>

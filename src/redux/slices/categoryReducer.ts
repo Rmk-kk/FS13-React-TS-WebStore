@@ -31,7 +31,7 @@ const categorySlice = createSlice({
     },
     extraReducers: (build) => {
         build.addCase(fetchAllCategories.fulfilled, (state, action) => {
-            return action.payload.filter((item: any) => item.id < 6)
+            return action.payload
         })
         build.addCase(fetchAllCategories.rejected, (state) => {
             Store.addNotification({

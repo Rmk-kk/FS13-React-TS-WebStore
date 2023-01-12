@@ -12,27 +12,31 @@ footer {
     color: variables.$main_white;
     list-style: none;
     display: flex;
+    height: 200px;
+    justify-content: flex-start;
     flex-direction: column;
+    flex-wrap: wrap;
+    text-align: left;
 
     & a {
-      &:not(:last-child) {
+      text-decoration: none;
+      display: block;
+      color: variables.$main_white;
+      transition: color .1s linear;
+
+      &:not(:nth-child(6n)) {
         margin-bottom: 15px;
       }
-    }
-  }
 
-  & a {
-    text-decoration: none;
-    color: variables.$main_white;
-    transition: color .1s linear;
+      &:hover {
+        color: variables.$main_blue
+      }
 
-    &:hover {
-      color: variables.$main_blue
     }
   }
 
   & p {
-    margin-top: 25px;
+    margin-top: 35px;
     color: variables.$main_white;
     font-size: 21px;
     text-align: center;

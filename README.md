@@ -243,7 +243,7 @@ Functional WebStore was created with calls to Fake API.
     ├───hooks
     │       reduxHook.ts
     │       useAuth.ts
-    │       useDebounce.tsx
+    │       useDebounce.ts
     │
     ├───redux
     │   │   store.ts
@@ -273,6 +273,36 @@ Functional WebStore was created with calls to Fake API.
 
 
 ```
+</details>
+
+## Updates
+<details>
+<summary>Update 1</summary>
+
+* Removed all whitespaces
+* Removed all console logs
+* all user interactions are now with notifications for both successful and error, 
+  * add
+  * remove
+  * update
+  * register/login
+  * edit
+  * cart interactions
+* all @import scss changed to @use for code optimization
+* removed unnecessary code in components
+* dark theme status is now saved to LS, so after page reload it will keep user settings
+* Some duplicated code are moved to a separate functions for cleanness and re-usability
+* Built server for each test with its own responses
+* Fixed 404 page on deployed website, now works properly with unknown paths
+* Added validation for all forms with notifications if something is wrong
+</details>
+
+<details>
+<summary>Update 2</summary>
+
+* Added lazy loading for categories on Homepage, that can be displayed with button 'Show more'
+* Displayed all the categories in footer
+* Added scroll to top of the page when choosing the category from the footer
 </details>
 
 ## Getting Started

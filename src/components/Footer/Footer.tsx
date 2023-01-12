@@ -20,10 +20,12 @@ const Footer = () => {
                                  style={({ isActive }) =>
                                      isActive ? activeStyle : undefined
                                  }
+                                 onClick={() => window.scrollTo(0, 0)}
                         >Main Page</NavLink>
                         {
                             categories.map(item => {
                                 return <NavLink to={`/categories/${item.name + item.id}`}
+                                                onClick={() => window.scrollTo(0, 0)}
                                                 key={item.id}
                                                 style={({ isActive }) =>
                                                     isActive ? activeStyle : undefined

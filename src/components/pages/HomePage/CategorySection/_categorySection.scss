@@ -1,8 +1,9 @@
 @use "./src/utility/variables";
 
 .category {
-  padding-bottom: 70px;
+  padding-bottom: 30px;
   padding-top: 30px;
+
   & h2 {
     margin-bottom: 30px;
     font-size: 36px;
@@ -10,26 +11,31 @@
   }
 
   &-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     &_list{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      margin-bottom: 25px;
 
       &-item{
-        max-width: 300px;
+        max-width: 210px;
         padding: 20px 10px;
         background-color: variables.$main_white;
         text-align: center;
         text-decoration: none;
         color: variables.$main_blue;
         transition: all .1s linear;
+        margin-bottom: 25px;
 
         &:hover {
           transform: translateY(-8px);
           box-shadow: 3px 3px 3px 5px rgba(0,0,0,0.1);
         }
 
-        &:not(:last-child) {
+        &:not(:nth-child(5n)) {
           margin-right: 20px;
         }
 
@@ -45,28 +51,63 @@
         }
       }
     }
+
+    &_button {
+      cursor: pointer;
+      padding: 15px 25px;
+      font-size: 18px;
+      background-color: variables.$main_blue;
+      color: variables.$main_white;
+      border: none;
+      transition: all .1s linear;
+      border-radius: 5px;
+
+      &:active {
+        transform: translateY(-5px);
+        box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.2);
+      }
+      &:hover {
+        background-color: variables.$main_beige;
+        color: variables.$main_blue;
+      }
+    }
   }
 }
 
 .category-dark {
   background-color: variables.$dark-grey-background;
-    & h2 {
-      margin-bottom: 30px;
-      font-size: 36px;
-      font-style: italic;
-      color: variables.$main_white;
-    }
-    &-wrap {
 
-      &_list{
-        &-item{
-          background-color: variables.$main_white;
-          color: variables.$main_blue;
-          & h4 {
-            margin-bottom: 30px;
-            font-size: 24px;
-          }
-        }
-      }
-    }
+  & h2 {
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-style: italic;
+    color: variables.$main_white;
+  }
+
+ & .category{
+   &-wrap {
+
+     &_list{
+       &-item{
+         background-color: variables.$main_white;
+         color: variables.$main_blue;
+         & h4 {
+           margin-bottom: 30px;
+           font-size: 24px;
+         }
+       }
+     }
+
+     &_button {
+       background-color: variables.$main_white;
+       color: variables.$main_blue;
+
+       &:hover {
+         background-color: variables.$main_beige;
+         color: variables.$main_blue;
+       }
+     }
+   }
+ }
+
 }
