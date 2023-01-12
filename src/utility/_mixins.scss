@@ -1,8 +1,6 @@
 @use './variables';
-
 @mixin productPage-elements {
   position: relative;
-
 
   &:after{
     z-index: -1;

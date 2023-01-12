@@ -51,7 +51,6 @@ const ProductsSection = () => {
         }
     }, [user])
 
-
     //Delete Logic
     const deleteItem = (id:number) => {
         service.deleteProduct(id)

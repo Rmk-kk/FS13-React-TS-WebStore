@@ -1,6 +1,10 @@
 import {useContext, useState} from "react";
 import {ThemeContext} from "../../ThemeContext";
 
+interface ProductImageSliderProps {
+    slides: string[]
+}
+
 const ProductImageSlider = (props:ProductImageSliderProps) => {
     const {darkMode} = useContext(ThemeContext);
     const {slides} = props;
@@ -42,7 +46,3 @@ const ProductImageSlider = (props:ProductImageSliderProps) => {
 }
 
 export default ProductImageSlider
-
-interface ProductImageSliderProps {
-    slides: string[]
-}

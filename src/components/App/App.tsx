@@ -14,7 +14,6 @@ import {ReactNotifications} from "react-notifications-component";
 import 'react-notifications-component/dist/theme.css'
 
 const NoPageFound404 = require('../../assets/img/404.png')
-
 const App = () => {
   return (
       <BrowserRouter>

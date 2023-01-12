@@ -13,7 +13,6 @@ import {ShoppingCartCheckout} from "@mui/icons-material";
 import {ThemeContext} from "../../ThemeContext";
 
 const CheckOutEmptyCartImage = require('../../../assets/img/checkout/empty-cart.png')
-
 const CheckoutPage = () => {
     const dispatch = useAppDispatch();
     const {darkMode} = useContext(ThemeContext)

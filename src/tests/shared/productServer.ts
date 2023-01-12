@@ -2,7 +2,6 @@ import {setupServer} from "msw/native";
 import {rest} from "msw";
 import {fakeData} from "./fakeData";
 
-
 const handler = [
     //offset products
     rest.get('https://api.escuelajs.co/api/v1/products?offset=0&limit=5', (req, res, context) => {

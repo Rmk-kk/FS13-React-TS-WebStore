@@ -2,7 +2,6 @@ import {setupServer} from "msw/native";
 import {rest} from "msw";
 import {fakeData} from "./fakeData";
 
-
 const handler = [
     //get all users
     rest.get('https://api.escuelajs.co/api/v1/users', (req, res, context) => {

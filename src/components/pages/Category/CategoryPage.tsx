@@ -24,7 +24,6 @@ const CategoryPage = () => {
     const [admin, setAdmin] = useState(false);
     const service = new StoreServices();
     const user = useAppSelector(state => state.userReducer)
-
     //Filters
     const [maxPrice, setMaxPrice] = useState(500);
     const [value, setValue] = useState<number[]>([0, 10000]);

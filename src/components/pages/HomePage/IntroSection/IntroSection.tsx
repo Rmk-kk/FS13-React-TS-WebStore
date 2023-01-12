@@ -5,7 +5,6 @@ import {ThemeContext} from "../../../ThemeContext";
 
 const WomenImage = require('../../../../assets/img/intro/women.jpg')
 const ClothImage = require("../../../../assets/img/intro/cloths.jpg");
-
 const IntroSection = () => {
     const {darkMode} = useContext(ThemeContext)
 
@@ -22,7 +21,6 @@ const IntroSection = () => {
                 <img src={WomenImage} alt="woman"/>
                 <img src={ClothImage} alt="intro"/>
             </div>
-
         </div>
     )
 }

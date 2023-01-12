@@ -3,6 +3,20 @@ import axios from "axios";
 import {UpdateUserData} from "../../components/StoreServices/StoreServices";
 import {Store} from "react-notifications-component";
 
+export interface UserProfile {
+    avatar: string,
+    creationAt: string,
+    email: string,
+    id: number
+    name: string,
+
+    password: string,
+
+    role: string,
+
+    updatedAt: string,
+}
+
 export const getUserWithToken = createAsyncThunk(
     'getUserWithToken',
     async (token:string | null) => {
@@ -17,7 +31,6 @@ export const getUserWithToken = createAsyncThunk(
             return false
         }
     })
-
 export interface UpdateUser {
     id:number,
     changes: UpdateUserData;
@@ -33,21 +46,6 @@ export const updateUserInformation = createAsyncThunk(
             return false
         }
     })
-
-export interface UserProfile {
-    avatar: string,
-    creationAt: string,
-    email: string,
-    id: number
-    name: string,
-
-    password: string,
-
-    role: string,
-
-    updatedAt: string,
-}
-
 const initialState: UserProfile | null =  (()=> {
     const data = localStorage.getItem('user');
     if(data) {
@@ -56,7 +54,6 @@ const initialState: UserProfile | null =  (()=> {
         return null
     }
 })()
-
 const userSlice = createSlice({
     name: 'userSlice',
     initialState,
@@ -119,6 +116,5 @@ const userSlice = createSlice({
 
 const userReducer = userSlice.reducer;
 export default userReducer
-
 export const {logout} = userSlice.actions
 

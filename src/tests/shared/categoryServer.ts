@@ -2,7 +2,6 @@ import {setupServer} from "msw/native";
 import {rest} from "msw";
 import {fakeData} from "./fakeData";
 
-
 const handler = [
     //get all categories
     rest.get('https://api.escuelajs.co/api/v1/categories', (req, res, context) => {

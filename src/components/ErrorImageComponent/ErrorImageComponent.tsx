@@ -2,6 +2,7 @@ interface ErrorImageComponentProps {
     image: string,
     type: string
 }
+
 const ErrorImageComponent = (props:ErrorImageComponentProps) => {
     const {image, type} = props;
     let width;

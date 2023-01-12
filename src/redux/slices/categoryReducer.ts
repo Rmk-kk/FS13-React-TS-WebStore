@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {CategoryList} from "../../components/types-interfaces";
 import axios from "axios";
 import {Store} from "react-notifications-component";
+
 export const fetchAllCategories = createAsyncThunk('fetchAllCategories', async () => {
     try {
         const res = await axios.get('https://api.escuelajs.co/api/v1/categories');
@@ -21,7 +22,6 @@ export const fetchAllCategories = createAsyncThunk('fetchAllCategories', async (
             })
     }
 })
-
 const initialState:CategoryList = [];
 const categorySlice = createSlice({
     name: 'categorySlice',

@@ -36,7 +36,6 @@ const CategoryColumns: GridColDef[] = [
         width: 280,
     },
 ];
-
 const UsersColumns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 60 },
     {
@@ -64,7 +63,6 @@ const UsersColumns: GridColDef[] = [
         width: 140,
     },
 ]
-
 const ProductColumns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 60 },
     {
@@ -98,7 +96,6 @@ export interface GridDataContentProps {
     type: string,
     categories: CategoryType[]
 }
-
 export interface UsersData {
     "id": number,
     "email": string,
@@ -184,6 +181,7 @@ const GridDataContent = (props:GridDataContentProps) => {
             }
         })
     }
+
     return (
         <Box sx={{ height: type === 'products' ? 800 : 500, width: '100%' }}>
             <DataGrid

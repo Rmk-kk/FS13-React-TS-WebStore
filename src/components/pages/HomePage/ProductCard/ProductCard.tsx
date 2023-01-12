@@ -6,7 +6,6 @@ import {useAppDispatch} from "../../../../hooks/reduxHook";
 import ClearIcon from "@mui/icons-material/Clear";
 import {useContext} from "react";
 import {ThemeContext} from "../../../ThemeContext";
-import {Store} from "react-notifications-component";
 
 const ProductCard = (props:ProductItem) => {
     const dispatch = useAppDispatch();

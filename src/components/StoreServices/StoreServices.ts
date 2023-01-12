@@ -6,7 +6,6 @@ export interface UpdateUserData {
     "password" : string,
     "email" : string,
 }
-
 export interface UpdateProductData {
     "title" : string,
     "description" : string,
@@ -20,7 +19,6 @@ export interface UpdateProductData {
     }
 
 }
-
 export interface CreateNewProductData {
     "title": string,
     "price": number,
@@ -28,15 +26,14 @@ export interface CreateNewProductData {
     "categoryId": number,
     "images": string[]
 }
-
 export interface CreateNewCategoryData {
     "name": string,
     "image": string
 }
-
 export interface EditCategoryData {
     [key: string]: string
 }
+
 class StoreServices {
     async fetchSingleProduct(id:string) {
         const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);

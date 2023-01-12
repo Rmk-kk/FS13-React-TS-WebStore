@@ -7,6 +7,7 @@ import GridDataContent from "../GridDataContent/GridDataContent";
 import NewCategoryModal from "../../NewCategoryModal/NewCategoryModal";
 import EditCategoryModal from "../../EditCategoryModal/EditCategoryModal";
 import {Store} from "react-notifications-component";
+
 export interface ProfileFunctionalityProps{
     role: string,
 }

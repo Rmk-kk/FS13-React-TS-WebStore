@@ -16,7 +16,6 @@ const initialState: ProductSliceType = {
     error: false,
     loading: false,
 };
-
 export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
     async (data:{offset: number, limit: number}) => {
     const {offset, limit} = data;
@@ -38,7 +37,6 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
         })
     }
 });
-
 export const fetchCategoryProducts = createAsyncThunk('fetchCategoryProducts', async (id:number | string) => {
     try {
         const response = await fetch(`https://api.escuelajs.co/api/v1/categories/${id}/products`);
@@ -58,7 +56,6 @@ export const fetchCategoryProducts = createAsyncThunk('fetchCategoryProducts', a
         })
     }
 })
-
 const productSlice = createSlice({
     name: 'productSlice',
     initialState: initialState,
@@ -97,7 +94,6 @@ const productSlice = createSlice({
                 }
             }
         },
-
         onSearchFilter: (state:ProductSliceType, action) => {
             return {...state,
                 products: state.productsRef.filter(product => {
@@ -106,7 +102,6 @@ const productSlice = createSlice({
                     }
                 })}
         },
-
         sortByPriceRange: (state:ProductSliceType, action) => {
             const [min, max] = action.payload;
             return {
@@ -114,7 +109,6 @@ const productSlice = createSlice({
                 products: state.productsRef.filter(item => {
                     return (item.price >= min && item.price <= max)})}
         },
-
     },
     extraReducers: (build) => {
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
@@ -123,11 +117,9 @@ const productSlice = createSlice({
             }
             return {loading:false, error: false, products: action.payload, productsRef: action.payload}
         })
-
         build.addCase(fetchAllProducts.rejected, (state ) => {
             return {...state, error: true, loading: false}
         })
-
         build.addCase(fetchCategoryProducts.fulfilled, (state, action) => {
             if(!action.payload) {
                 return {...state, error: true, loading: false}
@@ -137,7 +129,6 @@ const productSlice = createSlice({
             }
             return {...initialState, products: action.payload, productsRef: action.payload}
         })
-
         build.addCase(fetchCategoryProducts.rejected, (state) => {
             return {...state, error: true, loading: false}
         })
@@ -146,5 +137,4 @@ const productSlice = createSlice({
 
 const productReducer = productSlice.reducer;
 export default productReducer
-
 export const {sortByDropFilter, onSearchFilter, sortByPriceRange} = productSlice.actions
