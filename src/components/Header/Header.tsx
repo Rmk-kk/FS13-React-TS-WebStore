@@ -1,8 +1,8 @@
 import './_header.scss'
 import {Container} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
-import React, {useContext, useEffect} from "react";
-import {Link, NavLink} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/reduxHook";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import ThemeSwitchIcon from "./ThemeSwitchIcon";
@@ -15,6 +15,8 @@ const Header = () => {
     const {darkMode, toggleDarkMode} = useContext(ThemeContext)
     const categories = useAppSelector(state => state.categoriesReducer);
     const cart = useAppSelector(state => state.cartReducer);
+    const [showCategories, setShowCategories] = useState(false);
+    const navigate = useNavigate();
     const activeStyle = {
         textDecoration: "underline",
         color: 'orange',
@@ -35,6 +37,11 @@ const Header = () => {
             total += item.quantity;
         })
         return total
+    }
+
+    const navigateFromList = (value:string) => {
+        console.log(value)
+        navigate(`/categories/${value}`)
     }
 
     return (
@@ -64,7 +71,7 @@ const Header = () => {
                 <Container maxWidth='lg'>
                     <ul className='header-categories_list'>
                         {categories.map((item, i )=> {
-                            if(i < 5) {
+                            if(i < 4) {
                                 return <NavLink
                                     style={({ isActive }) =>
                                         isActive ? activeStyle : undefined
@@ -74,6 +81,34 @@ const Header = () => {
                                     to={`/categories/${item.name + item.id}`}>{item.name}</NavLink>
                             }
                         })}
+                        {categories.length > 4 &&
+                            <div className='header-categories_list-select '>
+                                <button className='header-categories_list-item header-categories_list-select-btn'
+                                        onClick={()=> {
+                                    setShowCategories(showCategories => !showCategories)
+                                }}>More Categories</button>
+                                <div className={showCategories ? `header-categories_list-select-content show-more-categories_active` : `header-categories_list-select-content`}>
+                                    {
+                                        <ul className='header-categories_list-select-list'>
+                                            {
+                                            categories.map((item, i) => {
+                                                if (i >= 4) {
+                                                    return <NavLink
+                                                    style={({ isActive }) =>
+                                                    isActive ? activeStyle : undefined}
+                                                onClick={() => setShowCategories(false)}
+                                                className=''
+                                                key={item.id}
+                                                to={`/categories/${item.name + item.id}`}>{item.name}</NavLink>
+                                            }
+                                            })
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+
+                            </div>
+                        }
                     </ul>
                 </Container>
             </div>

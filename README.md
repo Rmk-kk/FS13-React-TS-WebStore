@@ -301,8 +301,10 @@ Functional WebStore was created with calls to Fake API.
 <summary>Update 2</summary>
 
 * Added lazy loading for categories on Homepage, that can be displayed with button 'Show more'
+* Added dropdown menu to header 'More categories' with animation, to access all categories from header'
 * Displayed all the categories in footer
 * Added scroll to top of the page when choosing the category from the footer
+* Added social icons to footer (Git, LinkedIn, Email)
 </details>
 
 ## Getting Started

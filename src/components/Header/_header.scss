@@ -25,6 +25,34 @@
         }
       }
     }
+
+    &-select {
+      &-btn {
+        color: variables.$main_white;
+
+        &:hover {
+          color: orange;
+        }
+      }
+
+      &-content {
+        background: variables.$black-background;
+        border: none;
+        & a {
+          color: variables.$main_white;
+
+          &:not(:last-child) {
+            &:after {
+              background-color: rgba(255, 165,0, 0.2);
+            }
+          }
+
+          &:hover {
+            color: orange;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -77,6 +105,7 @@
   &_list {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     list-style: none;
     color: variables.$main_blue;
 
@@ -108,5 +137,92 @@
         }
       }
     }
+
+    &-select {
+      position: relative;
+      display: inline-block;
+
+      &-btn {
+        width: 222px;
+        font-size: 1.3rem;
+        padding: 5px 0;
+        font-weight: 300;
+        background: none;
+        cursor: pointer;
+        color: variables.$main_blue;
+        border: none;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+
+        &:after {
+          display: none;
+        }
+
+        &:hover {
+          color: orange;
+        }
+      }
+
+      &-content {
+        position: absolute;
+        max-width: 225px;
+        display: none;
+        background: variables.$main_white;
+        top: 110%;
+        padding: 3px 20px 10px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        z-index: 100;
+        border: 1px solid variables.$main_blue;
+        animation: growDown 200ms ease-in-out forwards;
+        transform-origin: top center;
+
+        & a {
+          text-align: center;
+          color: variables.$main_blue;
+          text-decoration: none;
+          font-size: 1.3rem;
+          cursor: pointer;
+          width: 100%;
+          position: relative;
+          transition: all .1s linear;
+          display: block;
+          padding: 8px 0;
+
+          &:not(:last-child) {
+            &:after {
+              content: '';
+              position: absolute;
+              width: 50%;
+              background-color: #3f96cd;
+              height: 1px;
+              bottom: 0;
+              left: 25%;
+            }
+          }
+
+          &:hover {
+            color: orange;
+          }
+        }
+      }
+    }
   }
 }
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0)
+  }
+  80% {
+    transform: scaleY(1.1)
+  }
+  100% {
+    transform: scaleY(1)
+  }
+}
+
+.show-more-categories_active {
+  display: block;
+}
+
