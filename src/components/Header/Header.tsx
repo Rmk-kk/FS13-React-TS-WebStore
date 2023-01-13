@@ -8,6 +8,7 @@ import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import ThemeSwitchIcon from "./ThemeSwitchIcon";
 import {ThemeContext} from "../ThemeContext";
 import {fetchAllCategories} from "../../redux/slices/categoryReducer";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const WhiteLogoImage = require('../../assets/img/header/logo-white.png')
 const BlackLogoImage = require('../../assets/img/header/logo-black.png')
@@ -83,10 +84,13 @@ const Header = () => {
                         })}
                         {categories.length > 4 &&
                             <div className='header-categories_list-select '>
-                                <button className='header-categories_list-item header-categories_list-select-btn'
+                                <button
+                                        className={showCategories ? 'header-categories_list-item header-categories_list-select-btn show-more-categories_active-btn' : 'header-categories_list-item header-categories_list-select-btn'}
                                         onClick={()=> {
                                     setShowCategories(showCategories => !showCategories)
-                                }}>More Categories</button>
+                                }}>More Categories
+                                <KeyboardArrowDownIcon fontSize={"large"}/>
+                                </button>
                                 <div className={showCategories ? `header-categories_list-select-content show-more-categories_active` : `header-categories_list-select-content`}>
                                     {
                                         <ul className='header-categories_list-select-list'>
