@@ -16,22 +16,25 @@ const Footer = () => {
             <Container  maxWidth='lg' className='footer-container'>
                 <div className='footer-wrap_links'>
                     <ul>
-                        <NavLink to={'/'}
-                                 style={({ isActive }) =>
-                                     isActive ? activeStyle : undefined
-                                 }
-                                 onClick={() => window.scrollTo(0, 0)}
-                        >Main Page</NavLink>
+                        <div>
+                            <NavLink to={'/'}
+                                     style={({ isActive }) =>
+                                         isActive ? activeStyle : undefined
+                                     }
+                                     onClick={() => window.scrollTo(0, 0)}
+                            >Main Page</NavLink>
+                        </div>
                         {
                             categories.map(item => {
-                                return <NavLink to={`/categories/${item.name + item.id}`}
-                                                onClick={() => window.scrollTo(0, 0)}
-                                                key={item.id}
-                                                style={({ isActive }) =>
-                                                    isActive ? activeStyle : undefined
-                                                }>
-                                    {item.name}
-                                </NavLink>}
+                                return <div key={item.id}>
+                                    <NavLink to={`/categories/${item.name + item.id}`}
+                                             onClick={() => window.scrollTo(0, 0)}
+                                             style={({ isActive }) =>
+                                                 isActive ? activeStyle : undefined
+                                             }>
+                                        {item.name}
+                                    </NavLink>
+                                </div>}
                         )}
                     </ul>
                 </div>
